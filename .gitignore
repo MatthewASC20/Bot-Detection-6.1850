@@ -20,10 +20,10 @@ data/
 api_cache.json
 
 # Output files
-outputs/
-*.html
-*.png
-*.jpg
+#outputs/
+#*.html
+#*.png
+#*.jpg
 
 # IDE
 .vscode/
