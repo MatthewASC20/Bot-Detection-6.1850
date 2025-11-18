@@ -1,0 +1,39 @@
+# Environment variables (contains API keys)
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# Data files (large and potentially sensitive)
+data/
+*.db
+*.sqlite
+
+# API cache
+api_cache.json
+
+# Output files
+outputs/
+*.html
+*.png
+*.jpg
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
