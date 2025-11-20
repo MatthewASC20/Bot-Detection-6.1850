@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>YouTube Bot Detector</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      width: 350px;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 16px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+
+    .container {
+      background: white;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .header h1 {
+      font-size: 20px;
+      color: #667eea;
+      margin-bottom: 4px;
+    }
+
+    .header .subtitle {
+      font-size: 12px;
+      color: #666;
+    }
+
+    .stats {
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: #666;
+      font-weight: 500;
+    }
+
+    .stat-value {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+
+    .settings {
+      margin-bottom: 20px;
+    }
+
+    .settings h2 {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .setting-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .setting-item:last-child {
+      border-bottom: none;
+    }
+
+    .setting-label {
+      font-size: 13px;
+      color: #333;
+    }
+
+    .toggle-switch {
+      position: relative;
+      width: 48px;
+      height: 24px;
+    }
+
+    .toggle-switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: 0.3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #667eea;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+
+    .api-config {
+      margin-bottom: 20px;
+    }
+
+    .input-group {
+      margin-bottom: 12px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 12px;
+      color: #666;
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      transition: border-color 0.3s;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+
+    .button {
+      width: 100%;
+      padding: 10px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .button:hover {
+      background: #5568d3;
+    }
+
+    .button:active {
+      transform: translateY(1px);
+    }
+
+    .button.secondary {
+      background: #f0f0f0;
+      color: #333;
+      margin-top: 8px;
+    }
+
+    .button.secondary:hover {
+      background: #e0e0e0;
+    }
+
+    .status {
+      margin-top: 12px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      text-align: center;
+      display: none;
+    }
+
+    .status.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+
+    .status.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #f0f0f0;
+      font-size: 11px;
+      color: #999;
+    }
+
+    .emoji {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🤖 Bot Detector</h1>
+      <div class="subtitle">Protect yourself from bot comments</div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <span class="stat-label">Total Votes</span>
+        <span class="stat-value" id="totalVotes">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">🤖 Marked as Bot</span>
+        <span class="stat-value" id="botVotes">0</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-label">👤 Marked as Human</span>
+        <span class="stat-value" id="humanVotes">0</span>
+      </div>
+    </div>
+
+    <div class="settings">
+      <h2>Settings</h2>
+      <div class="setting-item">
+        <span class="setting-label">Enable Detection</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="detectionToggle" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+      <div class="setting-item">
+        <span class="setting-label">Enable Voting</span>
+        <label class="toggle-switch">
+          <input type="checkbox" id="votingToggle" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+
+    <div class="api-config">
+      <h2 style="font-size: 14px; color: #333; margin-bottom: 12px; font-weight: 600;">Backend API</h2>
+      <div class="input-group">
+        <label for="apiEndpoint">API Endpoint</label>
+        <input type="text" id="apiEndpoint" placeholder="http://localhost:5000/api">
+      </div>
+      <button class="button" id="testConnection">Test Connection</button>
+      <button class="button secondary" id="saveSettings">Save Settings</button>
+      <div class="status" id="statusMessage"></div>
+    </div>
+
+    <button class="button secondary" id="clearData">Clear All Votes</button>
+
+    <div class="footer">
+      Made with ❤️ for a safer YouTube
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

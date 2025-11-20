@@ -1,0 +1,204 @@
+/* Bot Detector Widget Styles */
+.bot-detector-widget {
+  margin-top: 8px;
+  font-family: "Roboto", "Arial", sans-serif;
+}
+
+.bot-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  border-radius: 18px;
+  font-size: 12px;
+  font-weight: 500;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+/* Dark mode support */
+html[dark] .bot-indicator {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.bot-indicator.low {
+  background-color: rgba(0, 161, 82, 0.1);
+  border-color: #00a152;
+}
+
+.bot-indicator.medium {
+  background-color: rgba(255, 152, 0, 0.1);
+  border-color: #ff9800;
+}
+
+.bot-indicator.high {
+  background-color: rgba(211, 47, 47, 0.1);
+  border-color: #d32f2f;
+}
+
+.bot-icon {
+  font-size: 14px;
+  line-height: 1;
+}
+
+.bot-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bot-indicator.low .bot-label {
+  color: #00a152;
+}
+
+.bot-indicator.medium .bot-label {
+  color: #ff9800;
+}
+
+.bot-indicator.high .bot-label {
+  color: #d32f2f;
+}
+
+.bot-probability {
+  padding: 2px 8px;
+  background-color: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+html[dark] .bot-probability {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Voting Buttons */
+.bot-voting {
+  display: flex;
+  gap: 6px;
+  margin-left: 8px;
+  padding-left: 8px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+html[dark] .bot-voting {
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
+
+.vote-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  background-color: transparent;
+  color: var(--yt-spec-text-secondary);
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.vote-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+
+html[dark] .vote-btn {
+  border-color: rgba(255, 255, 255, 0.2);
+  color: var(--yt-spec-text-secondary);
+}
+
+html[dark] .vote-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.vote-btn.active {
+  background-color: var(--yt-spec-brand-background-solid);
+  color: var(--yt-spec-text-primary-inverse);
+  border-color: var(--yt-spec-brand-background-solid);
+  font-weight: 600;
+}
+
+.vote-btn.vote-bot.active {
+  background-color: #d32f2f;
+  border-color: #d32f2f;
+}
+
+.vote-btn.vote-human.active {
+  background-color: #00a152;
+  border-color: #00a152;
+}
+
+.vote-btn:active {
+  transform: translateY(0);
+}
+
+/* Vote Feedback */
+.vote-feedback {
+  display: inline-block;
+  margin-left: 12px;
+  padding: 4px 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  border-radius: 4px;
+  font-size: 11px;
+  animation: fadeInOut 2s ease;
+}
+
+html[dark] .vote-feedback {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: black;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  10%, 90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+}
+
+/* Hover effects */
+.bot-indicator:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+html[dark] .bot-indicator:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .bot-indicator {
+    flex-wrap: wrap;
+    font-size: 11px;
+    padding: 5px 10px;
+  }
+  
+  .bot-voting {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 6px;
+    padding-left: 0;
+    border-left: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    padding-top: 6px;
+  }
+  
+  html[dark] .bot-voting {
+    border-top-color: rgba(255, 255, 255, 0.2);
+  }
+}
