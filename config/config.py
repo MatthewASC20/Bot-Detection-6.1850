@@ -1,5 +1,5 @@
 """
-Configuration settings for YouTube Botnet Detector
+Configuration settings for YouTube Botnet Detector (BotBuster)
 """
 import os
 from dotenv import load_dotenv
@@ -22,6 +22,11 @@ class Config:
     
     if not YOUTUBE_API_KEYS:
         raise ValueError("No YouTube API keys found in .env file")
+    
+    # OpenAI API Configuration for Semantic Analysis
+    OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', 'OPENAI_API_KEY_PLACEHOLDER')
+    OPENAI_EMBEDDING_MODEL = 'text-embedding-3-small'  # OpenAI's small embedding model
+    EMBEDDING_DIMENSION = 1536  # Dimension of text-embedding-3-small
     
     # API Quotas and Limits
     MAX_RESULTS_PER_PAGE = 100  # YouTube API maximum
@@ -49,6 +54,19 @@ class Config:
     MIN_COMMENT_LENGTH = 10
     MAX_COMMENT_LENGTH = 5000
     SIMILARITY_THRESHOLD = 0.85  # For text similarity
+    
+    # BotBuster Algorithm Parameters
+    # Temporal synchronization settings
+    TEMPORAL_WINDOW_SECONDS = 60  # Window for detecting synchronized posting
+    TEMPORAL_SIMILARITY_WEIGHT = 0.5  # Weight for temporal component in coordination score
+    SEMANTIC_SIMILARITY_WEIGHT = 0.5  # Weight for semantic component in coordination score
+    
+    # Semantic similarity thresholds
+    SEMANTIC_SIMILARITY_THRESHOLD = 0.85  # High similarity threshold for bot detection
+    DISCUSSION_DIVERSITY_THRESHOLD = 0.3  # Low diversity = more bot-like
+    
+    # Embedding batch size for API calls
+    EMBEDDING_BATCH_SIZE = 100  # Number of comments to embed in one API call
     
     # Clustering Parameters
     MIN_CLUSTER_SIZE = 3  # Minimum accounts to form a bot cluster

@@ -1,0 +1,71 @@
+{
+  "total_accounts": 151,
+  "total_comments": 175,
+  "classification_counts": {
+    "likely_human": 151
+  },
+  "avg_bot_probability": 0.1364361717633643,
+  "high_confidence_bots": 0,
+  "clusters_found": 0,
+  "noise_points": 151,
+  "top_bot_accounts": [
+    {
+      "author_id": "UCl-aPNo2E3N0Nx0BYjhRcBQ",
+      "final_bot_probability": 0.339852150706278,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCAnux9H5RbGe48TNhdsaIzA",
+      "final_bot_probability": 0.309385421411153,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCnN7C4C6OMaQygJQjG5Kwjw",
+      "final_bot_probability": 0.28216926126326125,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCnRp3TGGxDpFG1V6wpNoOvw",
+      "final_bot_probability": 0.2752858248446197,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCI4AKatfKIm4RKoKi5Toz6A",
+      "final_bot_probability": 0.27367181692633147,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UC_rtx1moSmJdZ-abMkJAf8Q",
+      "final_bot_probability": 0.2650719845285121,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCuGNGoPyn_oWXKAbVi1QxSw",
+      "final_bot_probability": 0.26405358591325623,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UC3-Jng8MeDUd7_Nxheu1w6w",
+      "final_bot_probability": 0.2552680645552011,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UC7Hbh6_Td2h6S7ZXyuhZMQg",
+      "final_bot_probability": 0.25526233819889743,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCDM8VlJcLb7coJcVjfaFYXg",
+      "final_bot_probability": 0.25135606178623704,
+      "cluster_id": -1
+    }
+  ],
+  "cluster_statistics": [],
+  "detection_method": "botbuster",
+  "comment_level_stats": {
+    "total_comments_analyzed": 175,
+    "avg_comment_bot_prob": 0.1931296811856203,
+    "max_comment_bot_prob": 0.5280652445877638,
+    "high_prob_comments": 0
+  }
+}

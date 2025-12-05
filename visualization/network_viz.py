@@ -318,10 +318,10 @@ class NetworkVisualizer:
             'total_accounts': len(detection_results),
             'total_comments': len(comments_df),
             'classification_counts': detection_results['classification'].value_counts().to_dict(),
-            'avg_bot_probability': detection_results['final_bot_probability'].mean(),
-            'high_confidence_bots': (detection_results['final_bot_probability'] > 0.9).sum(),
-            'clusters_found': detection_results['cluster_id'].nunique() - 1,  # Exclude noise
-            'noise_points': (detection_results['cluster_id'] == -1).sum()
+            'avg_bot_probability': float(detection_results['final_bot_probability'].mean()),
+            'high_confidence_bots': int((detection_results['final_bot_probability'] > 0.9).sum()),
+            'clusters_found': int(detection_results['cluster_id'].nunique() - 1),  # Exclude noise
+            'noise_points': int((detection_results['cluster_id'] == -1).sum())
         }
         
         # Add top bot accounts
@@ -338,10 +338,10 @@ class NetworkVisualizer:
             
             cluster_data = detection_results[detection_results['cluster_id'] == cluster_id]
             cluster_stats.append({
-                'cluster_id': cluster_id,
-                'size': len(cluster_data),
-                'avg_bot_probability': cluster_data['final_bot_probability'].mean(),
-                'bot_count': (cluster_data['classification'] == 'likely_bot').sum()
+                'cluster_id': int(cluster_id),
+                'size': int(len(cluster_data)),
+                'avg_bot_probability': float(cluster_data['final_bot_probability'].mean()),
+                'bot_count': int((cluster_data['classification'] == 'likely_bot').sum())
             })
         
         summary['cluster_statistics'] = sorted(cluster_stats, 

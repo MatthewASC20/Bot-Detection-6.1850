@@ -1,0 +1,78 @@
+{
+  "total_accounts": 151,
+  "total_comments": 175,
+  "classification_counts": {
+    "likely_human": 151
+  },
+  "avg_bot_probability": 0.15038088055022586,
+  "high_confidence_bots": 0,
+  "clusters_found": 1,
+  "noise_points": 148,
+  "top_bot_accounts": [
+    {
+      "author_id": "UCl-aPNo2E3N0Nx0BYjhRcBQ",
+      "final_bot_probability": 0.311871430597785,
+      "cluster_id": 0
+    },
+    {
+      "author_id": "UCAnux9H5RbGe48TNhdsaIzA",
+      "final_bot_probability": 0.27631073177754367,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCnN7C4C6OMaQygJQjG5Kwjw",
+      "final_bot_probability": 0.2641742337167002,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCnRp3TGGxDpFG1V6wpNoOvw",
+      "final_bot_probability": 0.2509159214722492,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCuGNGoPyn_oWXKAbVi1QxSw",
+      "final_bot_probability": 0.25002838854128817,
+      "cluster_id": 0
+    },
+    {
+      "author_id": "UC7Hbh6_Td2h6S7ZXyuhZMQg",
+      "final_bot_probability": 0.24842890186215286,
+      "cluster_id": 0
+    },
+    {
+      "author_id": "UC_rtx1moSmJdZ-abMkJAf8Q",
+      "final_bot_probability": 0.24756979123230843,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCI4AKatfKIm4RKoKi5Toz6A",
+      "final_bot_probability": 0.24266166027878583,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UC3-Jng8MeDUd7_Nxheu1w6w",
+      "final_bot_probability": 0.24023978493616716,
+      "cluster_id": -1
+    },
+    {
+      "author_id": "UCDM8VlJcLb7coJcVjfaFYXg",
+      "final_bot_probability": 0.23977385867096376,
+      "cluster_id": -1
+    }
+  ],
+  "cluster_statistics": [
+    {
+      "cluster_id": 0,
+      "size": 3,
+      "avg_bot_probability": 0.27010957366707533,
+      "bot_count": 0
+    }
+  ],
+  "detection_method": "botbuster",
+  "comment_level_stats": {
+    "total_comments_analyzed": 175,
+    "avg_comment_bot_prob": 0.19310697588975123,
+    "max_comment_bot_prob": 0.5280522336387719,
+    "high_prob_comments": 0
+  }
+}

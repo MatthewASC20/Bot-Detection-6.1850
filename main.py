@@ -2,6 +2,9 @@
 """
 YouTube Botnet Detector - Main Execution Script
 Educational tool for detecting coordinated bot networks in YouTube comments
+
+Implements BotBuster algorithm for detecting coordinated misinformation botnets.
+Based on: "Detecting Coordinated Misinformation Botnets in Social Media"
 """
 
 import argparse
@@ -9,6 +12,7 @@ import logging
 import sys
 import os
 import json
+import numpy as np
 import pandas as pd
 from datetime import datetime
 from typing import List, Dict, Optional
@@ -22,7 +26,9 @@ from features.temporal_features import TemporalFeatures
 from features.text_features import TextFeatures
 from features.network_features import NetworkFeatures
 from features.behavioral_features import BehavioralFeatures
+from features.semantic_features import SemanticFeatures
 from detection.clustering import ClusteringDetector
+from detection.botbuster_detector import BotBusterDetector
 from visualization.network_viz import NetworkVisualizer
 from storage.database import DatabaseHandler
 
@@ -41,12 +47,23 @@ logger = logging.getLogger(__name__)
 class YouTubeBotnetDetector:
     """Main orchestrator for bot detection pipeline"""
     
-    def __init__(self, use_cache: bool = True):
+    def __init__(self, use_cache: bool = True, method: str = 'botbuster'):
+        """
+        Initialize the detector.
+        
+        Args:
+            use_cache: Whether to use API response caching
+            method: Detection method - 'botbuster' (new) or 'original' (legacy)
+        """
         self.collector = DataCollector(use_cache=use_cache)
         self.text_features = TextFeatures()
         self.detector = ClusteringDetector()
+        self.botbuster_detector = BotBusterDetector()
         self.visualizer = NetworkVisualizer()
         self.db = DatabaseHandler()
+        self.method = method
+        
+        logger.info(f"Initialized detector with method: {method}")
         
     def collect_data(self, mode: str, urls: List[str] = None, 
                     max_comments: int = None) -> pd.DataFrame:
@@ -129,21 +146,39 @@ class YouTubeBotnetDetector:
         return features_df
     
     def detect_bots(self, features_df: pd.DataFrame, 
+                   comments_df: pd.DataFrame = None,
                    labeled_data: pd.DataFrame = None) -> pd.DataFrame:
         """
-        Detect bots using clustering
+        Detect bots using the selected method
         
         Args:
-            features_df: DataFrame with features
+            features_df: DataFrame with features (used for original method)
+            comments_df: DataFrame with raw comments (used for BotBuster method)
             labeled_data: Optional labeled data for semi-supervised learning
             
         Returns:
             DataFrame with detection results
         """
-        logger.info("Starting bot detection...")
+        logger.info(f"Starting bot detection using method: {self.method}")
         
-        # Use unsupervised clustering
-        results_df = self.detector.detect_bots(features_df)
+        if self.method == 'botbuster':
+            if comments_df is None:
+                raise ValueError("BotBuster method requires comments_df parameter")
+            
+            # Use BotBuster algorithm (semantic + temporal coordination)
+            results_df = self.botbuster_detector.detect_bots(comments_df)
+            
+            # Ensure consistent column names with original method
+            if 'cluster_confidence' not in results_df.columns:
+                results_df['cluster_confidence'] = 1.0
+            if 'cluster_bot_probability' not in results_df.columns:
+                results_df['cluster_bot_probability'] = results_df['final_bot_probability']
+            if 'individual_bot_probability' not in results_df.columns:
+                results_df['individual_bot_probability'] = results_df['avg_comment_bot_prob']
+                
+        else:
+            # Use original unsupervised clustering method
+            results_df = self.detector.detect_bots(features_df)
         
         # If labeled data is provided, use it to refine results
         if labeled_data is not None and len(labeled_data) > 0:
@@ -261,12 +296,18 @@ class YouTubeBotnetDetector:
                 logger.error("No data collected. Exiting.")
                 return {}
             
-            # Step 2: Extract features
+            # Step 2: Extract features (for original method or comparison)
             logger.info("=" * 50)
             logger.info("STEP 2: FEATURE EXTRACTION")
             logger.info("=" * 50)
             
-            features_df = self.extract_all_features(comments_df)
+            features_df = None
+            if self.method == 'original' or self.method == 'both':
+                features_df = self.extract_all_features(comments_df)
+            else:
+                logger.info("Skipping traditional feature extraction (using BotBuster)")
+                # Create minimal features_df for compatibility
+                features_df = comments_df[['author_id']].drop_duplicates()
             
             # Step 3: Load labeled data (if provided)
             labeled_data = None
@@ -276,10 +317,10 @@ class YouTubeBotnetDetector:
             
             # Step 4: Detect bots
             logger.info("=" * 50)
-            logger.info("STEP 3: BOT DETECTION")
+            logger.info(f"STEP 3: BOT DETECTION ({self.method.upper()} METHOD)")
             logger.info("=" * 50)
             
-            detection_results = self.detect_bots(features_df, labeled_data)
+            detection_results = self.detect_bots(features_df, comments_df, labeled_data)
             
             # Step 5: Visualize results
             logger.info("=" * 50)
@@ -293,12 +334,30 @@ class YouTubeBotnetDetector:
                 detection_results, comments_df
             )
             
+            # Add method info to summary
+            summary['detection_method'] = self.method
+            
+            # Add BotBuster-specific summary info
+            if self.method == 'botbuster':
+                comment_probs = self.botbuster_detector.get_comment_probabilities()
+                if comment_probs:
+                    summary['comment_level_stats'] = {
+                        'total_comments_analyzed': len(comment_probs),
+                        'avg_comment_bot_prob': np.mean(list(comment_probs.values())),
+                        'max_comment_bot_prob': max(comment_probs.values()),
+                        'high_prob_comments': sum(1 for p in comment_probs.values() if p > 0.7)
+                    }
+            
             # Step 7: Save results
             logger.info("=" * 50)
             logger.info("STEP 5: SAVING RESULTS")
             logger.info("=" * 50)
             
             results_file = self.save_results(detection_results, summary)
+            
+            # Save comment-level probabilities for BotBuster
+            if self.method == 'botbuster':
+                self._save_comment_probabilities(comments_df)
             
             # Print summary
             self.print_summary(summary)
@@ -307,17 +366,38 @@ class YouTubeBotnetDetector:
                 'summary': summary,
                 'results_file': results_file,
                 'visualizations': visualization_files,
-                'detection_results': detection_results
+                'detection_results': detection_results,
+                'comments_df': comments_df
             }
             
         except Exception as e:
             logger.error(f"Pipeline failed: {e}", exc_info=True)
             raise
     
+    def _save_comment_probabilities(self, comments_df: pd.DataFrame):
+        """Save per-comment bot probabilities to CSV"""
+        comment_probs = self.botbuster_detector.get_comment_probabilities()
+        
+        if not comment_probs:
+            return
+        
+        # Create DataFrame with comment details and probabilities
+        prob_df = comments_df[['comment_id', 'video_id', 'text', 'author_id', 'author', 'published_at']].copy()
+        prob_df['bot_probability'] = prob_df['comment_id'].map(comment_probs)
+        prob_df = prob_df.sort_values('bot_probability', ascending=False)
+        
+        # Save to CSV
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        csv_path = os.path.join(Config.REPORTS_DIR, f"comment_bot_probabilities_{timestamp}.csv")
+        prob_df.to_csv(csv_path, index=False)
+        
+        logger.info(f"Saved comment-level probabilities to {csv_path}")
+    
     def print_summary(self, summary: Dict):
         """Print detection summary to console"""
         print("\n" + "=" * 60)
-        print("BOT DETECTION SUMMARY")
+        method = summary.get('detection_method', 'unknown').upper()
+        print(f"BOT DETECTION SUMMARY ({method} METHOD)")
         print("=" * 60)
         print(f"Total Accounts Analyzed: {summary['total_accounts']}")
         print(f"Total Comments Analyzed: {summary['total_comments']}")
@@ -330,6 +410,15 @@ class YouTubeBotnetDetector:
             print(f"  {classification}: {count} ({percentage:.1f}%)")
         
         print(f"\nHigh Confidence Bots (>90% probability): {summary['high_confidence_bots']}")
+        
+        # BotBuster-specific stats
+        if 'comment_level_stats' in summary:
+            stats = summary['comment_level_stats']
+            print("\nComment-Level Analysis (BotBuster):")
+            print(f"  Total Comments Analyzed: {stats['total_comments_analyzed']}")
+            print(f"  Average Comment Bot Probability: {stats['avg_comment_bot_prob']:.2%}")
+            print(f"  Max Comment Bot Probability: {stats['max_comment_bot_prob']:.2%}")
+            print(f"  High-Probability Comments (>70%): {stats['high_prob_comments']}")
         
         if summary.get('top_bot_accounts'):
             print("\nTop 5 Suspected Bot Accounts:")
@@ -382,6 +471,13 @@ def main():
         help='Clear database before starting'
     )
     
+    parser.add_argument(
+        '--method',
+        choices=['botbuster', 'original', 'both'],
+        default='botbuster',
+        help='Detection method: botbuster (semantic+temporal coordination), original (clustering-based), or both for comparison'
+    )
+    
     args = parser.parse_args()
     
     # Parse URLs if provided
@@ -389,8 +485,8 @@ def main():
     if args.urls:
         urls = [url.strip() for url in args.urls.split(',')]
     
-    # Initialize detector
-    detector = YouTubeBotnetDetector(use_cache=not args.no_cache)
+    # Initialize detector with selected method
+    detector = YouTubeBotnetDetector(use_cache=not args.no_cache, method=args.method)
     
     # Clear database if requested
     if args.clear_db:
@@ -407,6 +503,7 @@ def main():
     
     if results:
         print("\n✅ Bot detection completed successfully!")
+        print(f"🔬 Detection Method: {args.method.upper()}")
         print(f"📊 Results saved to: {results['results_file']}")
         if results.get('visualizations'):
             print("📈 Visualizations created:")
