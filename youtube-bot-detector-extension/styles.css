@@ -1,4 +1,4 @@
-/* Bot Detector Widget Styles */
+/* Bot Detector Widget Styles v2.0 */
 .bot-detector-widget {
   margin-top: 8px;
   font-family: "Roboto", "Arial", sans-serif;
@@ -7,8 +7,9 @@
 .bot-indicator {
   display: inline-flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 18px;
   font-size: 12px;
   font-weight: 500;
@@ -17,7 +18,6 @@
   transition: all 0.2s ease;
 }
 
-/* Dark mode support */
 html[dark] .bot-indicator {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
@@ -38,10 +38,7 @@ html[dark] .bot-indicator {
   border-color: #d32f2f;
 }
 
-.bot-icon {
-  font-size: 14px;
-  line-height: 1;
-}
+.bot-icon { font-size: 14px; }
 
 .bot-label {
   font-weight: 600;
@@ -49,17 +46,9 @@ html[dark] .bot-indicator {
   letter-spacing: 0.5px;
 }
 
-.bot-indicator.low .bot-label {
-  color: #00a152;
-}
-
-.bot-indicator.medium .bot-label {
-  color: #ff9800;
-}
-
-.bot-indicator.high .bot-label {
-  color: #d32f2f;
-}
+.bot-indicator.low .bot-label { color: #00a152; }
+.bot-indicator.medium .bot-label { color: #ff9800; }
+.bot-indicator.high .bot-label { color: #d32f2f; }
 
 .bot-probability {
   padding: 2px 8px;
@@ -73,11 +62,50 @@ html[dark] .bot-probability {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
+.confidence-range {
+  font-size: 10px;
+  color: #666;
+  opacity: 0.8;
+}
+
+html[dark] .confidence-range { color: #aaa; }
+
+/* Cluster Badge */
+.cluster-badge {
+  padding: 2px 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+/* Flag Badges */
+.bot-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-left: 4px;
+}
+
+.flag-badge {
+  padding: 2px 6px;
+  background-color: rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+  font-size: 10px;
+  color: #555;
+}
+
+html[dark] .flag-badge {
+  background-color: rgba(255, 255, 255, 0.12);
+  color: #ccc;
+}
+
 /* Voting Buttons */
 .bot-voting {
   display: flex;
   gap: 6px;
-  margin-left: 8px;
+  margin-left: auto;
   padding-left: 8px;
   border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
@@ -94,55 +122,47 @@ html[dark] .bot-voting {
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 12px;
   background-color: transparent;
-  color: var(--yt-spec-text-secondary);
+  color: var(--yt-spec-text-secondary, #606060);
   font-size: 11px;
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-  white-space: nowrap;
 }
 
 .vote-btn:hover {
   background-color: rgba(0, 0, 0, 0.05);
-  border-color: rgba(0, 0, 0, 0.3);
   transform: translateY(-1px);
 }
 
 html[dark] .vote-btn {
   border-color: rgba(255, 255, 255, 0.2);
-  color: var(--yt-spec-text-secondary);
+  color: #aaa;
 }
 
 html[dark] .vote-btn:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
 }
 
 .vote-btn.active {
-  background-color: var(--yt-spec-brand-background-solid);
-  color: var(--yt-spec-text-primary-inverse);
-  border-color: var(--yt-spec-brand-background-solid);
   font-weight: 600;
 }
 
 .vote-btn.vote-bot.active {
   background-color: #d32f2f;
   border-color: #d32f2f;
+  color: white;
 }
 
 .vote-btn.vote-human.active {
   background-color: #00a152;
   border-color: #00a152;
-}
-
-.vote-btn:active {
-  transform: translateY(0);
+  color: white;
 }
 
 /* Vote Feedback */
 .vote-feedback {
   display: inline-block;
-  margin-left: 12px;
+  margin-left: 8px;
   padding: 4px 10px;
   background-color: rgba(0, 0, 0, 0.8);
   color: white;
@@ -157,48 +177,27 @@ html[dark] .vote-feedback {
 }
 
 @keyframes fadeInOut {
-  0% {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  10%, 90% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
+  0% { opacity: 0; transform: translateY(5px); }
+  10%, 90% { opacity: 1; transform: translateY(0); }
+  100% { opacity: 0; transform: translateY(-5px); }
 }
 
-/* Hover effects */
-.bot-indicator:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-html[dark] .bot-indicator:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
-}
-
-/* Responsive adjustments */
+/* Responsive */
 @media (max-width: 768px) {
   .bot-indicator {
-    flex-wrap: wrap;
     font-size: 11px;
-    padding: 5px 10px;
+    padding: 6px 10px;
   }
   
   .bot-voting {
     width: 100%;
     margin-left: 0;
-    margin-top: 6px;
+    margin-top: 8px;
     padding-left: 0;
     border-left: none;
     border-top: 1px solid rgba(0, 0, 0, 0.1);
-    padding-top: 6px;
+    padding-top: 8px;
   }
   
-  html[dark] .bot-voting {
-    border-top-color: rgba(255, 255, 255, 0.2);
-  }
+  .bot-flags { width: 100%; margin-top: 6px; }
 }

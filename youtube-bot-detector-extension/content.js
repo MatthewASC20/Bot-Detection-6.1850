@@ -1,317 +1,352 @@
-// Content script that runs on YouTube pages
+// content.js - Batch-first YouTube Bot Detector with Full Pipeline
 class YouTubeBotDetector {
   constructor() {
-    this.apiEndpoint = null; // Will be loaded from storage
-    this.processedComments = new Set();
+    this.apiEndpoint = null;
+    this.processedComments = new Map(); // comment_id -> result
     this.votingData = {};
+    this.currentVideoId = null;
+    this.commentQueue = [];
+    this.analysisInProgress = false;
+    this.BATCH_SIZE = 50;
+    this.BATCH_DELAY = 2000;
     this.init();
   }
 
   async init() {
-    console.log('🤖 YouTube Bot Detector initializing...');
+    console.log('🤖 YouTube Bot Detector v2.0 initializing...');
     
-    // Load settings from storage
     const stored = await chrome.storage.local.get(['votingData', 'apiEndpoint']);
     this.votingData = stored.votingData || {};
     this.apiEndpoint = stored.apiEndpoint || 'http://localhost:5001/api';
     
-    console.log('🤖 API Endpoint:', this.apiEndpoint);
+    this.currentVideoId = this.extractVideoId();
+    console.log('🤖 Video ID:', this.currentVideoId);
     
-    // Start observing for comments
     this.observeComments();
+    this.startBatchProcessor();
     
-    // Process existing comments
-    this.processExistingComments();
+    // Initial collection after page load
+    setTimeout(() => this.collectAllVisibleComments(), 2000);
+  }
+
+  extractVideoId() {
+    const url = window.location.href;
+    const match = url.match(/[?&]v=([^&]+)/);
+    return match ? match[1] : 'unknown';
   }
 
   observeComments() {
-    // Watch for dynamically loaded comments
-    const observer = new MutationObserver((mutations) => {
-      this.processExistingComments();
+    const observer = new MutationObserver(() => {
+      this.collectAllVisibleComments();
     });
 
-    // Observe the main content area
     const targetNode = document.querySelector('ytd-app');
     if (targetNode) {
-      observer.observe(targetNode, {
-        childList: true,
-        subtree: true
-      });
+      observer.observe(targetNode, { childList: true, subtree: true });
     }
   }
 
-  processExistingComments() {
-    // Find all comment elements
+  collectAllVisibleComments() {
     const comments = document.querySelectorAll('ytd-comment-thread-renderer');
     
-    console.log(`🤖 Found ${comments.length} comments to process`);
-    
     comments.forEach(comment => {
-      const commentId = this.getCommentId(comment);
-      if (commentId && !this.processedComments.has(commentId)) {
-        this.processedComments.add(commentId);
-        console.log(`🤖 Processing comment: ${commentId}`);
-        this.analyzeComment(comment, commentId);
+      const commentData = this.extractFullCommentData(comment);
+      if (commentData && !this.processedComments.has(commentData.comment_id)) {
+        this.commentQueue.push({ element: comment, data: commentData });
       }
     });
+    
+    console.log(`🤖 Queue: ${this.commentQueue.length} new comments`);
   }
 
-  getCommentId(commentElement) {
-    // Try to get the actual comment ID from the element
-    if (commentElement.id) {
-      return commentElement.id;
-    }
-    
-    // Fallback: create a unique ID based on comment content
-    const contentElement = commentElement.querySelector('#content-text');
-    const authorElement = commentElement.querySelector('#author-text');
-    
-    if (contentElement && authorElement) {
-      const content = contentElement.textContent?.trim() || '';
-      const author = authorElement.textContent?.trim() || '';
-      // Create a simple hash
-      const hash = `${author}-${content}`.substring(0, 50).replace(/\s/g, '-');
-      return `comment-${hash}-${Date.now()}`;
-    }
-    
-    // Last resort: use timestamp and random
-    return `comment-${Date.now()}-${Math.random().toString(36).substring(7)}`;
-  }
-
-  async analyzeComment(commentElement, commentId) {
-    try {
-      // Extract comment data
-      const commentData = this.extractCommentData(commentElement);
-      
-      console.log(`🤖 Analyzing comment from: ${commentData.author}`);
-      
-      // Get bot probability from backend or calculate locally
-      const botProbability = await this.getBotProbability(commentData);
-      
-      console.log(`🤖 Bot probability: ${(botProbability * 100).toFixed(1)}%`);
-      
-      // Add UI elements to show probability and voting
-      this.addBotIndicator(commentElement, commentId, botProbability, commentData);
-    } catch (error) {
-      console.error('🤖 Error analyzing comment:', error);
-    }
-  }
-
-  extractCommentData(commentElement) {
+  extractFullCommentData(commentElement) {
     const authorElement = commentElement.querySelector('#author-text');
     const contentElement = commentElement.querySelector('#content-text');
     const timeElement = commentElement.querySelector('.published-time-text a');
     const likesElement = commentElement.querySelector('#vote-count-middle');
+    const authorLinkElement = commentElement.querySelector('#author-text');
+    
+    if (!contentElement || !authorElement) return null;
+    
+    const content = contentElement.textContent?.trim() || '';
+    const author = authorElement.textContent?.trim() || '';
+    
+    // Generate unique comment ID
+    const comment_id = this.hashString(`${author}|${content}|${this.currentVideoId}`);
+    
+    // Extract author channel ID from link
+    let author_id = '';
+    const authorLink = authorLinkElement?.href || '';
+    const channelMatch = authorLink.match(/\/channel\/(UC[^\/\?]+)/);
+    if (channelMatch) {
+      author_id = channelMatch[1];
+    } else {
+      author_id = this.hashString(author);
+    }
+    
+    // Parse timestamp
+    const timeText = timeElement?.textContent?.trim() || '';
+    const published_at = this.parseRelativeTime(timeText);
     
     return {
-      author: authorElement?.textContent?.trim() || 'Unknown',
-      authorLink: authorElement?.querySelector('a')?.href || '',
-      content: contentElement?.textContent?.trim() || '',
-      timestamp: timeElement?.textContent?.trim() || '',
-      likes: likesElement?.textContent?.trim() || '0',
-      isPinned: !!commentElement.querySelector('ytd-pinned-comment-badge-renderer'),
-      isHeartedByCreator: !!commentElement.querySelector('yt-icon.ytd-creator-heart-renderer')
+      comment_id,
+      author,
+      author_id,
+      content,
+      published_at,
+      like_count: parseInt(likesElement?.textContent?.trim() || '0') || 0,
+      is_reply: !!commentElement.closest('ytd-comment-replies-renderer'),
+      is_pinned: !!commentElement.querySelector('ytd-pinned-comment-badge-renderer'),
+      is_hearted: !!commentElement.querySelector('yt-icon.ytd-creator-heart-renderer')
     };
   }
 
-  async getBotProbability(commentData) {
-    // Try to get from backend API first
-    try {
-      const response = await fetch(`${this.apiEndpoint}/analyze`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(commentData),
-        signal: AbortSignal.timeout(3000) // 3 second timeout
-      });
-      
-      if (response.ok) {
-        const result = await response.json();
-        return result.bot_probability || 0;
-      }
-    } catch (error) {
-      // Backend not available, fall back to local heuristics
-      console.log('Using local detection:', error.message);
+  hashString(str) {
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
     }
-    
-    // Local heuristic-based detection
-    return this.calculateLocalBotScore(commentData);
+    return Math.abs(hash).toString(36);
   }
 
-  calculateLocalBotScore(commentData) {
+  parseRelativeTime(timeText) {
+    const now = new Date();
+    const match = timeText.match(/(\d+)\s*(second|minute|hour|day|week|month|year)s?\s*ago/i);
+    
+    if (!match) return now.toISOString();
+    
+    const value = parseInt(match[1]);
+    const unit = match[2].toLowerCase();
+    
+    const offsets = {
+      second: 1000, minute: 60000, hour: 3600000,
+      day: 86400000, week: 604800000, month: 2592000000, year: 31536000000
+    };
+    
+    return new Date(now.getTime() - value * (offsets[unit] || 0)).toISOString();
+  }
+
+  async startBatchProcessor() {
+    setInterval(async () => {
+      if (this.commentQueue.length >= this.BATCH_SIZE || 
+          (this.commentQueue.length > 0 && !this.analysisInProgress)) {
+        await this.processBatch();
+      }
+    }, this.BATCH_DELAY);
+  }
+
+  async processBatch() {
+    if (this.analysisInProgress || this.commentQueue.length === 0) return;
+    
+    this.analysisInProgress = true;
+    const batch = this.commentQueue.splice(0, this.BATCH_SIZE);
+    
+    console.log(`🤖 Processing batch of ${batch.length} comments`);
+    
+    try {
+      const results = await this.sendBatchForAnalysis(batch.map(b => b.data));
+      
+      // Map results to elements and render
+      const resultsMap = new Map();
+      for (const comment of results.comments || []) {
+        resultsMap.set(comment.comment_id, comment);
+      }
+      
+      for (const item of batch) {
+        const result = resultsMap.get(item.data.comment_id);
+        if (result) {
+          this.processedComments.set(item.data.comment_id, result);
+          this.renderIndicator(item.element, item.data.comment_id, result);
+        }
+      }
+      
+      // Log summary
+      const summary = results.analysis_summary;
+      if (summary) {
+        console.log(`🤖 Analysis: ${summary.likely_bots} bots, ${summary.suspicious} suspicious, ${summary.clusters_found} clusters`);
+      }
+      
+    } catch (error) {
+      console.error('🤖 Batch analysis failed:', error);
+      // Fall back to local analysis
+      for (const item of batch) {
+        const localResult = this.calculateLocalScore(item.data);
+        this.processedComments.set(item.data.comment_id, localResult);
+        this.renderIndicator(item.element, item.data.comment_id, localResult);
+      }
+    }
+    
+    this.analysisInProgress = false;
+  }
+
+  async sendBatchForAnalysis(comments) {
+    const response = await fetch(`${this.apiEndpoint}/analyze_video`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        video_id: this.currentVideoId,
+        comments: comments,
+        include_network: true,
+        fetch_related: false
+      }),
+      signal: AbortSignal.timeout(30000)
+    });
+    
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    return await response.json();
+  }
+
+  calculateLocalScore(commentData) {
     let score = 0;
-    const { author, content, likes } = commentData;
+    const { author, content } = commentData;
     
-    // Check for suspicious username patterns
-    if (/\d{4,}/.test(author)) score += 0.2; // Many numbers
-    if (author.length < 5) score += 0.1; // Very short
-    if (/^[A-Z]{4,}$/.test(author)) score += 0.15; // All caps
+    if (/\d{4,}/.test(author)) score += 0.2;
+    if (author.length < 5) score += 0.1;
+    if (/^[A-Z]{4,}$/.test(author)) score += 0.15;
     
-    // Check for spam patterns in content
-    const lowerContent = content.toLowerCase();
-    const spamKeywords = ['click here', 'check out', 'visit', 'subscribe', 'http', 'www.', 
-                          'earn money', 'free', 'winner', 'congratulations'];
-    const spamCount = spamKeywords.filter(kw => lowerContent.includes(kw)).length;
-    score += Math.min(spamCount * 0.1, 0.3);
+    const lower = content.toLowerCase();
+    const spamWords = ['click here', 'check out', 'subscribe', 'http', 'www.', 'earn money', 'free', 'winner'];
+    score += Math.min(spamWords.filter(w => lower.includes(w)).length * 0.1, 0.3);
     
-    // Check for excessive emojis
-    const emojiCount = (content.match(/[\u{1F300}-\u{1F9FF}]/gu) || []).length;
-    if (emojiCount > 5) score += 0.15;
-    
-    // Check for repetitive characters
+    const emojis = (content.match(/[\u{1F300}-\u{1F9FF}]/gu) || []).length;
+    if (emojis > 5) score += 0.15;
     if (/(.)\1{3,}/.test(content)) score += 0.1;
     
-    // Very short or very long comments
-    if (content.length < 10 || content.length > 1000) score += 0.1;
-    
-    // Check for generic phrases
-    const genericPhrases = ['nice video', 'great content', 'awesome', 'cool', 'first', 'early'];
-    if (genericPhrases.some(phrase => lowerContent === phrase)) score += 0.15;
-    
-    return Math.min(score, 1.0); // Cap at 1.0
+    return {
+      comment_id: commentData.comment_id,
+      bot_probability: Math.min(score, 1.0),
+      confidence: 0.5,
+      classification: score > 0.7 ? 'likely_bot' : score > 0.4 ? 'suspicious' : 'likely_human',
+      cluster_id: -1,
+      flags: [],
+      similar_to: []
+    };
   }
 
-  addBotIndicator(commentElement, commentId, probability, commentData) {
-    // Don't add if already exists
-    if (commentElement.querySelector('.bot-detector-widget')) {
-      console.log(`🤖 Widget already exists for comment ${commentId}`);
-      return;
-    }
-
-    console.log(`🤖 Adding bot indicator for comment ${commentId}`);
-
-    // Create the bot indicator widget
-    const widget = document.createElement('div');
-    widget.className = 'bot-detector-widget';
+  renderIndicator(commentElement, commentId, result) {
+    if (commentElement.querySelector('.bot-detector-widget')) return;
     
-    // Get current user vote if exists
+    const { bot_probability, confidence, classification, cluster_id, flags } = result;
     const userVote = this.votingData[commentId]?.vote || 0;
     
     // Determine risk level
-    let riskLevel = 'low';
-    let riskText = 'Low';
-    let riskColor = '#00a152';
+    let riskLevel = 'low', riskText = 'Low';
+    if (bot_probability > 0.7) { riskLevel = 'high'; riskText = 'High'; }
+    else if (bot_probability > 0.4) { riskLevel = 'medium'; riskText = 'Medium'; }
     
-    if (probability > 0.7) {
-      riskLevel = 'high';
-      riskText = 'High';
-      riskColor = '#d32f2f';
-    } else if (probability > 0.4) {
-      riskLevel = 'medium';
-      riskText = 'Medium';
-      riskColor = '#ff9800';
-    }
+    const widget = document.createElement('div');
+    widget.className = 'bot-detector-widget';
+    
+    // Build flags badges HTML
+    const flagsHtml = flags.length > 0 ? `
+      <div class="bot-flags">
+        ${flags.slice(0, 3).map(f => `<span class="flag-badge">${this.formatFlag(f)}</span>`).join('')}
+      </div>
+    ` : '';
+    
+    // Build cluster badge HTML
+    const clusterHtml = cluster_id !== -1 ? `
+      <span class="cluster-badge" title="Part of coordinated group">🔗 Cluster ${cluster_id}</span>
+    ` : '';
     
     widget.innerHTML = `
       <div class="bot-indicator ${riskLevel}">
         <span class="bot-icon">🤖</span>
         <span class="bot-label">Bot Risk: ${riskText}</span>
-        <span class="bot-probability">${(probability * 100).toFixed(0)}%</span>
+        <span class="bot-probability">${(bot_probability * 100).toFixed(0)}%</span>
+        <span class="confidence-range" title="Confidence: ${(confidence * 100).toFixed(0)}%">±${((1 - confidence) * 100 / 2).toFixed(0)}%</span>
+        ${clusterHtml}
+        ${flagsHtml}
         <div class="bot-voting">
           <button class="vote-btn vote-bot ${userVote === 1 ? 'active' : ''}" 
-                  data-comment-id="${commentId}" 
-                  data-vote="1"
-                  title="This is a bot">
+                  data-comment-id="${commentId}" data-vote="1" title="Mark as bot">
             👍 Bot
           </button>
           <button class="vote-btn vote-human ${userVote === -1 ? 'active' : ''}" 
-                  data-comment-id="${commentId}" 
-                  data-vote="-1"
-                  title="This is human">
+                  data-comment-id="${commentId}" data-vote="-1" title="Mark as human">
             👤 Human
           </button>
         </div>
       </div>
     `;
     
-    // Add click handlers for voting
-    const voteButtons = widget.querySelectorAll('.vote-btn');
-    voteButtons.forEach(btn => {
+    // Add vote handlers
+    widget.querySelectorAll('.vote-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        this.handleVote(commentId, parseInt(btn.dataset.vote), commentData, widget);
+        this.handleVote(commentId, parseInt(btn.dataset.vote), result, widget);
       });
     });
     
-    // Insert the widget into the comment
     const toolbar = commentElement.querySelector('#toolbar');
-    if (toolbar) {
-      toolbar.appendChild(widget);
-      console.log(`🤖 Widget successfully added to DOM for comment ${commentId}`);
-    } else {
-      console.error(`🤖 Could not find toolbar for comment ${commentId}`);
-    }
+    if (toolbar) toolbar.appendChild(widget);
   }
 
-  async handleVote(commentId, voteValue, commentData, widgetElement) {
-    // Toggle vote if clicking the same button
+  formatFlag(flag) {
+    const flagLabels = {
+      'template_match': '📋 Template',
+      'burst_posting': '⚡ Burst',
+      'spam_keywords': '🚫 Spam',
+      'synchronized': '🔄 Sync',
+      'clique_member': '👥 Clique',
+      'duplicate_content': '📄 Duplicate',
+      'automated_behavior': '🤖 Auto',
+      'suspicious_username': '👤 Name',
+      'new_account': '🆕 New',
+      'highly_connected': '🌐 Network'
+    };
+    return flagLabels[flag] || flag;
+  }
+
+  async handleVote(commentId, voteValue, result, widgetElement) {
     const currentVote = this.votingData[commentId]?.vote || 0;
     const newVote = currentVote === voteValue ? 0 : voteValue;
     
-    // Update local storage
-    this.votingData[commentId] = {
-      vote: newVote,
-      timestamp: Date.now(),
-      commentData: commentData
-    };
-    
+    this.votingData[commentId] = { vote: newVote, timestamp: Date.now() };
     await chrome.storage.local.set({ votingData: this.votingData });
     
     // Update UI
-    const buttons = widgetElement.querySelectorAll('.vote-btn');
-    buttons.forEach(btn => {
+    widgetElement.querySelectorAll('.vote-btn').forEach(btn => {
       btn.classList.remove('active');
-      if (parseInt(btn.dataset.vote) === newVote) {
-        btn.classList.add('active');
-      }
+      if (parseInt(btn.dataset.vote) === newVote) btn.classList.add('active');
     });
     
-    // Send vote to backend
+    // Sync to backend
     try {
       await fetch(`${this.apiEndpoint}/vote`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          commentId,
+          comment_id: commentId,
+          author_id: result.author_id,
           vote: newVote,
-          commentData,
-          timestamp: Date.now()
+          video_id: this.currentVideoId,
+          ml_prediction: result.bot_probability
         })
       });
-    } catch (error) {
-      console.log('Could not sync vote to backend:', error.message);
+    } catch (e) {
+      console.log('Vote sync failed:', e.message);
     }
     
-    // Show feedback
-    this.showVoteFeedback(widgetElement, newVote);
+    this.showFeedback(widgetElement, newVote);
   }
 
-  showVoteFeedback(widgetElement, vote) {
+  showFeedback(widget, vote) {
     const feedback = document.createElement('span');
     feedback.className = 'vote-feedback';
     feedback.textContent = vote === 1 ? 'Marked as bot' : vote === -1 ? 'Marked as human' : 'Vote removed';
-    
-    widgetElement.appendChild(feedback);
-    
-    setTimeout(() => {
-      feedback.remove();
-    }, 2000);
+    widget.appendChild(feedback);
+    setTimeout(() => feedback.remove(), 2000);
   }
 }
 
-// Initialize the detector when the page loads
-console.log('🤖 YouTube Bot Detector script loaded');
-
+// Initialize
+console.log('🤖 YouTube Bot Detector v2.0 loaded');
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', () => {
-    console.log('🤖 DOM Content Loaded - initializing detector');
-    new YouTubeBotDetector();
-  });
+  document.addEventListener('DOMContentLoaded', () => new YouTubeBotDetector());
 } else {
-  console.log('🤖 DOM already loaded - initializing detector immediately');
   new YouTubeBotDetector();
 }

@@ -7,6 +7,7 @@ from typing import List, Dict, Optional
 import logging
 import json
 from datetime import datetime
+import json
 
 from config.config import Config
 
@@ -20,6 +21,9 @@ class DatabaseHandler:
             db_path = Config.DATABASE_PATH
         self.db_path = db_path
         self._init_database()
+        # Ensure extension/voting/profile tables exist alongside core schema
+        self._init_extension_tables()
+        self._init_botnet_tables()
     
     def _init_database(self):
         """Initialize database with required tables"""
@@ -268,3 +272,306 @@ class DatabaseHandler:
             conn.commit()
         
         logger.warning("Cleared all data from database")
+
+    # Add to storage/database.py - Phase 2 Database Extensions
+
+    def _init_extension_tables(self):
+        """Initialize extension-specific tables"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+
+            # Extension votes table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS extension_votes (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    comment_hash TEXT NOT NULL,
+                    author_id TEXT,
+                    vote INTEGER NOT NULL,
+                    video_id TEXT,
+                    ml_prediction REAL,
+                    comment_text TEXT,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
+            # Author profiles table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS author_profiles (
+                    author_id TEXT PRIMARY KEY,
+                    total_comments INTEGER DEFAULT 0,
+                    avg_bot_score REAL DEFAULT 0,
+                    total_analyses INTEGER DEFAULT 0,
+                    flags_json TEXT,
+                    first_seen TIMESTAMP,
+                    last_seen TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_votes_author ON extension_votes(author_id)")
+            cursor.execute("CREATE INDEX IF NOT EXISTS idx_votes_video ON extension_votes(video_id)")
+            conn.commit()
+
+    def store_extension_vote(self, comment_id: str, author_id: str, vote: int,
+                            video_id: str = None, ml_prediction: float = None,
+                            comment_text: str = None):
+        """Store a user vote from the extension"""
+        import hashlib
+        comment_hash = hashlib.md5(f"{comment_text or ''}{author_id or ''}".encode()).hexdigest()
+
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+
+            # Remove existing vote for this comment
+            cursor.execute("DELETE FROM extension_votes WHERE comment_hash = ?", (comment_hash,))
+
+            if vote != 0:
+                cursor.execute("""
+                    INSERT INTO extension_votes 
+                    (comment_hash, author_id, vote, video_id, ml_prediction, comment_text)
+                    VALUES (?, ?, ?, ?, ?, ?)
+                """, (comment_hash, author_id, vote, video_id, ml_prediction, comment_text))
+
+            conn.commit()
+
+    def update_author_profile(self, author_id: str, bot_probability: float, flags: list):
+        """Update author profile with new analysis data"""
+        if not author_id:
+            return
+
+        import json
+
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+
+            # Check if profile exists
+            cursor.execute("SELECT * FROM author_profiles WHERE author_id = ?", (author_id,))
+            existing = cursor.fetchone()
+
+            if existing:
+                # Update existing
+                cursor.execute("""
+                    UPDATE author_profiles SET
+                        total_analyses = total_analyses + 1,
+                        avg_bot_score = (avg_bot_score * total_analyses + ?) / (total_analyses + 1),
+                        flags_json = ?,
+                        last_seen = CURRENT_TIMESTAMP
+                    WHERE author_id = ?
+                """, (bot_probability, json.dumps(flags), author_id))
+            else:
+                # Insert new
+                cursor.execute("""
+                    INSERT INTO author_profiles 
+                    (author_id, total_analyses, avg_bot_score, flags_json, first_seen, last_seen)
+                    VALUES (?, 1, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+                """, (author_id, bot_probability, json.dumps(flags)))
+
+            conn.commit()
+
+    def get_author_profile(self, author_id: str) -> Optional[Dict]:
+        """Get author profile"""
+        import json
+
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM author_profiles WHERE author_id = ?", (author_id,))
+            row = cursor.fetchone()
+
+            if row:
+                return {
+                    'author_id': row[0],
+                    'total_comments': row[1],
+                    'avg_bot_score': row[2],
+                    'total_analyses': row[3],
+                    'flags': json.loads(row[4]) if row[4] else [],
+                    'first_seen': row[5],
+                    'last_seen': row[6],
+                    'found': True
+                }
+            return None
+
+    def get_comments_by_author_ids(self, author_ids: List[str]) -> pd.DataFrame:
+        """Get all comments from specified authors"""
+        if not author_ids:
+            return pd.DataFrame()
+
+        placeholders = ','.join(['?' for _ in author_ids])
+        query = f"SELECT * FROM comments WHERE author_id IN ({placeholders})"
+
+        with sqlite3.connect(self.db_path) as conn:
+            return pd.read_sql_query(query, conn, params=author_ids)
+
+    def get_extension_stats(self) -> Dict:
+        """Get extension statistics"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+
+            cursor.execute("""
+                SELECT 
+                    COUNT(*) as total_votes,
+                    SUM(CASE WHEN vote = 1 THEN 1 ELSE 0 END) as bot_votes,
+                    SUM(CASE WHEN vote = -1 THEN 1 ELSE 0 END) as human_votes
+                FROM extension_votes
+            """)
+            result = cursor.fetchone()
+
+            cursor.execute("SELECT COUNT(*) FROM author_profiles")
+            profiles = cursor.fetchone()[0]
+
+            return {
+                'total_votes': result[0] or 0,
+                'bot_votes': result[1] or 0,
+                'human_votes': result[2] or 0,
+                'tracked_authors': profiles
+            }
+    def _init_botnet_tables(self):
+        """Initialize botnet tracking tables"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            
+            # Botnets table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS botnets (
+                    botnet_id TEXT PRIMARY KEY,
+                    auto_name TEXT,
+                    size INTEGER,
+                    confidence REAL,
+                    accounts_json TEXT,
+                    targets_json TEXT,
+                    metrics_json TEXT,
+                    temporal_patterns_json TEXT,
+                    text_patterns_json TEXT,
+                    role_assignments_json TEXT,
+                    discovered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            """)
+            
+            # Discovery runs table
+            cursor.execute("""
+                CREATE TABLE IF NOT EXISTS discovery_runs (
+                    run_id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    parameters_json TEXT,
+                    summary_json TEXT,
+                    botnets_found INTEGER,
+                    total_accounts INTEGER,
+                    started_at TIMESTAMP,
+                    completed_at TIMESTAMP
+                )
+            """)
+            
+            conn.commit()
+
+    def save_botnet(self, botnet: Dict):
+        """Save a discovered botnet"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                INSERT OR REPLACE INTO botnets 
+                (botnet_id, auto_name, size, confidence, accounts_json, targets_json, 
+                metrics_json, temporal_patterns_json, text_patterns_json, role_assignments_json, updated_at)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP)
+            """, (
+                botnet['botnet_id'],
+                botnet.get('auto_name', ''),
+                botnet.get('size', 0),
+                botnet.get('confidence', 0),
+                json.dumps(botnet.get('accounts', [])),
+                json.dumps(botnet.get('targets', {})),
+                json.dumps(botnet.get('metrics', {})),
+                json.dumps(botnet.get('temporal_patterns', {})),
+                json.dumps(botnet.get('text_patterns', {})),
+                json.dumps(botnet.get('role_assignments', {}))
+            ))
+            
+            conn.commit()
+
+    def get_botnet(self, botnet_id: str) -> Optional[Dict]:
+        """Get a botnet by ID"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT * FROM botnets WHERE botnet_id = ?", (botnet_id,))
+            row = cursor.fetchone()
+            
+            if row:
+                return {
+                    'botnet_id': row[0],
+                    'auto_name': row[1],
+                    'size': row[2],
+                    'confidence': row[3],
+                    'accounts': json.loads(row[4]) if row[4] else [],
+                    'targets': json.loads(row[5]) if row[5] else {},
+                    'metrics': json.loads(row[6]) if row[6] else {},
+                    'temporal_patterns': json.loads(row[7]) if row[7] else {},
+                    'text_patterns': json.loads(row[8]) if row[8] else {},
+                    'role_assignments': json.loads(row[9]) if row[9] else {},
+                    'discovered_at': row[10],
+                    'updated_at': row[11]
+                }
+            return None
+
+    def list_botnets(self) -> List[Dict]:
+        """List all discovered botnets"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("SELECT botnet_id, auto_name, size, confidence, discovered_at FROM botnets ORDER BY size DESC")
+            rows = cursor.fetchall()
+            
+            return [{
+                'botnet_id': row[0],
+                'auto_name': row[1],
+                'size': row[2],
+                'confidence': row[3],
+                'discovered_at': row[4]
+            } for row in rows]
+
+    def save_discovery_run(self, results: Dict):
+        """Save a discovery run"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            
+            cursor.execute("""
+                INSERT INTO discovery_runs 
+                (parameters_json, summary_json, botnets_found, total_accounts, started_at, completed_at)
+                VALUES (?, ?, ?, ?, ?, ?)
+            """, (
+                json.dumps(results.get('parameters', {})),
+                json.dumps(results.get('summary', {})),
+                len(results.get('phases', {}).get('identification', {}).get('botnets', [])),
+                results.get('phases', {}).get('expansion', {}).get('total_accounts', 0),
+                results.get('started_at'),
+                results.get('completed_at')
+            ))
+            
+            conn.commit()
+
+    def get_high_probability_authors(self, min_probability: float, limit: int = 100) -> List[str]:
+        """Get authors with high bot probability"""
+        with sqlite3.connect(self.db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute("""
+                SELECT author_id FROM author_profiles 
+                WHERE avg_bot_score >= ? 
+                ORDER BY avg_bot_score DESC 
+                LIMIT ?
+            """, (min_probability, limit))
+            
+            return [row[0] for row in cursor.fetchall()]
+
+    def get_comments_by_video(self, video_id: str) -> pd.DataFrame:
+        """Get all comments for a video"""
+        with sqlite3.connect(self.db_path) as conn:
+            return pd.read_sql_query(
+                "SELECT * FROM comments WHERE video_id = ?", 
+                conn, 
+                params=[video_id]
+            )
+
+    def get_comments_by_author(self, author_id: str) -> pd.DataFrame:
+        """Get all comments by an author"""
+        with sqlite3.connect(self.db_path) as conn:
+            return pd.read_sql_query(
+                "SELECT * FROM comments WHERE author_id = ?", 
+                conn, 
+                params=[author_id]
+            )
