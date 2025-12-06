@@ -192,7 +192,7 @@ class YouTubeBotnetDetector:
     def visualize_results(self, detection_results: pd.DataFrame, 
                          comments_df: pd.DataFrame) -> Dict[str, str]:
         """
-        Create visualizations of detection results
+        Create visualizations of detection results - paper-ready outputs
         
         Args:
             detection_results: DataFrame with detection results
@@ -201,7 +201,7 @@ class YouTubeBotnetDetector:
         Returns:
             Dictionary with paths to visualization files
         """
-        logger.info("Creating visualizations...")
+        logger.info("Creating paper-ready visualizations...")
         
         visualization_files = {}
         
@@ -211,20 +211,20 @@ class YouTubeBotnetDetector:
         # Create bot scores dictionary
         bot_scores = detection_results.set_index('author_id')['final_bot_probability'].to_dict()
         
-        # Detect communities
-        communities = NetworkFeatures.detect_communities(G) if G.number_of_nodes() > 0 else {}
+        # Get cluster assignments
+        cluster_assignments = detection_results.set_index('author_id')['cluster_id'].to_dict()
         
-        # Create network visualization
+        # Create network visualization with cluster labels
         if G.number_of_nodes() > 0:
             network_path = self.visualizer.visualize_bot_network(
-                G, bot_scores, communities,
-                title="YouTube Comment Bot Network",
+                G, bot_scores, cluster_assignments,
+                title="Bot Coordination Network - Cluster Membership",
                 filename="bot_network.html"
             )
             visualization_files['network'] = network_path
         
-        # Create cluster comparison
-        cluster_path = self.visualizer.visualize_cluster_comparison(
+        # Create comprehensive cluster analysis
+        cluster_path = self.visualizer.visualize_cluster_analysis(
             detection_results,
             filename="cluster_analysis.html"
         )
@@ -237,7 +237,68 @@ class YouTubeBotnetDetector:
         )
         visualization_files['temporal'] = temporal_path
         
+        # BotBuster-specific visualizations
+        if self.method == 'botbuster':
+            # Get coordination matrix and cross-video scores from detector
+            coordination_matrix = self.botbuster_detector.get_coordination_matrix()
+            cross_video_scores = self.botbuster_detector.get_cross_video_scores()
+            
+            # Create coordination heatmap
+            if coordination_matrix is not None:
+                author_ids = comments_df.groupby('author_id').first().reset_index()['author_id'].tolist()
+                # Aggregate to author-level for heatmap
+                author_matrix = self._aggregate_to_author_matrix(
+                    coordination_matrix, comments_df, author_ids
+                )
+                if author_matrix is not None:
+                    heatmap_path = self.visualizer.visualize_coordination_heatmap(
+                        author_matrix, author_ids, cluster_assignments,
+                        filename="coordination_heatmap.html"
+                    )
+                    visualization_files['heatmap'] = heatmap_path
+            
+            # Create cross-video analysis
+            if cross_video_scores:
+                cross_video_path = self.visualizer.visualize_cross_video_analysis(
+                    comments_df, detection_results, cross_video_scores,
+                    filename="cross_video_analysis.html"
+                )
+                visualization_files['cross_video'] = cross_video_path
+            
+            # Create comprehensive summary figure
+            summary_path = self.visualizer.create_summary_figure(
+                detection_results, comments_df, cross_video_scores,
+                filename="detection_summary.html"
+            )
+            visualization_files['summary'] = summary_path
+        
         return visualization_files
+    
+    def _aggregate_to_author_matrix(self, comment_matrix: np.ndarray, 
+                                    comments_df: pd.DataFrame,
+                                    author_ids: List[str]) -> Optional[np.ndarray]:
+        """Aggregate comment-level coordination matrix to author-level"""
+        try:
+            n_authors = len(author_ids)
+            author_matrix = np.zeros((n_authors, n_authors))
+            
+            author_to_idx = {a: i for i, a in enumerate(author_ids)}
+            comment_authors = comments_df['author_id'].values
+            
+            for i in range(len(comment_matrix)):
+                for j in range(i + 1, len(comment_matrix)):
+                    if i < len(comment_authors) and j < len(comment_authors):
+                        a1, a2 = comment_authors[i], comment_authors[j]
+                        if a1 in author_to_idx and a2 in author_to_idx and a1 != a2:
+                            idx1, idx2 = author_to_idx[a1], author_to_idx[a2]
+                            author_matrix[idx1, idx2] = max(author_matrix[idx1, idx2], 
+                                                            comment_matrix[i, j])
+                            author_matrix[idx2, idx1] = author_matrix[idx1, idx2]
+            
+            return author_matrix
+        except Exception as e:
+            logger.warning(f"Could not aggregate to author matrix: {e}")
+            return None
     
     def save_results(self, detection_results: pd.DataFrame, 
                     summary: Dict) -> str:

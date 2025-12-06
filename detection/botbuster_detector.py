@@ -675,6 +675,22 @@ class BotBusterDetector:
         """Get the per-comment bot probabilities (after detection is run)"""
         return self.comment_bot_probs
     
+    def get_coordination_matrix(self) -> Optional[np.ndarray]:
+        """Get the coordination matrix (after detection is run)"""
+        return self.coordination_matrix
+    
+    def get_cross_video_scores(self) -> Dict[str, float]:
+        """
+        Get per-author cross-video coordination scores (after detection is run).
+        Returns a simplified dict mapping author_id to their avg cross-video similarity.
+        """
+        if not self.cross_video_coordination:
+            return {}
+        return {
+            author_id: data['avg_cross_video_sim']
+            for author_id, data in self.cross_video_coordination.items()
+        }
+    
     def get_botnet_graph(self, comments_df: pd.DataFrame,
                           results_df: pd.DataFrame) -> nx.Graph:
         """
