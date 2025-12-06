@@ -251,8 +251,13 @@ class YouTubeBotnetDetector:
         Returns:
             Path to results file
         """
+        # Prepare results for database (convert lists to JSON strings)
+        db_results = detection_results.copy()
+        if 'comment_ids' in db_results.columns:
+            db_results['comment_ids'] = db_results['comment_ids'].apply(json.dumps)
+        
         # Save to database
-        self.db.save_detection_results(detection_results)
+        self.db.save_detection_results(db_results)
         
         # Save to CSV
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

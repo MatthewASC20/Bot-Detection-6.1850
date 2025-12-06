@@ -111,6 +111,12 @@ class DatabaseHandler:
         
         df = pd.DataFrame(comments)
         
+        # Deduplicate within the batch first
+        original_count = len(df)
+        df = df.drop_duplicates(subset=['comment_id'], keep='first')
+        if len(df) < original_count:
+            logger.info(f"Removed {original_count - len(df)} duplicate comments within batch")
+        
         with sqlite3.connect(self.db_path) as conn:
             # Get existing comment IDs to avoid duplicates
             try:

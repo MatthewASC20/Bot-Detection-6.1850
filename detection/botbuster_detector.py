@@ -42,9 +42,11 @@ class BotBusterDetector:
         self.similarity_matrix = None
         self.temporal_matrix = None
         self.coordination_matrix = None
+        self.cross_video_similarity = None  # Track cross-video semantic similarity
         self.comment_bot_probs = {}
         self.account_bot_probs = {}
         self.botnet_clusters = {}
+        self.cross_video_coordination = {}  # Track authors with cross-video coordination
         
     def calculate_temporal_synchronization(self, comments_df: pd.DataFrame) -> np.ndarray:
         """
@@ -94,13 +96,112 @@ class BotBusterDetector:
         
         return temporal_matrix
     
+    def calculate_cross_video_similarity(self, comments_df: pd.DataFrame, 
+                                          semantic_matrix: np.ndarray) -> Tuple[np.ndarray, Dict]:
+        """
+        Calculate cross-video semantic similarity.
+        
+        This detects when accounts post semantically similar content across 
+        DIFFERENT videos - a strong indicator of coordinated botnet activity.
+        
+        Args:
+            comments_df: DataFrame with comments
+            semantic_matrix: Pre-computed semantic similarity matrix
+            
+        Returns:
+            Tuple of (cross_video_matrix, author_cross_video_scores)
+        """
+        logger.info("Calculating cross-video semantic similarity...")
+        
+        n = len(comments_df)
+        cross_video_matrix = np.zeros((n, n))
+        
+        video_ids = comments_df['video_id'].values
+        author_ids = comments_df['author_id'].values
+        
+        # Track cross-video similarities
+        cross_video_pairs = 0
+        high_similarity_cross_video = 0
+        
+        for i in range(n):
+            for j in range(i + 1, n):
+                # Only consider comments on DIFFERENT videos by DIFFERENT authors
+                if video_ids[i] == video_ids[j]:
+                    continue
+                if author_ids[i] == author_ids[j]:
+                    continue
+                
+                # Copy semantic similarity for cross-video pairs
+                sim = semantic_matrix[i, j]
+                cross_video_matrix[i, j] = sim
+                cross_video_matrix[j, i] = sim
+                
+                cross_video_pairs += 1
+                if sim > Config.SEMANTIC_SIMILARITY_THRESHOLD:
+                    high_similarity_cross_video += 1
+        
+        # Calculate per-author cross-video coordination scores
+        author_cross_video_scores = {}
+        
+        for author_id in comments_df['author_id'].unique():
+            # Get indices of this author's comments
+            author_mask = author_ids == author_id
+            author_indices = np.where(author_mask)[0]
+            
+            if len(author_indices) == 0:
+                author_cross_video_scores[author_id] = {
+                    'avg_cross_video_sim': 0.0,
+                    'max_cross_video_sim': 0.0,
+                    'high_sim_count': 0,
+                    'videos_with_similar_content': set()
+                }
+                continue
+            
+            # Find cross-video similarities involving this author
+            cross_video_sims = []
+            videos_with_similar = set()
+            
+            for idx in author_indices:
+                for j in range(n):
+                    if j in author_indices:
+                        continue
+                    # Check if different video
+                    if video_ids[idx] != video_ids[j]:
+                        sim = semantic_matrix[idx, j]
+                        cross_video_sims.append(sim)
+                        if sim > Config.SEMANTIC_SIMILARITY_THRESHOLD:
+                            videos_with_similar.add(video_ids[j])
+            
+            if cross_video_sims:
+                author_cross_video_scores[author_id] = {
+                    'avg_cross_video_sim': np.mean(cross_video_sims),
+                    'max_cross_video_sim': np.max(cross_video_sims),
+                    'high_sim_count': sum(1 for s in cross_video_sims if s > Config.SEMANTIC_SIMILARITY_THRESHOLD),
+                    'videos_with_similar_content': videos_with_similar
+                }
+            else:
+                author_cross_video_scores[author_id] = {
+                    'avg_cross_video_sim': 0.0,
+                    'max_cross_video_sim': 0.0,
+                    'high_sim_count': 0,
+                    'videos_with_similar_content': set()
+                }
+        
+        self.cross_video_similarity = cross_video_matrix
+        self.cross_video_coordination = author_cross_video_scores
+        
+        logger.info(f"Cross-video analysis: {cross_video_pairs} pairs, {high_similarity_cross_video} high-similarity pairs")
+        
+        return cross_video_matrix, author_cross_video_scores
+    
     def calculate_coordination_score(self, comments_df: pd.DataFrame) -> np.ndarray:
         """
         Calculate coordination score between comments.
         
-        Coordination = weighted average of:
-        - Temporal synchronization (posting at similar times)
-        - Semantic similarity (similar content)
+        Coordination = weighted combination of:
+        - Temporal synchronization (posting at similar times, same video)
+        - Semantic similarity (similar content, any video)
+        - Cross-video semantic similarity (similar content across different videos - strong bot signal)
         
         Args:
             comments_df: DataFrame with comments
@@ -110,21 +211,43 @@ class BotBusterDetector:
         """
         logger.info("Calculating coordination scores...")
         
-        # Get temporal synchronization matrix
+        # Get temporal synchronization matrix (same-video only)
         temporal_matrix = self.calculate_temporal_synchronization(comments_df)
         
-        # Get semantic similarity matrix
+        # Get semantic similarity matrix (all comments)
         semantic_matrix = self.semantic_features.calculate_pairwise_semantic_similarity(comments_df)
         self.similarity_matrix = semantic_matrix
         
-        # Calculate coordination as weighted average
+        # Calculate cross-video semantic similarity (strong coordination signal)
+        cross_video_matrix, _ = self.calculate_cross_video_similarity(comments_df, semantic_matrix)
+        
+        # Get weights from config
         temporal_weight = Config.TEMPORAL_SIMILARITY_WEIGHT
         semantic_weight = Config.SEMANTIC_SIMILARITY_WEIGHT
         
-        coordination_matrix = (
-            temporal_weight * temporal_matrix + 
-            semantic_weight * semantic_matrix
-        )
+        # Cross-video similarity gets a boost - it's a stronger signal of coordination
+        cross_video_boost = 1.5
+        
+        # Calculate coordination:
+        # - Same-video: temporal + semantic
+        # - Cross-video: boosted semantic (no temporal since different videos)
+        video_ids = comments_df['video_id'].values
+        n = len(comments_df)
+        
+        coordination_matrix = np.zeros((n, n))
+        
+        for i in range(n):
+            for j in range(i + 1, n):
+                if video_ids[i] == video_ids[j]:
+                    # Same video: use temporal + semantic
+                    coord = (temporal_weight * temporal_matrix[i, j] + 
+                            semantic_weight * semantic_matrix[i, j])
+                else:
+                    # Different videos: boost semantic similarity as it's a stronger signal
+                    coord = semantic_weight * cross_video_boost * cross_video_matrix[i, j]
+                
+                coordination_matrix[i, j] = coord
+                coordination_matrix[j, i] = coord
         
         # Zero out diagonal and same-author comparisons
         np.fill_diagonal(coordination_matrix, 0)
@@ -340,6 +463,7 @@ class BotBusterDetector:
         - Average bot probability of their comments
         - Cluster membership (accounts in same cluster = coordinated)
         - Coordination level with other accounts
+        - Cross-video semantic similarity (strong bot signal)
         
         Args:
             comments_df: DataFrame with comments
@@ -408,11 +532,24 @@ class BotBusterDetector:
             else:
                 avg_coordination = 0.0
             
+            # Get cross-video coordination score (strong bot signal)
+            cross_video_score = 0.0
+            if self.cross_video_coordination and author_id in self.cross_video_coordination:
+                cv_data = self.cross_video_coordination[author_id]
+                # High cross-video similarity is a strong indicator of bot activity
+                cross_video_score = (
+                    0.4 * cv_data['avg_cross_video_sim'] +
+                    0.4 * cv_data['max_cross_video_sim'] +
+                    0.2 * min(cv_data['high_sim_count'] / 10.0, 1.0)  # Normalize by max 10 high-sim pairs
+                )
+            
             # Final probability: weighted combination
+            # Cross-video similarity is weighted heavily as it's a strong botnet indicator
             final_prob = (
-                0.6 * avg_comment_prob +    # Comment-level signals
-                0.2 * cluster_boost +        # Cluster membership
-                0.2 * avg_coordination       # Overall coordination level
+                0.45 * avg_comment_prob +     # Comment-level signals
+                0.15 * cluster_boost +         # Cluster membership
+                0.15 * avg_coordination +      # Overall coordination level
+                0.25 * cross_video_score       # Cross-video similarity (strong signal)
             )
             
             account_probs[author_id] = min(max(final_prob, 0.0), 1.0)
@@ -482,6 +619,7 @@ class BotBusterDetector:
                 'author_id': author_id,
                 'cluster_id': cluster_assignments.get(author_id, -1),
                 'comment_count': len(author_comments),
+                'videos_commented': author_comments['video_id'].nunique(),
                 'comment_ids': list(author_comments['comment_id']),
                 'avg_comment_bot_prob': np.mean([
                     self.comment_bot_probs.get(cid, 0.0) 
@@ -489,6 +627,17 @@ class BotBusterDetector:
                 ]),
                 'final_bot_probability': account_probs.get(author_id, 0.0),
             }
+            
+            # Add cross-video coordination info
+            if self.cross_video_coordination and author_id in self.cross_video_coordination:
+                cv_data = self.cross_video_coordination[author_id]
+                result['cross_video_avg_sim'] = cv_data['avg_cross_video_sim']
+                result['cross_video_max_sim'] = cv_data['max_cross_video_sim']
+                result['cross_video_high_sim_count'] = cv_data['high_sim_count']
+            else:
+                result['cross_video_avg_sim'] = 0.0
+                result['cross_video_max_sim'] = 0.0
+                result['cross_video_high_sim_count'] = 0
             
             # Classification
             prob = result['final_bot_probability']
