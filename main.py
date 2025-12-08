@@ -12,10 +12,15 @@ import logging
 import sys
 import os
 import json
+import html
+import glob
 import numpy as np
 import pandas as pd
 from datetime import datetime
 from typing import List, Dict, Optional
+import webbrowser
+
+from pyparsing import col
 
 # Add project root to path
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -91,49 +96,93 @@ class YouTubeBotnetDetector:
         else:
             raise ValueError(f"Invalid mode: {mode}")
     
+    """
+    This is the CORRECT extract_all_features method for main.py
+    It uses ALL 5 feature modules (79+ features total)
+
+    Replace your current extract_all_features method with this one.
+    """
+
     def extract_all_features(self, comments_df: pd.DataFrame) -> pd.DataFrame:
         """
-        Extract all features from comments
+        Extract all features from comments using ALL feature modules.
+        
+        This should produce 79+ features across:
+        - Temporal (15 features): burst patterns, posting times, intervals
+        - Text (22 features): linguistic, spam, templates, similarity
+        - Network (17 features): co-occurrence, communities, centrality
+        - Behavioral (16 features): account age, automation, targeting
+        - Semantic (11 features): embeddings, topics, intents
         
         Args:
             comments_df: DataFrame with comments
             
         Returns:
-            DataFrame with all features
+            DataFrame with all features per author
         """
-        logger.info("Extracting features...")
+        logger.info("Extracting features using FULL pipeline...")
         
-        # Temporal features
+        # ============ TEMPORAL FEATURES ============
         logger.info("Extracting temporal features...")
+        from features.temporal_features import TemporalFeatures
+        
         burst_scores = TemporalFeatures.extract_burst_patterns(comments_df)
         temporal_df = TemporalFeatures.extract_time_patterns(comments_df)
         temporal_df['burst_score'] = temporal_df['author_id'].map(burst_scores)
         
-        # Text features
+        # Add regularity scores
+        regularity_scores = TemporalFeatures.calculate_posting_regularity(comments_df)
+        temporal_df['regularity_score'] = temporal_df['author_id'].map(regularity_scores)
+        
+        logger.info(f"  → Temporal: {len(temporal_df.columns) - 1} features")
+        
+        # ============ TEXT FEATURES ============
         logger.info("Extracting text features...")
-        template_scores = self.text_features.detect_template_comments(comments_df)
-        spam_scores = self.text_features.detect_spam_patterns(comments_df)
-        diversity_scores = self.text_features.calculate_comment_diversity(comments_df)
-        linguistic_df = self.text_features.extract_linguistic_features(comments_df)
+        from features.text_features import TextFeatures
+        
+        text_extractor = TextFeatures()
+        template_scores = text_extractor.detect_template_comments(comments_df)
+        spam_scores = text_extractor.detect_spam_patterns(comments_df)
+        diversity_scores = text_extractor.calculate_comment_diversity(comments_df)
+        linguistic_df = text_extractor.extract_linguistic_features(comments_df)
         
         linguistic_df['template_score'] = linguistic_df['author_id'].map(template_scores)
         linguistic_df['spam_score'] = linguistic_df['author_id'].map(spam_scores)
         linguistic_df['diversity_score'] = linguistic_df['author_id'].map(diversity_scores)
         
-        # Network features
+        logger.info(f"  → Text: {len(linguistic_df.columns) - 1} features")
+        
+        # ============ NETWORK FEATURES ============
         logger.info("Extracting network features...")
+        from features.network_features import NetworkFeatures
+        
         network_df = NetworkFeatures.calculate_author_network_features(comments_df)
         
-        # Behavioral features
+        logger.info(f"  → Network: {len(network_df.columns) - 1} features")
+        
+        # ============ BEHAVIORAL FEATURES ============
         logger.info("Extracting behavioral features...")
+        from features.behavioral_features import BehavioralFeatures
+        
         behavioral_df = BehavioralFeatures.compile_behavioral_features(comments_df)
         
-        # Merge all features
-        logger.info("Merging features...")
+        logger.info(f"  → Behavioral: {len(behavioral_df.columns) - 1} features")
+        
+        # ============ SEMANTIC FEATURES ============
+        logger.info("Extracting semantic features...")
+        from features.semantic_features import SemanticFeatures
+        
+        semantic_extractor = SemanticFeatures(use_openai=True)  # Falls back to local if no API key
+        semantic_df = semantic_extractor.extract_semantic_features(comments_df)
+        
+        logger.info(f"  → Semantic: {len(semantic_df.columns) - 1} features")
+        
+        # ============ MERGE ALL FEATURES ============
+        logger.info("Merging all features...")
+        
         features_df = temporal_df
         
-        # Merge other dataframes
-        for df in [linguistic_df, network_df, behavioral_df]:
+        for df in [linguistic_df, network_df, behavioral_df, semantic_df]:
             features_df = features_df.merge(df, on='author_id', how='outer', suffixes=('', '_dup'))
             # Remove duplicate columns
             features_df = features_df.loc[:, ~features_df.columns.str.endswith('_dup')]
@@ -141,53 +190,131 @@ class YouTubeBotnetDetector:
         # Fill missing values
         features_df = features_df.fillna(0)
         
-        logger.info(f"Extracted {features_df.shape[1]} features for {len(features_df)} authors")
+        total_features = len(features_df.columns) - 1  # Exclude author_id
+        logger.info(f"✅ Extracted {total_features} total features for {len(features_df)} authors")
+        
+        # Log feature summary
+        logger.info("Feature categories:")
+        logger.info(f"  - Temporal: burst_score, regularity_score, comments_per_hour, hour_entropy, etc.")
+        logger.info(f"  - Text: template_score, spam_score, diversity_score, sentiment, etc.")
+        logger.info(f"  - Network: co_degree_centrality, community_id, in_clique, etc.")
+        logger.info(f"  - Behavioral: account_age_score, automation_score, targeting_score, etc.")
+        logger.info(f"  - Semantic: avg_semantic_similarity, intent_bot_score, etc.")
         
         return features_df
     
-    def detect_bots(self, features_df: pd.DataFrame, 
-                   comments_df: pd.DataFrame = None,
-                   labeled_data: pd.DataFrame = None) -> pd.DataFrame:
+    def detect_bots(self, features_df: pd.DataFrame, comments_df: pd.DataFrame,
+                    labeled_data: Optional[pd.DataFrame] = None) -> pd.DataFrame:
         """
-        Detect bots using the selected method
+        Run the configured detection method(s) and return primary results.
         
-        Args:
-            features_df: DataFrame with features (used for original method)
-            comments_df: DataFrame with raw comments (used for BotBuster method)
-            labeled_data: Optional labeled data for semi-supervised learning
-            
-        Returns:
-            DataFrame with detection results
+        When method='both', both pipelines are executed; BotBuster results are
+        returned for downstream visualization while originals are retained for
+        comparison/inspection.
         """
-        logger.info(f"Starting bot detection using method: {self.method}")
+        logger.info("Running bot detection...")
         
         if self.method == 'botbuster':
-            if comments_df is None:
-                raise ValueError("BotBuster method requires comments_df parameter")
+            if comments_df is None or comments_df.empty:
+                raise ValueError("comments_df is required for BotBuster detection")
+            results = self.botbuster_detector.detect_bots(comments_df.reset_index(drop=True))
+            self.botbuster_results = results
+            return results
+        
+        if self.method == 'original':
+            if features_df is None or features_df.empty:
+                raise ValueError("features_df is required for the original detection method")
+            results = self.detector.detect_bots(features_df)
+            self.original_results = results
+            return results
+        
+        if self.method == 'both':
+            if features_df is None or features_df.empty:
+                raise ValueError("features_df is required when running both detection methods")
+            if comments_df is None or comments_df.empty:
+                raise ValueError("comments_df is required when running both detection methods")
             
-            # Use BotBuster algorithm (semantic + temporal coordination)
-            results_df = self.botbuster_detector.detect_bots(comments_df)
+            logger.info("Running original clustering method...")
+            original_results = self.detector.detect_bots(features_df)
             
-            # Ensure consistent column names with original method
-            if 'cluster_confidence' not in results_df.columns:
-                results_df['cluster_confidence'] = 1.0
-            if 'cluster_bot_probability' not in results_df.columns:
-                results_df['cluster_bot_probability'] = results_df['final_bot_probability']
-            if 'individual_bot_probability' not in results_df.columns:
-                results_df['individual_bot_probability'] = results_df['avg_comment_bot_prob']
-                
+            logger.info("Running BotBuster method...")
+            botbuster_results = self.botbuster_detector.detect_bots(comments_df.reset_index(drop=True))
+            
+            self.original_results = original_results
+            self.botbuster_results = botbuster_results
+            self.comparison_results = self._compare_results(original_results, botbuster_results)
+            
+            logger.info("Completed both detection methods; using BotBuster results for visualization/summary")
+            return botbuster_results
+        
+        raise ValueError(f"Unknown detection method: {self.method}")
+    
+    def _compare_results(self, original: pd.DataFrame, botbuster: pd.DataFrame) -> Dict:
+        """Lightweight comparison between original and BotBuster results"""
+        if original is None or botbuster is None:
+            return {}
+        
+        merged = original.merge(
+            botbuster,
+            on='author_id',
+            suffixes=('_original', '_botbuster'),
+            how='outer'
+        )
+        
+        comparison = {
+            'original_method': {
+                'total_accounts': len(original),
+                'avg_bot_probability': float(original['final_bot_probability'].mean()),
+                'likely_bots': int((original['classification'] == 'likely_bot').sum()),
+                'suspicious': int((original['classification'] == 'suspicious').sum()),
+                'likely_humans': int((original['classification'] == 'likely_human').sum()),
+                'clusters_found': int(original['cluster_id'].nunique() - (1 if -1 in original['cluster_id'].values else 0))
+            },
+            'botbuster_method': {
+                'total_accounts': len(botbuster),
+                'avg_bot_probability': float(botbuster['final_bot_probability'].mean()),
+                'likely_bots': int((botbuster['classification'] == 'likely_bot').sum()),
+                'suspicious': int((botbuster['classification'] == 'suspicious').sum()),
+                'likely_humans': int((botbuster['classification'] == 'likely_human').sum()),
+                'clusters_found': int(botbuster['cluster_id'].nunique() - (1 if -1 in botbuster['cluster_id'].values else 0))
+            }
+        }
+        
+        common_authors = merged.dropna(subset=['final_bot_probability_original', 'final_bot_probability_botbuster'])
+        if len(common_authors) > 1:
+            comparison['probability_correlation'] = float(
+                common_authors['final_bot_probability_original'].corr(
+                    common_authors['final_bot_probability_botbuster']
+                )
+            )
         else:
-            # Use original unsupervised clustering method
-            results_df = self.detector.detect_bots(features_df)
+            comparison['probability_correlation'] = None
         
-        # If labeled data is provided, use it to refine results
-        if labeled_data is not None and len(labeled_data) > 0:
-            logger.info("Refining results with labeled data...")
-            # This is a placeholder for semi-supervised refinement
-            # In a full implementation, you would train a classifier on labeled data
-            # and use it to adjust the unsupervised results
+        merged['classification_original'] = (
+            merged['classification_original']
+            .astype('string')
+            .fillna('unknown')
+        )
+        merged['classification_botbuster'] = (
+            merged['classification_botbuster']
+            .astype('string')
+            .fillna('unknown')
+        )
+        comparison['classification_agreement'] = float(
+            (merged['classification_original'] == merged['classification_botbuster']).mean()
+        )
         
-        return results_df
+        comparison['original_only_flags'] = merged[
+            (merged['classification_original'].isin(['likely_bot', 'suspicious'])) &
+            (merged['classification_botbuster'] == 'likely_human')
+        ]['author_id'].dropna().tolist()
+        
+        comparison['botbuster_only_flags'] = merged[
+            (merged['classification_botbuster'].isin(['likely_bot', 'suspicious'])) &
+            (merged['classification_original'] == 'likely_human')
+        ]['author_id'].dropna().tolist()
+        
+        return comparison
     
     def visualize_results(self, detection_results: pd.DataFrame, 
                          comments_df: pd.DataFrame) -> Dict[str, str]:
@@ -217,7 +344,7 @@ class YouTubeBotnetDetector:
         # Create network visualization with cluster labels
         if G.number_of_nodes() > 0:
             network_path = self.visualizer.visualize_bot_network(
-                G, bot_scores, cluster_assignments,
+                G, bot_scores, cluster_assignments, comments_df=comments_df,
                 title="Bot Coordination Network - Cluster Membership",
                 filename="bot_network.html"
             )
@@ -238,7 +365,7 @@ class YouTubeBotnetDetector:
         visualization_files['temporal'] = temporal_path
         
         # BotBuster-specific visualizations
-        if self.method == 'botbuster':
+        if self.method in ('botbuster', 'both'):
             # Get coordination matrix and cross-video scores from detector
             coordination_matrix = self.botbuster_detector.get_coordination_matrix()
             cross_video_scores = self.botbuster_detector.get_cross_video_scores()
@@ -301,13 +428,15 @@ class YouTubeBotnetDetector:
             return None
     
     def save_results(self, detection_results: pd.DataFrame, 
-                    summary: Dict) -> str:
+                    summary: Dict,
+                    timestamp: Optional[str] = None) -> str:
         """
         Save detection results and summary
         
         Args:
             detection_results: DataFrame with detection results
             summary: Summary statistics dictionary
+            timestamp: Optional timestamp string to keep artifacts aligned
             
         Returns:
             Path to results file
@@ -321,7 +450,8 @@ class YouTubeBotnetDetector:
         self.db.save_detection_results(db_results)
         
         # Save to CSV
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        if timestamp is None:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         csv_path = os.path.join(Config.REPORTS_DIR, f"bot_detection_results_{timestamp}.csv")
         detection_results.to_csv(csv_path, index=False)
         
@@ -329,6 +459,11 @@ class YouTubeBotnetDetector:
         json_path = os.path.join(Config.REPORTS_DIR, f"detection_summary_{timestamp}.json")
         with open(json_path, 'w') as f:
             json.dump(summary, f, indent=2, default=str)
+        
+        # Track last saved artifacts for downstream references
+        self.last_results_path = csv_path
+        self.last_summary_path = json_path
+        self.last_results_timestamp = timestamp
         
         logger.info(f"Results saved to {csv_path}")
         logger.info(f"Summary saved to {json_path}")
@@ -375,6 +510,11 @@ class YouTubeBotnetDetector:
                 # Create minimal features_df for compatibility
                 features_df = comments_df[['author_id']].drop_duplicates()
             
+            print("\n📊 Feature Statistics:")
+            for col in features_df.select_dtypes(include=[np.number]).columns:
+                if col != 'author_id':
+                    print(f"  {col}: min={features_df[col].min():.3f}, max={features_df[col].max():.3f}, mean={features_df[col].mean():.3f}")
+
             # Step 3: Load labeled data (if provided)
             labeled_data = None
             if labeled_data_path:
@@ -404,7 +544,7 @@ class YouTubeBotnetDetector:
             summary['detection_method'] = self.method
             
             # Add BotBuster-specific summary info
-            if self.method == 'botbuster':
+            if self.method in ('botbuster', 'both'):
                 comment_probs = self.botbuster_detector.get_comment_probabilities()
                 if comment_probs:
                     summary['comment_level_stats'] = {
@@ -414,31 +554,295 @@ class YouTubeBotnetDetector:
                         'high_prob_comments': sum(1 for p in comment_probs.values() if p > 0.7)
                     }
             
+            # Persist the cluster-level comment evidence used for clustering decisions
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            cluster_evidence_paths = self._save_cluster_comment_evidence(
+                detection_results, comments_df, timestamp
+            )
+            if cluster_evidence_paths:
+                summary['cluster_comment_evidence_file'] = cluster_evidence_paths.get('json')
+                summary['cluster_comment_evidence_html'] = cluster_evidence_paths.get('html')
+                summary['cluster_comment_evidence_index'] = cluster_evidence_paths.get('index')
+            
             # Step 7: Save results
             logger.info("=" * 50)
             logger.info("STEP 5: SAVING RESULTS")
             logger.info("=" * 50)
             
-            results_file = self.save_results(detection_results, summary)
+            results_file = self.save_results(detection_results, summary, timestamp=timestamp)
             
             # Save comment-level probabilities for BotBuster
-            if self.method == 'botbuster':
+            if self.method in ('botbuster', 'both'):
                 self._save_comment_probabilities(comments_df)
             
             # Print summary
             self.print_summary(summary)
             
-            return {
+            result_payload = {
                 'summary': summary,
                 'results_file': results_file,
                 'visualizations': visualization_files,
                 'detection_results': detection_results,
-                'comments_df': comments_df
+                'comments_df': comments_df,
+                'cluster_comment_evidence': cluster_evidence_paths.get('json') if cluster_evidence_paths else "",
+                'cluster_comment_evidence_html': cluster_evidence_paths.get('html') if cluster_evidence_paths else "",
+                'cluster_comment_evidence_index': cluster_evidence_paths.get('index') if cluster_evidence_paths else "",
+                'summary_file': getattr(self, 'last_summary_path', None)
             }
+            
+            if self.method == 'both':
+                result_payload['original_results'] = getattr(self, 'original_results', None)
+                result_payload['comparison'] = getattr(self, 'comparison_results', None)
+            
+            return result_payload
             
         except Exception as e:
             logger.error(f"Pipeline failed: {e}", exc_info=True)
             raise
+    
+    def _open_visualizations(self, visualization_files: Dict[str, str]):
+        """Best-effort open primary visualization HTMLs in the default browser"""
+        if not visualization_files:
+            return
+        
+        priority = [
+            visualization_files.get('summary'),
+            visualization_files.get('network'),
+            visualization_files.get('clusters'),
+            visualization_files.get('heatmap'),
+            visualization_files.get('temporal'),
+        ]
+        opened = False
+        for path in priority:
+            if path:
+                try:
+                    abspath = os.path.abspath(path)
+                    webbrowser.open(f"file://{abspath}", new=2)
+                    opened = True
+                except Exception as e:
+                    logger.warning(f"Could not open visualization {path}: {e}")
+        if opened:
+            logger.info("Opened visualization(s) in default browser")
+
+    def _print_next_steps(self, results: Dict):
+        """Print concise next-step suggestions after a run"""
+        viz = results.get('visualizations', {}) if results else {}
+        print("\nNext steps:")
+        print("  1) Review the HTML visualizations (network, cluster analysis, summary).")
+        if viz:
+            paths = [p for p in [
+                viz.get('summary'),
+                viz.get('network'),
+                viz.get('clusters'),
+                viz.get('heatmap'),
+                viz.get('temporal')
+            ] if p]
+            if paths:
+                print(f"     Opened best-available viz in your browser. Files live under: {os.path.dirname(paths[0])}")
+        print("  2) Inspect the cluster evidence HTML for the comments that drove clustering.")
+        if results.get('cluster_comment_evidence_index'):
+            print(f"     Index: {results['cluster_comment_evidence_index']}")
+        elif results.get('cluster_comment_evidence_html'):
+            print(f"     Latest: {results['cluster_comment_evidence_html']}")
+        print("  3) Export/quote findings as needed; consider re-running with --method both to compare detectors.")
+
+    def _format_comment_records(self, comments_subset: pd.DataFrame) -> List[Dict]:
+        """Convert a comment subset to serializable dicts"""
+        records = []
+        for _, row in comments_subset.iterrows():
+            records.append({
+                'comment_id': row.get('comment_id'),
+                'author_id': row.get('author_id'),
+                'video_id': row.get('video_id'),
+                'published_at': str(row.get('published_at')),
+                'text': row.get('text', '')
+            })
+        return records
+
+    def _build_cluster_comment_evidence(self, detection_results: pd.DataFrame,
+                                        comments_df: pd.DataFrame,
+                                        max_comments_per_cluster: int = 100) -> Dict:
+        """
+        Build a per-cluster set of the comments that triggered clustering.
+        
+        For BotBuster this uses high-coordination comment pairs; for the legacy
+        clustering path it falls back to a sample of comments from each cluster.
+        """
+        if detection_results is None or detection_results.empty:
+            return {}
+        if comments_df is None or comments_df.empty:
+            return {}
+        
+        comments_df = comments_df.reset_index(drop=True).copy()
+        cluster_assignments = detection_results.set_index('author_id')['cluster_id'].to_dict()
+        comments_df['cluster_id'] = comments_df['author_id'].map(cluster_assignments).fillna(-1).astype(int)
+        
+        cluster_ids = sorted([cid for cid in comments_df['cluster_id'].unique() if cid != -1])
+        if not cluster_ids:
+            return {}
+        
+        use_coordination = (
+            self.method in ('botbuster', 'both') and
+            self.botbuster_detector.get_coordination_matrix() is not None
+        )
+        evidence_by_cluster = {}
+        coord_threshold = None
+        
+        if use_coordination:
+            coord_threshold = getattr(self.botbuster_detector, 'last_coordination_threshold', None) or 0.3
+            evidence_by_cluster = self.botbuster_detector.extract_cluster_comment_evidence(
+                comments_df=comments_df,
+                cluster_assignments=cluster_assignments,
+                max_comments_per_cluster=max_comments_per_cluster,
+                coordination_threshold=coord_threshold
+            )
+        
+        evidence_payload = {
+            'generated_at': datetime.now().isoformat(),
+            'detection_method': self.method,
+            'coordination_threshold': coord_threshold if use_coordination else None,
+            'max_comments_per_cluster': max_comments_per_cluster,
+            'clusters': []
+        }
+        
+        for cluster_id in cluster_ids:
+            cluster_comments = comments_df[comments_df['cluster_id'] == cluster_id]
+            entry = {
+                'cluster_id': int(cluster_id),
+                'account_count': int((detection_results['cluster_id'] == cluster_id).sum()),
+                'comment_count': int(len(cluster_comments))
+            }
+            
+            cluster_evidence = evidence_by_cluster.get(int(cluster_id), {})
+            evidence_comments = cluster_evidence.get('comments', []) if cluster_evidence else []
+            available_count = cluster_evidence.get('available_count', len(evidence_comments)) if cluster_evidence else len(cluster_comments)
+            evidence_source = 'high_coordination_pairs' if evidence_comments else 'all_cluster_comments_sample'
+            truncated = cluster_evidence.get('truncated', False) if cluster_evidence else False
+            
+            if not evidence_comments:
+                evidence_comments = self._format_comment_records(
+                    cluster_comments.head(max_comments_per_cluster)
+                )
+                truncated = len(cluster_comments) > len(evidence_comments)
+            
+            entry.update({
+                'evidence_source': evidence_source,
+                'available_evidence_comments': int(available_count),
+                'evidence_comment_count': len(evidence_comments),
+                'truncated': truncated,
+                'evidence_comments': evidence_comments
+            })
+            
+            evidence_payload['clusters'].append(entry)
+        
+        return evidence_payload
+
+    def _render_cluster_comment_evidence_html(self, evidence_payload: Dict, output_path: str,
+                                              max_text_len: int = 400):
+        """Render a lightweight HTML view of cluster comment evidence for easier inspection"""
+        if not evidence_payload or not evidence_payload.get('clusters'):
+            return
+        
+        def esc(val: str) -> str:
+            return html.escape(str(val)) if val is not None else ''
+        
+        lines = []
+        lines.append("<!DOCTYPE html>")
+        lines.append("<html lang='en'><head>")
+        lines.append("<meta charset='UTF-8'><title>Cluster Comment Evidence</title>")
+        lines.append("""
+        <style>
+            body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+            h1 { margin-bottom: 6px; }
+            h2 { margin-top: 32px; }
+            .meta { color: #555; margin-bottom: 16px; }
+            table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+            th, td { border: 1px solid #ddd; padding: 8px; vertical-align: top; }
+            th { background: #f5f5f5; text-align: left; }
+            tr:nth-child(even) { background: #fafafa; }
+            .pill { display: inline-block; padding: 3px 8px; border-radius: 10px; font-size: 12px; color: #fff; }
+            .pill-coord { background: #0077b6; }
+            .pill-sample { background: #6c757d; }
+            .pill-trunc { background: #e76f51; }
+            .small { color: #666; font-size: 13px; }
+            .text { white-space: pre-wrap; }
+        </style>
+        """)
+        lines.append("</head><body>")
+        
+        lines.append("<h1>Cluster Comment Evidence</h1>")
+        lines.append(f"<div class='meta'>Generated: {esc(evidence_payload.get('generated_at',''))} &middot; "
+                     f"Method: {esc(evidence_payload.get('detection_method',''))} "
+                     f"&middot; Coordination threshold: {esc(evidence_payload.get('coordination_threshold',''))}</div>")
+        lines.append("<div class='meta'><a href='cluster_comment_evidence_index.html'>View all runs</a></div>")
+        
+        for cluster in sorted(evidence_payload.get('clusters', []), key=lambda c: c.get('cluster_id', 0)):
+            cid = cluster.get('cluster_id', -1)
+            lines.append(f"<h2>Cluster {esc(cid)}</h2>")
+            lines.append("<div class='meta'>"
+                         f"Accounts: {esc(cluster.get('account_count',0))} | "
+                         f"Cluster comments: {esc(cluster.get('comment_count',0))} | "
+                         f"Evidence comments: {esc(cluster.get('evidence_comment_count',0))}"
+                         "</div>")
+            
+            source = cluster.get('evidence_source', 'unknown')
+            pill_class = 'pill-coord' if source == 'high_coordination_pairs' else 'pill-sample'
+            source_label = 'High coordination pairs' if source == 'high_coordination_pairs' else 'Sample from cluster'
+            pills = [f"<span class='pill {pill_class}'>{esc(source_label)}</span>"]
+            if cluster.get('truncated'):
+                pills.append("<span class='pill pill-trunc'>Truncated for brevity</span>")
+            lines.append("<div>" + " ".join(pills) + "</div>")
+            
+            lines.append("<table>")
+            lines.append("<tr><th>Comment ID</th><th>Author</th><th>Video</th>"
+                         "<th>Published</th><th>Max Coordination</th><th>Partner Author</th>"
+                         "<th>Partner Comment</th><th>Text</th></tr>")
+            
+            for comment in cluster.get('evidence_comments', []):
+                text_raw = comment.get('text', '')
+                text = text_raw if len(text_raw) <= max_text_len else text_raw[:max_text_len] + '...'
+                coord = comment.get('max_coordination_in_cluster', '')
+                partner = comment.get('coordinated_with', {}) or {}
+                lines.append("<tr>"
+                             f"<td>{esc(comment.get('comment_id',''))}</td>"
+                             f"<td>{esc(comment.get('author_id',''))}</td>"
+                             f"<td>{esc(comment.get('video_id',''))}</td>"
+                             f"<td>{esc(comment.get('published_at',''))}</td>"
+                             f"<td>{esc(coord)}</td>"
+                             f"<td>{esc(partner.get('author_id',''))}</td>"
+                             f"<td>{esc(partner.get('comment_id',''))}</td>"
+                             f"<td class='text'>{esc(text)}</td>"
+                             "</tr>")
+            lines.append("</table>")
+            lines.append("<div class='small'>Showing up to "
+                         f"{esc(evidence_payload.get('max_comments_per_cluster', ''))} comments per cluster.</div>")
+        
+        lines.append("</body></html>")
+        
+        with open(output_path, 'w') as f:
+            f.write("\n".join(lines))
+    
+    def _save_cluster_comment_evidence(self, detection_results: pd.DataFrame,
+                                       comments_df: pd.DataFrame,
+                                       timestamp: str,
+                                       max_comments_per_cluster: int = 100) -> Dict[str, str]:
+        """Save per-cluster comment evidence to JSON and HTML for easy viewing"""
+        evidence_payload = self._build_cluster_comment_evidence(
+            detection_results, comments_df, max_comments_per_cluster
+        )
+        if not evidence_payload or not evidence_payload.get('clusters'):
+            return {}
+        
+        json_path = os.path.join(Config.REPORTS_DIR, f"cluster_comment_evidence_{timestamp}.json")
+        with open(json_path, 'w') as f:
+            json.dump(evidence_payload, f, indent=2, default=str)
+        
+        html_path = os.path.join(Config.REPORTS_DIR, f"cluster_comment_evidence_{timestamp}.html")
+        self._render_cluster_comment_evidence_html(evidence_payload, html_path)
+        index_path = self._update_cluster_evidence_index()
+        
+        logger.info(f"Saved cluster comment evidence to {json_path} and {html_path}")
+        return {'json': json_path, 'html': html_path, 'index': index_path}
     
     def _save_comment_probabilities(self, comments_df: pd.DataFrame):
         """Save per-comment bot probabilities to CSV"""
@@ -458,6 +862,67 @@ class YouTubeBotnetDetector:
         prob_df.to_csv(csv_path, index=False)
         
         logger.info(f"Saved comment-level probabilities to {csv_path}")
+
+    def _update_cluster_evidence_index(self) -> str:
+        """Build an index HTML page linking to all saved cluster evidence runs"""
+        pattern = os.path.join(Config.REPORTS_DIR, "cluster_comment_evidence_*.html")
+        html_files = glob.glob(pattern)
+        if not html_files:
+            return ""
+        
+        runs = []
+        for path in html_files:
+            ts = os.path.basename(path).replace("cluster_comment_evidence_", "").replace(".html", "")
+            try:
+                mtime = datetime.fromtimestamp(os.path.getmtime(path))
+            except Exception:
+                mtime = datetime.min
+            runs.append((mtime, ts, path))
+        
+        runs.sort(key=lambda x: x[0], reverse=True)
+        
+        def esc(val: str) -> str:
+            return html.escape(str(val)) if val is not None else ''
+        
+        lines = []
+        lines.append("<!DOCTYPE html>")
+        lines.append("<html lang='en'><head>")
+        lines.append("<meta charset='UTF-8'><title>Cluster Evidence Runs</title>")
+        lines.append("""
+        <style>
+            body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+            h1 { margin-bottom: 10px; }
+            table { border-collapse: collapse; width: 100%; margin-top: 12px; }
+            th, td { border: 1px solid #ddd; padding: 8px; }
+            th { background: #f5f5f5; text-align: left; }
+            tr:nth-child(even) { background: #fafafa; }
+            .pill { display: inline-block; padding: 3px 8px; border-radius: 10px; font-size: 12px; color: #fff; }
+            .pill-latest { background: #2a9d8f; }
+        </style>
+        """)
+        lines.append("</head><body>")
+        lines.append("<h1>Cluster Comment Evidence Runs</h1>")
+        lines.append("<table>")
+        lines.append("<tr><th>Run</th><th>Timestamp</th><th>Path</th></tr>")
+        for i, (mtime, ts, path) in enumerate(runs):
+            fname = os.path.basename(path)
+            pill = "<span class='pill pill-latest'>Latest</span>" if i == 0 else ""
+            lines.append(
+                "<tr>"
+                f"<td><a href='{esc(fname)}'>{esc(fname)}</a> {pill}</td>"
+                f"<td>{esc(mtime)}</td>"
+                f"<td>{esc(path)}</td>"
+                "</tr>"
+            )
+        lines.append("</table>")
+        lines.append("</body></html>")
+        
+        index_path = os.path.join(Config.REPORTS_DIR, "cluster_comment_evidence_index.html")
+        with open(index_path, 'w') as f:
+            f.write("\n".join(lines))
+        
+        logger.info(f"Updated cluster evidence index at {index_path}")
+        return index_path
     
     def print_summary(self, summary: Dict):
         """Print detection summary to console"""
@@ -571,10 +1036,21 @@ def main():
         print("\n✅ Bot detection completed successfully!")
         print(f"🔬 Detection Method: {args.method.upper()}")
         print(f"📊 Results saved to: {results['results_file']}")
+        if results.get('summary_file'):
+            print(f"📝 Summary saved to: {results['summary_file']}")
+        if results.get('cluster_comment_evidence'):
+            print(f"🧵 Cluster evidence (comments): {results['cluster_comment_evidence']}")
+        if results.get('cluster_comment_evidence_html'):
+            print(f"🧾 Cluster evidence (HTML): {results['cluster_comment_evidence_html']}")
+        if results.get('cluster_comment_evidence_index'):
+            print(f"📚 Cluster evidence index (all runs): {results['cluster_comment_evidence_index']}")
         if results.get('visualizations'):
             print("📈 Visualizations created:")
             for viz_type, path in results['visualizations'].items():
                 print(f"   - {viz_type}: {path}")
+        if results.get('visualizations'):
+            detector._open_visualizations(results.get('visualizations'))
+        detector._print_next_steps(results)
 
 if __name__ == "__main__":
     main()

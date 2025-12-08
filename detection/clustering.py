@@ -11,6 +11,10 @@ from typing import Dict, List, Tuple, Optional
 import logging
 
 from config.config import Config
+from utils.sklearn_compat import patch_force_all_finite_alias
+
+# Silence sklearn 1.6+ deprecation triggered inside hdbscan
+patch_force_all_finite_alias()
 
 logger = logging.getLogger(__name__)
 

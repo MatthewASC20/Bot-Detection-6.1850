@@ -1,0 +1,2653 @@
+{
+  "generated_at": "2025-12-08T00:31:01.467224",
+  "detection_method": "botbuster",
+  "coordination_threshold": 0.3,
+  "max_comments_per_cluster": 100,
+  "clusters": [
+    {
+      "cluster_id": 0,
+      "account_count": 4,
+      "comment_count": 5,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 4,
+      "evidence_comment_count": 4,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "7f83ef8be173f97e50f009e67cdde043",
+          "author_id": "UCWZdHanLqH3XLd5KrJIbi3A",
+          "video_id": "KjYSHrFkGrU",
+          "published_at": "2025-12-08T01:45:38Z",
+          "text": "\u2764\u2764\u2764\u2764\u2764",
+          "max_coordination_in_cluster": 0.75,
+          "coordinated_with": {
+            "author_id": "UCmt_sqwDeoEuhd1Wm-6YuIQ",
+            "comment_id": "476afcbc6b590d512cef7ec29888cc3d"
+          }
+        },
+        {
+          "comment_id": "476afcbc6b590d512cef7ec29888cc3d",
+          "author_id": "UCmt_sqwDeoEuhd1Wm-6YuIQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:31:45Z",
+          "text": "\u2764\u2764\u2764\u2764\u2764",
+          "max_coordination_in_cluster": 0.75,
+          "coordinated_with": {
+            "author_id": "UCWZdHanLqH3XLd5KrJIbi3A",
+            "comment_id": "7f83ef8be173f97e50f009e67cdde043"
+          }
+        },
+        {
+          "comment_id": "ca56adfcd936dc6959012c292ebb4126",
+          "author_id": "UCagIZOfDsOMnpUlPDWMJwuA",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T00:20:40Z",
+          "text": "\u2764",
+          "max_coordination_in_cluster": 0.673,
+          "coordinated_with": {
+            "author_id": "UCyN1zODSZlOz_E1qXx8Y2IQ",
+            "comment_id": "26ba8a2468756ae27cbb9fa76ae286c7"
+          }
+        },
+        {
+          "comment_id": "26ba8a2468756ae27cbb9fa76ae286c7",
+          "author_id": "UCyN1zODSZlOz_E1qXx8Y2IQ",
+          "video_id": "JKkzhOkk8dw",
+          "published_at": "2025-12-08T01:05:08Z",
+          "text": "\u2764\ufe0f",
+          "max_coordination_in_cluster": 0.673,
+          "coordinated_with": {
+            "author_id": "UCagIZOfDsOMnpUlPDWMJwuA",
+            "comment_id": "ca56adfcd936dc6959012c292ebb4126"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 1,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "f56b98ace4750e487e7f09329a69dfc3",
+          "author_id": "UCqX6XRnVnkfLBjb2UazDwWQ",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T01:39:30Z",
+          "text": "Melania is looking like Bruce Jenner?",
+          "max_coordination_in_cluster": 0.632,
+          "coordinated_with": {
+            "author_id": "UC6WktgEVFo3N5HO34pHIEWA",
+            "comment_id": "39c7b6757b27acfda9285e2bf48e555c"
+          }
+        },
+        {
+          "comment_id": "39c7b6757b27acfda9285e2bf48e555c",
+          "author_id": "UC6WktgEVFo3N5HO34pHIEWA",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T01:39:11Z",
+          "text": "Melania looks like she is about to hang herself.",
+          "max_coordination_in_cluster": 0.632,
+          "coordinated_with": {
+            "author_id": "UCqX6XRnVnkfLBjb2UazDwWQ",
+            "comment_id": "f56b98ace4750e487e7f09329a69dfc3"
+          }
+        },
+        {
+          "comment_id": "af2cf817ecb4fd5893724601c08bf48d",
+          "author_id": "UC7cz6zV7mS5rGMRxUas6C0Q",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T01:39:14Z",
+          "text": "Currently ,\u00a0\u00a0 Bible prophecy is being fulfilled . The Bible is a book of prophecy. Approximately \n30% of the Bible is about prophecy.\nThe earth is going to go through a time of tribulation.\nThe Great Tribulation\u00a0 will be a time of distress that human kind has never experience before.\nEarth will soon enter into this\u00a0 time\u00a0 of tribulation, and \nBible prophecy wil be fulfilled.\nTrue christians\u00a0 (saved from sin by Jesus\u00a0 )\u3000will be raptured,\n(lifted to heavenby Jesus)\nbut merely nominal\u00a0 christians\u00a0 \n(those who are christians in name only ) will\u00a0 remain \non the earth. \nThe second prophecy tells that \nIsrael will be attacked like \nnever before .\nas\u00a0 far\u00a0 as\u00a0 what happens first,\nthe order of prophecies 1,2,&3 might change.\n1. All Christians in the world will disappear at once.\nYou might get an image of that if \nyou watched the\u00a0 movie\n\"LeftBehind \" but \nI think the Rapture will be incomparable\u00a0 to the movie.\nThe movie cannot be compared \nwith reality when the Rapture occurs.\n2. Damascus ,the capital of Syria,will be destroyed.\n3. The countries of Russia,Iran, and Turkey will attack Israel.\nGod will miraculously give \nIsrael the victory in this battle.\nThe rise of the anti- Christ will occur\u00a0 when he is \nwelcomed as the new world leader.\nHe will confirm a peace treaty with Israel for seven years.\nThis will begin the Great \nTribulation, which will last for \nseven years.\nThe anti-Christ will lie to the \nworld about why Christians\ndisappear. For example,\nthe anti-Christ might lie and say \nthat extraterrestrials snatched \npeople who don't believe\nin aliens from outer space.\nDuring the Great Tribulation there will be famines, desease,\nepidemics and pandemics \nand many kind of natural disasters. During this era of time \nin human history, hardships \nwill happen like never before\nexperienced by human beings.\nThe anti-Christ will cause \nthe Jews to rebuild the temple\nin Jerusalem.\nThis has been difficult to achieve.\nThe anti-Christ will also cause \nthe Jews to restore the \nritual sacrifices in the temple.\nThe false\u00a0 prophet (maybe a \nRoman catholic pope )\nwill create and lead a one \nworld religion. After\u00a0 three\u00a0 and \na half years,the  anti-christ \u00a0 declare he is god, and \nmake people worship him.\nThe anti-Christ will also break \nthe peace treaty with Israel\nafter three and a half years.\nThe anti-Christ will coerce all \npeople to take a mark of 666 in \ntheir right hand or forehead.\nThis mark might be a bar code \nor microchip .\nThe Bible says that those \npeople who refuse to take\u00a0 the \nmark will not be able to \nbuy\u00a0 or sell, and will be beheaded.\nThe people left behind who are \nrepentant\u00a0 Christians\u00a0 will \nreject\u00a0 the anti-Christ and his \nmark, so will be killed.\nThe people who followed the \nanti-Christ and took the \nmark of the beast will cast into \nthe everlasting fire because\nof God's forewarned judgment.\nThose people who didn't \nfollow the anti-Christ and who \nrefused to take the mark of \nthe beast, will go to be \nwith God in heaven at last.\nThe Bible says that we should\nnever take that mark.\nJesus Christ's second coming \nwill be at the Mount of Olives \nat the end of the seven \nyears\u00a0 of the Great Tribulation .\nThen Christ will begin\u00a0 1000 years of His earthly \nKingdom.\nBible prophecy has been fulfilled \nin the past, but there is also \nstill more that the Bible says\u00a0 about\u00a0 prophecy that will \nbe\u00a0 fulfilled\u00a0 in the future.\nNow, currently, today\u00a0 is\u00a0 the \ntime to accept God's saying \ngrace, before the beginning\nof the Great Tribulation.\nThose\u00a0 people who believe that\nJesus Christ died on the cross \nfor their sins, they will go to \nheaven\u00a0 to be with Him .\nBelieving this is the priority \nabove everything else.\nI hope that many people will \nchoose this before it's too late.",
+          "max_coordination_in_cluster": 0.541,
+          "coordinated_with": {
+            "author_id": "UC6WktgEVFo3N5HO34pHIEWA",
+            "comment_id": "39c7b6757b27acfda9285e2bf48e555c"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "1762d71088f9359a448b006bcc34f742",
+          "author_id": "UCH8VxpBuDVKP0IBrYZN2fBg",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:45:05Z",
+          "text": "Now this is an awards show that's getting low ratings cuz ain't nobody watching this with him as host \ud83d\ude02",
+          "max_coordination_in_cluster": 0.533,
+          "coordinated_with": {
+            "author_id": "UCvfuf7-lPn-URXqe2qhT9PQ",
+            "comment_id": "4fe6b6b2661c304d4e2a0a1632b58294"
+          }
+        },
+        {
+          "comment_id": "4fe6b6b2661c304d4e2a0a1632b58294",
+          "author_id": "UCvfuf7-lPn-URXqe2qhT9PQ",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:44:59Z",
+          "text": "I hope it falls in on him",
+          "max_coordination_in_cluster": 0.533,
+          "coordinated_with": {
+            "author_id": "UCH8VxpBuDVKP0IBrYZN2fBg",
+            "comment_id": "1762d71088f9359a448b006bcc34f742"
+          }
+        },
+        {
+          "comment_id": "2934e6544fbf79d27a47dfe08b1fb962",
+          "author_id": "UCcgyWfGly9_RUYQdfIDkBtA",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:45:12Z",
+          "text": "ICE should swoop in and deport Melania.",
+          "max_coordination_in_cluster": 0.53,
+          "coordinated_with": {
+            "author_id": "UCH8VxpBuDVKP0IBrYZN2fBg",
+            "comment_id": "1762d71088f9359a448b006bcc34f742"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "9a9df198fe505269ee147a367ed24c3c",
+          "author_id": "UCm0saZgfveXY5KGTT6UDX9w",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:34:51Z",
+          "text": "Which made up award will the orange toddler get tonight???",
+          "max_coordination_in_cluster": 0.567,
+          "coordinated_with": {
+            "author_id": "UCyUDZxm8uBNHJqe-IRks23w",
+            "comment_id": "c84cd97fe7a00cd7d6ad09d8aac39a9d"
+          }
+        },
+        {
+          "comment_id": "c84cd97fe7a00cd7d6ad09d8aac39a9d",
+          "author_id": "UCyUDZxm8uBNHJqe-IRks23w",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:34:47Z",
+          "text": "He will probably fall asleep if his med's are not timed right.",
+          "max_coordination_in_cluster": 0.567,
+          "coordinated_with": {
+            "author_id": "UCm0saZgfveXY5KGTT6UDX9w",
+            "comment_id": "9a9df198fe505269ee147a367ed24c3c"
+          }
+        },
+        {
+          "comment_id": "aec69f260bebc942658fe88e87e2d268",
+          "author_id": "UCqJDXsUW2OmT9kUIy6aJJPg",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:35:00Z",
+          "text": "This corrupt Dictator takes over and screws everything up Kennedy Center losing $, costs are way up, and next health care costs will double - his makeup is dripping again \ud83e\udd2e",
+          "max_coordination_in_cluster": 0.521,
+          "coordinated_with": {
+            "author_id": "UCm0saZgfveXY5KGTT6UDX9w",
+            "comment_id": "9a9df198fe505269ee147a367ed24c3c"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 4,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "f2def760400d2933207b7a6522079db3",
+          "author_id": "UCdQDRINAvtMbdQ40l94FIHw",
+          "video_id": "rChcwSozre8",
+          "published_at": "2025-12-08T02:30:27Z",
+          "text": "Scamming and grifting are not genetically inherited, but growing up seeing it does.",
+          "max_coordination_in_cluster": 0.615,
+          "coordinated_with": {
+            "author_id": "UCazZj7hUZkn0yVWXY6tXKcw",
+            "comment_id": "5b622daab092055079e9275ad518c187"
+          }
+        },
+        {
+          "comment_id": "5b622daab092055079e9275ad518c187",
+          "author_id": "UCazZj7hUZkn0yVWXY6tXKcw",
+          "video_id": "rChcwSozre8",
+          "published_at": "2025-12-08T02:30:22Z",
+          "text": "His KIDS are as Idiotic as he is! They NEVER achieved anything always dependent on Grandpa's money",
+          "max_coordination_in_cluster": 0.615,
+          "coordinated_with": {
+            "author_id": "UCdQDRINAvtMbdQ40l94FIHw",
+            "comment_id": "f2def760400d2933207b7a6522079db3"
+          }
+        },
+        {
+          "comment_id": "9bd12dc01ae23544280ca55e55650fa3",
+          "author_id": "UCSazkLaH6FjCoQRK74Xx2wA",
+          "video_id": "rChcwSozre8",
+          "published_at": "2025-12-08T02:30:05Z",
+          "text": "In a country where stupidity was less prevalent, these guys would be barely scraping by. Pathetic.",
+          "max_coordination_in_cluster": 0.543,
+          "coordinated_with": {
+            "author_id": "UCazZj7hUZkn0yVWXY6tXKcw",
+            "comment_id": "5b622daab092055079e9275ad518c187"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 5,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "4714611971a104a81ca8dcf7e33fcced",
+          "author_id": "UCJdoUWV5TAIErd17nYlhiwg",
+          "video_id": "rChcwSozre8",
+          "published_at": "2025-12-08T02:12:32Z",
+          "text": "I belive there is allready enough proof to throw them away for decades, but sadly the rich in USA ALWAYS get\u00b4s a get out of jail free card! Third World if there ever was one!",
+          "max_coordination_in_cluster": 0.604,
+          "coordinated_with": {
+            "author_id": "UCR1dvI-lg-XGArLIGcxAVXg",
+            "comment_id": "866133428cab251c516075bd1b76a245"
+          }
+        },
+        {
+          "comment_id": "866133428cab251c516075bd1b76a245",
+          "author_id": "UCR1dvI-lg-XGArLIGcxAVXg",
+          "video_id": "rChcwSozre8",
+          "published_at": "2025-12-08T02:12:26Z",
+          "text": "In some countries,  corrupt politicians are put to death.",
+          "max_coordination_in_cluster": 0.604,
+          "coordinated_with": {
+            "author_id": "UCJdoUWV5TAIErd17nYlhiwg",
+            "comment_id": "4714611971a104a81ca8dcf7e33fcced"
+          }
+        },
+        {
+          "comment_id": "5e7cdc0004ea557dc247c10a73c7cbdf",
+          "author_id": "UCAF2SpNe25TsaNSMo-_avkQ",
+          "video_id": "rChcwSozre8",
+          "published_at": "2025-12-08T02:12:26Z",
+          "text": "There isn't and most likely will never be a return generated by AI, spending all the money these companies are is a joke and if the media was honest, y'all would have called a spade a spade on crypto years ago and admitted it's nothing but a pyramid scam too..",
+          "max_coordination_in_cluster": 0.588,
+          "coordinated_with": {
+            "author_id": "UCJdoUWV5TAIErd17nYlhiwg",
+            "comment_id": "4714611971a104a81ca8dcf7e33fcced"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 6,
+      "account_count": 3,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 4,
+      "evidence_comment_count": 4,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "ba3c14a955c73124696ada0b2f96236b",
+          "author_id": "UCvAa4pMDX7um6ZxUfjWZBsQ",
+          "video_id": "oylbyE5Zt0Q",
+          "published_at": "2025-12-08T02:30:57Z",
+          "text": "Then we are supposed to stick with bama care forever\u2026 like cmon if you remember the keep your doctor and all that \ud83d\udca9 he sold us on\u2026 you know it\u2019s a lie and you won\u2019t even admit it\u2026",
+          "max_coordination_in_cluster": 0.622,
+          "coordinated_with": {
+            "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+            "comment_id": "e3c39fe7a1ecd2da08307fa78c55b4c0"
+          }
+        },
+        {
+          "comment_id": "e3c39fe7a1ecd2da08307fa78c55b4c0",
+          "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+          "video_id": "oylbyE5Zt0Q",
+          "published_at": "2025-12-08T02:30:56Z",
+          "text": "The Republicans are working on it Democrats still have their heads their ass",
+          "max_coordination_in_cluster": 0.622,
+          "coordinated_with": {
+            "author_id": "UCvAa4pMDX7um6ZxUfjWZBsQ",
+            "comment_id": "ba3c14a955c73124696ada0b2f96236b"
+          }
+        },
+        {
+          "comment_id": "423c74ad508ecbad7326693ed14caa0f",
+          "author_id": "UCykS9EXkbjcT_KiURF6oN-w",
+          "video_id": "oylbyE5Zt0Q",
+          "published_at": "2025-12-08T02:31:16Z",
+          "text": "Our Government is giving $35 billion dollars a year to health insurance companies. Since Obamacare was passed 15 Years ago, Insurance Companies Revenues and profits have increased 10 Fold and 85% of those profits is the $35 Billion a year that is given to them through Taxpayer's Money. Additionally, since Obamacare was passed the out of pocket price has quadrupled and the quality has Tanked.",
+          "max_coordination_in_cluster": 0.522,
+          "coordinated_with": {
+            "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+            "comment_id": "c23bbaed24f2f4c2161e2c566105a31d"
+          }
+        },
+        {
+          "comment_id": "c23bbaed24f2f4c2161e2c566105a31d",
+          "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+          "video_id": "oylbyE5Zt0Q",
+          "published_at": "2025-12-08T02:31:34Z",
+          "text": "Some people can get health insurance through their jobs . I want to still learning Pizza for Papa John's I got United healthcare. Add a reasonable rate I was a happy camper",
+          "max_coordination_in_cluster": 0.522,
+          "coordinated_with": {
+            "author_id": "UCykS9EXkbjcT_KiURF6oN-w",
+            "comment_id": "423c74ad508ecbad7326693ed14caa0f"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 7,
+      "account_count": 5,
+      "comment_count": 6,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 5,
+      "evidence_comment_count": 5,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "5480a99032da9c9108616652abf6dac8",
+          "author_id": "UCLGmQQ5fsMQycwS4x3dTu0w",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T02:16:29Z",
+          "text": "Zionists are the evil people on the planet.",
+          "max_coordination_in_cluster": 0.661,
+          "coordinated_with": {
+            "author_id": "UCXDFeBOQZUUpYZdtOUm6BPw",
+            "comment_id": "a2cdfefef80a4cdf06a0d6167c9d4fec"
+          }
+        },
+        {
+          "comment_id": "a2cdfefef80a4cdf06a0d6167c9d4fec",
+          "author_id": "UCXDFeBOQZUUpYZdtOUm6BPw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T02:16:29Z",
+          "text": "@h@hunternedib1119 at least they aren\u2019t the ones dropping the bombs and shooting children and graping prisoners. Stop trying to deflect.",
+          "max_coordination_in_cluster": 0.661,
+          "coordinated_with": {
+            "author_id": "UCLGmQQ5fsMQycwS4x3dTu0w",
+            "comment_id": "5480a99032da9c9108616652abf6dac8"
+          }
+        },
+        {
+          "comment_id": "54e139e7ec741af645f6fc613ec0164d",
+          "author_id": "UCEkDdy2kn2Eikke2lrJ9tFg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T02:16:31Z",
+          "text": "I\u2019m hoping there will be some brave journalists who look beyond Israel\u2019s bullshit.",
+          "max_coordination_in_cluster": 0.646,
+          "coordinated_with": {
+            "author_id": "UCLGmQQ5fsMQycwS4x3dTu0w",
+            "comment_id": "5480a99032da9c9108616652abf6dac8"
+          }
+        },
+        {
+          "comment_id": "df0c4b5efa6256a2aa8bfeafa7a8c9bc",
+          "author_id": "UCE7UTJ5L1M4XJ8y8SxtZbSQ",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T02:12:32Z",
+          "text": "H@m@as are the freedom fighters and good guys here. All those things you hear about how bad they are is a bunch of lies.",
+          "max_coordination_in_cluster": 0.558,
+          "coordinated_with": {
+            "author_id": "UCsuhuM1_-ZKnMlCcT6Bt-CA",
+            "comment_id": "c5cbe7965d6b254c7758c53af212c510"
+          }
+        },
+        {
+          "comment_id": "c5cbe7965d6b254c7758c53af212c510",
+          "author_id": "UCsuhuM1_-ZKnMlCcT6Bt-CA",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T02:12:26Z",
+          "text": "Zionism is satanic",
+          "max_coordination_in_cluster": 0.558,
+          "coordinated_with": {
+            "author_id": "UCE7UTJ5L1M4XJ8y8SxtZbSQ",
+            "comment_id": "df0c4b5efa6256a2aa8bfeafa7a8c9bc"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 8,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "037d4468cffcdaff674bef4daf0d8ad2",
+          "author_id": "UC9gF6b3uKzx1anogd0zzLrw",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T01:29:16Z",
+          "text": "it is naive to say the IDF!! All the murder and destruction since January 2025 pause was at the order of Trump, to accomplish the plan by the devil, the Kushner Blair to build the Trump Riviera!!\ud83d\ude22\ud83d\ude22\ud83d\ude22\nEff USrael!!",
+          "max_coordination_in_cluster": 0.676,
+          "coordinated_with": {
+            "author_id": "UCuOHymdOay43fUkimt-_VcA",
+            "comment_id": "178fc70118a4972490a6aa2b52395937"
+          }
+        },
+        {
+          "comment_id": "178fc70118a4972490a6aa2b52395937",
+          "author_id": "UCuOHymdOay43fUkimt-_VcA",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T01:29:12Z",
+          "text": "The fact that when the IDF massacred those paramedics they buried the bodies makes me think that alot of murders have been covered up.The fact that independent journalists still have not had access makes me think the numbers of civilian deaths are much much higher than the current estimates.The amount of destruction that has been rained on Gaza is staggering and it would be impossible to get any accurate figures of civilian deaths.",
+          "max_coordination_in_cluster": 0.676,
+          "coordinated_with": {
+            "author_id": "UC9gF6b3uKzx1anogd0zzLrw",
+            "comment_id": "037d4468cffcdaff674bef4daf0d8ad2"
+          }
+        },
+        {
+          "comment_id": "4b1bfa83f8c5e76844ad57f514444750",
+          "author_id": "UCgoVHtf0l8KW69i1h94pM2Q",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T01:28:58Z",
+          "text": "Oh Jesus Christ these people are exterminating them",
+          "max_coordination_in_cluster": 0.504,
+          "coordinated_with": {
+            "author_id": "UCuOHymdOay43fUkimt-_VcA",
+            "comment_id": "178fc70118a4972490a6aa2b52395937"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 9,
+      "account_count": 3,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "42a0c19d86c10c91b1595dbf67eb6b13",
+          "author_id": "UCsyZq--jxmRtphIflk8eQ2g",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T01:20:20Z",
+          "text": "ZIONISM MUST banned all around the world like NAZISM!\n\nIt is an EVIL ideology",
+          "max_coordination_in_cluster": 0.62,
+          "coordinated_with": {
+            "author_id": "UCMBb9E7-qw3HHGkmBaNECrw",
+            "comment_id": "ebfa39ad779fec81a6083560d52bbb13"
+          }
+        },
+        {
+          "comment_id": "ebfa39ad779fec81a6083560d52bbb13",
+          "author_id": "UCMBb9E7-qw3HHGkmBaNECrw",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T01:20:14Z",
+          "text": "They stole your money , theyr stole the lanf and they keep stealing Palestinians lives ! Free Palestine ! Free the world",
+          "max_coordination_in_cluster": 0.62,
+          "coordinated_with": {
+            "author_id": "UCsyZq--jxmRtphIflk8eQ2g",
+            "comment_id": "42a0c19d86c10c91b1595dbf67eb6b13"
+          }
+        },
+        {
+          "comment_id": "52662f9163bc80361027fe02d6899f37",
+          "author_id": "UCBzl0SD2oaKqlu1Kr7TUaoA",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T01:20:20Z",
+          "text": "And the American government gave the arms for murder",
+          "max_coordination_in_cluster": 0.606,
+          "coordinated_with": {
+            "author_id": "UCsyZq--jxmRtphIflk8eQ2g",
+            "comment_id": "42a0c19d86c10c91b1595dbf67eb6b13"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 10,
+      "account_count": 3,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 4,
+      "evidence_comment_count": 4,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "b616cc4b758c1cfb02cea6fae52619b4",
+          "author_id": "UCB5MX19xwInlcIcf-cs6Y6Q",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T00:53:15Z",
+          "text": "you should invite Dan Belizan on your show  he is the best  \nhttps://youtu.be/KICYv4O03CA?si=1lj3LDOhE2xaxP4q",
+          "max_coordination_in_cluster": 0.541,
+          "coordinated_with": {
+            "author_id": "UCPXlyJdQp12xpQ3EXa6Kq0A",
+            "comment_id": "87dea1c1840b226b59eeb3467b003fee"
+          }
+        },
+        {
+          "comment_id": "87dea1c1840b226b59eeb3467b003fee",
+          "author_id": "UCPXlyJdQp12xpQ3EXa6Kq0A",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T00:53:06Z",
+          "text": "Got a CNN ad after this video",
+          "max_coordination_in_cluster": 0.541,
+          "coordinated_with": {
+            "author_id": "UCB5MX19xwInlcIcf-cs6Y6Q",
+            "comment_id": "b616cc4b758c1cfb02cea6fae52619b4"
+          }
+        },
+        {
+          "comment_id": "bc5359e2520204aaaa310ce01db9a9a8",
+          "author_id": "UCB5MX19xwInlcIcf-cs6Y6Q",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T00:53:02Z",
+          "text": "You don't want migraines to come to your countries, then don't go invade and bomb their countries, you're the problem.You're the reason that this migrants come to Europe and America.It's your faults blame yourselves",
+          "max_coordination_in_cluster": 0.541,
+          "coordinated_with": {
+            "author_id": "UCBgrbtYr8q4cSZSIf2datgg",
+            "comment_id": "f0845d4e3367a10a1090498b15390131"
+          }
+        },
+        {
+          "comment_id": "f0845d4e3367a10a1090498b15390131",
+          "author_id": "UCBgrbtYr8q4cSZSIf2datgg",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-08T00:53:02Z",
+          "text": "That's Right..ROMANS 12 Vengeance belongs to GOD. \u2764\ud83d\ude02",
+          "max_coordination_in_cluster": 0.541,
+          "coordinated_with": {
+            "author_id": "UCB5MX19xwInlcIcf-cs6Y6Q",
+            "comment_id": "bc5359e2520204aaaa310ce01db9a9a8"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 11,
+      "account_count": 4,
+      "comment_count": 6,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 5,
+      "evidence_comment_count": 5,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "0c63770a83c38e6f23a6aa11a41d52df",
+          "author_id": "UCc4vCVsw4fbjcIu1Dg6tK1g",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-07T23:35:59Z",
+          "text": "It appears they\u2019re following biblical prophecy and they are egging the world to come against them so that then they can use the Samson option which is what God prevents so that all flesh does not perish?",
+          "max_coordination_in_cluster": 0.663,
+          "coordinated_with": {
+            "author_id": "UCiPC7c5llXTEyNqtaKhhlWA",
+            "comment_id": "5cf0d39e03d3efe67ed2a3e23a5b23b1"
+          }
+        },
+        {
+          "comment_id": "5cf0d39e03d3efe67ed2a3e23a5b23b1",
+          "author_id": "UCiPC7c5llXTEyNqtaKhhlWA",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-07T23:35:58Z",
+          "text": "What's next....after that Palestinians should gave up and give Israel their weapons so Israel can kill them peacefully...\nWhat's Next???",
+          "max_coordination_in_cluster": 0.663,
+          "coordinated_with": {
+            "author_id": "UCc4vCVsw4fbjcIu1Dg6tK1g",
+            "comment_id": "0c63770a83c38e6f23a6aa11a41d52df"
+          }
+        },
+        {
+          "comment_id": "a0ebe1f250c53442530f9d20298e03dc",
+          "author_id": "UC9tJhU4L27FhM6Z7GGum2uA",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-07T23:36:02Z",
+          "text": "And the truth is, that the IDF killed most of the so called Israeli hostages. Good Israelis know this, they know their government is an abomination to basic human rights and is intent on genocide.",
+          "max_coordination_in_cluster": 0.648,
+          "coordinated_with": {
+            "author_id": "UCiPC7c5llXTEyNqtaKhhlWA",
+            "comment_id": "5cf0d39e03d3efe67ed2a3e23a5b23b1"
+          }
+        },
+        {
+          "comment_id": "a25dc7be67d05b4b391f8330626de0fc",
+          "author_id": "UCKolLQqI-OYRGjh0RDhJ1_w",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-07T23:35:45Z",
+          "text": "Soul-less animals will be soul-less animals. Why the world tolerates this evil cult is beyond reason and condemns all complicit.",
+          "max_coordination_in_cluster": 0.549,
+          "coordinated_with": {
+            "author_id": "UCc4vCVsw4fbjcIu1Dg6tK1g",
+            "comment_id": "0c63770a83c38e6f23a6aa11a41d52df"
+          }
+        },
+        {
+          "comment_id": "975099d67d98d4dce524f9749239d542",
+          "author_id": "UC9tJhU4L27FhM6Z7GGum2uA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:28:01Z",
+          "text": "Oh how good is this! Can we send them a couple of ex Aussie SAS troopers for their protection? Free Palestine. Bomb Israel",
+          "max_coordination_in_cluster": 0.336,
+          "coordinated_with": {
+            "author_id": "UCiPC7c5llXTEyNqtaKhhlWA",
+            "comment_id": "5cf0d39e03d3efe67ed2a3e23a5b23b1"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 12,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "1c4ecd423fa665794cd95f71ea859552",
+          "author_id": "UCS_8ItNiTNbN7mlMtWeNgnw",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:52:23Z",
+          "text": "I supported trump but since he supplied weapons for genocide in Palestine and Ukraine I have done a massive uturn.\nGo Cenk you are so much better as a unipolar political supporter. Keep going for all s/Itty politicians",
+          "max_coordination_in_cluster": 0.542,
+          "coordinated_with": {
+            "author_id": "UCCi0C_1-e-1cRbHPW82wYvQ",
+            "comment_id": "d58e65abbc44a09fdf925782c7912fae"
+          }
+        },
+        {
+          "comment_id": "d58e65abbc44a09fdf925782c7912fae",
+          "author_id": "UCCi0C_1-e-1cRbHPW82wYvQ",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:52:17Z",
+          "text": "That guy shouldn't be near the position of power.",
+          "max_coordination_in_cluster": 0.542,
+          "coordinated_with": {
+            "author_id": "UCS_8ItNiTNbN7mlMtWeNgnw",
+            "comment_id": "1c4ecd423fa665794cd95f71ea859552"
+          }
+        },
+        {
+          "comment_id": "c9af3c9cdc286839e625eafb7df98bc0",
+          "author_id": "UC2tIigGKNUEv56G5ZyWWa3g",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:52:06Z",
+          "text": "Surely Hegseth is a vote winner for the Dems ?",
+          "max_coordination_in_cluster": 0.518,
+          "coordinated_with": {
+            "author_id": "UCS_8ItNiTNbN7mlMtWeNgnw",
+            "comment_id": "1c4ecd423fa665794cd95f71ea859552"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 13,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "644f4558d36bb5ed9c2a28edcb3c72c7",
+          "author_id": "UCXK6LEJFSTFQuD_K7zgBjXw",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:32:05Z",
+          "text": "Pete is doing a great job. Keep up the good work, Pete. Get rid of all the killer drugs coming into our country by the terrorists to kill millions of our young people.",
+          "max_coordination_in_cluster": 0.631,
+          "coordinated_with": {
+            "author_id": "UC_ZnH7JmmjXZ3tlzt_mYkkw",
+            "comment_id": "295237b97923f5b024072dc81548ba50"
+          }
+        },
+        {
+          "comment_id": "295237b97923f5b024072dc81548ba50",
+          "author_id": "UC_ZnH7JmmjXZ3tlzt_mYkkw",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:32:10Z",
+          "text": "If you\u2019d like to start that as a policy of the USA, you\u2019ll need to propose legislation for it. There will need to be rules and ya know things like that. Particularly if you\u2019d like to murder members of a different nation in international waters because you THINK they are bringing drugs to American drug addicts. You as a tax payer are already a part of a nation that is getting sued for this. If you like seeing US dollars shipped overseas to families of the murdered, then I guess you\u2019ll just stay blood thirsty and be a good follower.",
+          "max_coordination_in_cluster": 0.631,
+          "coordinated_with": {
+            "author_id": "UCXK6LEJFSTFQuD_K7zgBjXw",
+            "comment_id": "644f4558d36bb5ed9c2a28edcb3c72c7"
+          }
+        },
+        {
+          "comment_id": "d5d3285164440167742a7718a8d2deb8",
+          "author_id": "UCiBsktyhs8iZXhg7IfUEuUQ",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:32:13Z",
+          "text": "YES IMPEACH TRUMP AND PETE",
+          "max_coordination_in_cluster": 0.625,
+          "coordinated_with": {
+            "author_id": "UCXK6LEJFSTFQuD_K7zgBjXw",
+            "comment_id": "644f4558d36bb5ed9c2a28edcb3c72c7"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 14,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "22d0377194c83b37139af2a97442c937",
+          "author_id": "UCFQO4ZWM-Hc0TeuaRSvh1oA",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:13:03Z",
+          "text": "Everybody's days are numbered but it goes up not down \n\ncheckmate!!!",
+          "max_coordination_in_cluster": 0.575,
+          "coordinated_with": {
+            "author_id": "UClHB8BHl5rfFO7wBw7RiIsw",
+            "comment_id": "7fb0d24c7b36e4a3b3f4caf0acea399f"
+          }
+        },
+        {
+          "comment_id": "7fb0d24c7b36e4a3b3f4caf0acea399f",
+          "author_id": "UClHB8BHl5rfFO7wBw7RiIsw",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:13:02Z",
+          "text": "Yes, he will soon be fired if things continue as they are. Not because of war crimes, not because of security risks, not for throwing Bradley under the bus, but because he is taking news coverage away from Trump.",
+          "max_coordination_in_cluster": 0.575,
+          "coordinated_with": {
+            "author_id": "UCFQO4ZWM-Hc0TeuaRSvh1oA",
+            "comment_id": "22d0377194c83b37139af2a97442c937"
+          }
+        },
+        {
+          "comment_id": "7205c87d3ad6df7be1e188f5152b68ab",
+          "author_id": "UCWj9y0t0G65oqb-Lpy3J7oQ",
+          "video_id": "s2EXTCAFPKA",
+          "published_at": "2025-12-07T19:12:41Z",
+          "text": "NO!!!!! He NEEDS PETE WHEN ITS TIME TO DEPLOY THE TROOPS ON WE THE PEOPLE AFTER WE ALL DECIDE HE NEEDS TO BE REMOVED ( LEFT AND RIGHT )",
+          "max_coordination_in_cluster": 0.507,
+          "coordinated_with": {
+            "author_id": "UClHB8BHl5rfFO7wBw7RiIsw",
+            "comment_id": "7fb0d24c7b36e4a3b3f4caf0acea399f"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 15,
+      "account_count": 19,
+      "comment_count": 20,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 20,
+      "evidence_comment_count": 20,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "af99692654b2c10bbd6306f12084daec",
+          "author_id": "UC2pmI1wQjhTiUOkQaG85C8A",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T22:51:55Z",
+          "text": "Old news",
+          "max_coordination_in_cluster": 0.675,
+          "coordinated_with": {
+            "author_id": "UCWKPnFneanj_B7shGGgwZCQ",
+            "comment_id": "4956db5fc2733d94f65be73eb690e280"
+          }
+        },
+        {
+          "comment_id": "4956db5fc2733d94f65be73eb690e280",
+          "author_id": "UCWKPnFneanj_B7shGGgwZCQ",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:05:38Z",
+          "text": "old news",
+          "max_coordination_in_cluster": 0.675,
+          "coordinated_with": {
+            "author_id": "UC2pmI1wQjhTiUOkQaG85C8A",
+            "comment_id": "af99692654b2c10bbd6306f12084daec"
+          }
+        },
+        {
+          "comment_id": "00993927b1bbecf06e52d1df1c773fa3",
+          "author_id": "UCNfN8yv7gGSgHsGjUbEylQA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:04:44Z",
+          "text": "The chosen psychopaths and criminals of ISRAHELL",
+          "max_coordination_in_cluster": 0.668,
+          "coordinated_with": {
+            "author_id": "UCGIX8tk8WLELoRWBRP49zyQ",
+            "comment_id": "e6a85c95424efedaa12469f1096e2d72"
+          }
+        },
+        {
+          "comment_id": "e6a85c95424efedaa12469f1096e2d72",
+          "author_id": "UCGIX8tk8WLELoRWBRP49zyQ",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:04:45Z",
+          "text": "She has condemned several times. Do you condemn Israels genocide ? Or does you handlar not allow u ?",
+          "max_coordination_in_cluster": 0.668,
+          "coordinated_with": {
+            "author_id": "UCNfN8yv7gGSgHsGjUbEylQA",
+            "comment_id": "00993927b1bbecf06e52d1df1c773fa3"
+          }
+        },
+        {
+          "comment_id": "3032ca38d8d439ca4bfde7076a7e32e9",
+          "author_id": "UCNfN8yv7gGSgHsGjUbEylQA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:05:38Z",
+          "text": "\ud83e\udd21",
+          "max_coordination_in_cluster": 0.659,
+          "coordinated_with": {
+            "author_id": "UCWKPnFneanj_B7shGGgwZCQ",
+            "comment_id": "4956db5fc2733d94f65be73eb690e280"
+          }
+        },
+        {
+          "comment_id": "a23926869caaf0a820d2e655c76d8151",
+          "author_id": "UCHLo2hdHmPdkGabpvM3-IPw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:05:52Z",
+          "text": "This is old news",
+          "max_coordination_in_cluster": 0.642,
+          "coordinated_with": {
+            "author_id": "UCc6OGvvNjXV6JYjEnYGQuYQ",
+            "comment_id": "84a9c3c8e17c16f427e60ad2655c46d1"
+          }
+        },
+        {
+          "comment_id": "84a9c3c8e17c16f427e60ad2655c46d1",
+          "author_id": "UCc6OGvvNjXV6JYjEnYGQuYQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:05:51Z",
+          "text": "Re upload",
+          "max_coordination_in_cluster": 0.642,
+          "coordinated_with": {
+            "author_id": "UCHLo2hdHmPdkGabpvM3-IPw",
+            "comment_id": "a23926869caaf0a820d2e655c76d8151"
+          }
+        },
+        {
+          "comment_id": "90e6e39626a128001a0f04055e2a9bba",
+          "author_id": "UCxrWDJOMEjXWq4iADp304WQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-08T00:05:36Z",
+          "text": "Old news.",
+          "max_coordination_in_cluster": 0.633,
+          "coordinated_with": {
+            "author_id": "UCWKPnFneanj_B7shGGgwZCQ",
+            "comment_id": "4956db5fc2733d94f65be73eb690e280"
+          }
+        },
+        {
+          "comment_id": "5542be5b6ce80f6653f793053f603eaa",
+          "author_id": "UCJUYejqtHPZBkU6gUQRfcyw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:15:39Z",
+          "text": "Old News",
+          "max_coordination_in_cluster": 0.618,
+          "coordinated_with": {
+            "author_id": "UCWKPnFneanj_B7shGGgwZCQ",
+            "comment_id": "4956db5fc2733d94f65be73eb690e280"
+          }
+        },
+        {
+          "comment_id": "2ab10a7d2bd1ec232e297c62bf863d09",
+          "author_id": "UC4MahfT7Gl1ktHxS5c_mFHg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:54:26Z",
+          "text": "I appreciate your journalistic perspicacity and passion throughout this Anna.",
+          "max_coordination_in_cluster": 0.584,
+          "coordinated_with": {
+            "author_id": "UC8nphqigAxuDLb42DkLqimg",
+            "comment_id": "e9a4d542c255cf9ee248ea4096ce3592"
+          }
+        },
+        {
+          "comment_id": "e9a4d542c255cf9ee248ea4096ce3592",
+          "author_id": "UC8nphqigAxuDLb42DkLqimg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:54:23Z",
+          "text": "Old news. You guys suck.",
+          "max_coordination_in_cluster": 0.584,
+          "coordinated_with": {
+            "author_id": "UC4MahfT7Gl1ktHxS5c_mFHg",
+            "comment_id": "2ab10a7d2bd1ec232e297c62bf863d09"
+          }
+        },
+        {
+          "comment_id": "a297bec942e2d94330b18b2499bce0f5",
+          "author_id": "UCadC6Zk-C38hdVBW-pLdmfA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:06:08Z",
+          "text": "Clinton and trump.. lol..",
+          "max_coordination_in_cluster": 0.582,
+          "coordinated_with": {
+            "author_id": "UCLzivcTRxdENd0IyjNLIGjw",
+            "comment_id": "4a890b30b7da4764f442088d05c166f7"
+          }
+        },
+        {
+          "comment_id": "4a890b30b7da4764f442088d05c166f7",
+          "author_id": "UCLzivcTRxdENd0IyjNLIGjw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:06:04Z",
+          "text": "Since when does the GOP give a shit about legal precedent?",
+          "max_coordination_in_cluster": 0.582,
+          "coordinated_with": {
+            "author_id": "UCadC6Zk-C38hdVBW-pLdmfA",
+            "comment_id": "a297bec942e2d94330b18b2499bce0f5"
+          }
+        },
+        {
+          "comment_id": "097c709c59cce20d279980c36d760a1a",
+          "author_id": "UCYJ_XG-Uw-wahPR4QOGZvrw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:54:29Z",
+          "text": "\ud83d\udcaf% An evil book for an evil people.",
+          "max_coordination_in_cluster": 0.555,
+          "coordinated_with": {
+            "author_id": "UC4MahfT7Gl1ktHxS5c_mFHg",
+            "comment_id": "2ab10a7d2bd1ec232e297c62bf863d09"
+          }
+        },
+        {
+          "comment_id": "875a1c68af3cb7680e16b5e29afbfbcc",
+          "author_id": "UCmv-giPA-BelRMUjhJOgXkg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:06:03Z",
+          "text": "This two cents thing is the most narcissistic weird scene on you tube.",
+          "max_coordination_in_cluster": 0.554,
+          "coordinated_with": {
+            "author_id": "UCadC6Zk-C38hdVBW-pLdmfA",
+            "comment_id": "a297bec942e2d94330b18b2499bce0f5"
+          }
+        },
+        {
+          "comment_id": "5fffac1a598429c775aa7ea796fcff87",
+          "author_id": "UC_5n637j5McBzZx-elorBYw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:52:25Z",
+          "text": "This is a reupload",
+          "max_coordination_in_cluster": 0.552,
+          "coordinated_with": {
+            "author_id": "UCc6OGvvNjXV6JYjEnYGQuYQ",
+            "comment_id": "84a9c3c8e17c16f427e60ad2655c46d1"
+          }
+        },
+        {
+          "comment_id": "1770299ec8602ad5a8384dd37ffc9fba",
+          "author_id": "UCr2FrxYA-xonlRzPESYSt6Q",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T22:51:46Z",
+          "text": "Clay's commitment to procedure had better have been his priority while our government started discussing all other open investigations... Right?  Oh... No.  *Fukem",
+          "max_coordination_in_cluster": 0.547,
+          "coordinated_with": {
+            "author_id": "UCr2WXCE1aF-S5NdYXqo-4TQ",
+            "comment_id": "0122ceefee2f669dc1efa60d0302e055"
+          }
+        },
+        {
+          "comment_id": "0122ceefee2f669dc1efa60d0302e055",
+          "author_id": "UCr2WXCE1aF-S5NdYXqo-4TQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T22:51:38Z",
+          "text": "There is no reason to release the names of the victims,",
+          "max_coordination_in_cluster": 0.547,
+          "coordinated_with": {
+            "author_id": "UCr2FrxYA-xonlRzPESYSt6Q",
+            "comment_id": "1770299ec8602ad5a8384dd37ffc9fba"
+          }
+        },
+        {
+          "comment_id": "3e7c02035beb909f19d9e2710a5566c0",
+          "author_id": "UCv1zT-rWzzWvBTQWcEFTn-w",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:15:30Z",
+          "text": "The files have already been edited and big names have been filtered out.",
+          "max_coordination_in_cluster": 0.547,
+          "coordinated_with": {
+            "author_id": "UCJUYejqtHPZBkU6gUQRfcyw",
+            "comment_id": "5542be5b6ce80f6653f793053f603eaa"
+          }
+        },
+        {
+          "comment_id": "646ce0ab3b8940bce2eabe58e09f948f",
+          "author_id": "UCiDGQ9ls26ik5RarHvmVsZg",
+          "video_id": "t15c3-pYSYo",
+          "published_at": "2025-12-07T23:23:12Z",
+          "text": "But do you condemn Hamas ?",
+          "max_coordination_in_cluster": 0.519,
+          "coordinated_with": {
+            "author_id": "UCGIX8tk8WLELoRWBRP49zyQ",
+            "comment_id": "e6a85c95424efedaa12469f1096e2d72"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 16,
+      "account_count": 16,
+      "comment_count": 19,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 17,
+      "evidence_comment_count": 17,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "c9f337493560a12deb0cb0b137d9683a",
+          "author_id": "UClp5GAYRnBSvzS8RabhNSlQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T23:38:03Z",
+          "text": "Clickbait",
+          "max_coordination_in_cluster": 0.75,
+          "coordinated_with": {
+            "author_id": "UCOKCLPDExZWCM8daXh_4SZA",
+            "comment_id": "66fdb8c44b822600b11a06e19ca42055"
+          }
+        },
+        {
+          "comment_id": "66fdb8c44b822600b11a06e19ca42055",
+          "author_id": "UCOKCLPDExZWCM8daXh_4SZA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T02:08:15Z",
+          "text": "Clickbait",
+          "max_coordination_in_cluster": 0.75,
+          "coordinated_with": {
+            "author_id": "UClp5GAYRnBSvzS8RabhNSlQ",
+            "comment_id": "c9f337493560a12deb0cb0b137d9683a"
+          }
+        },
+        {
+          "comment_id": "11fb7424ce26e853982155bab9029b8b",
+          "author_id": "UCyj7TN5uHp2bHVzXkekn9yQ",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T22:53:03Z",
+          "text": "LOOK UP- \"Tel Aviv\",\"signs\" \"cache\" of arms/wepons- YOU WILL SEE SIGNS in Tel Aviv CELEBRATING the SYNAGOGUES, SCHOOLS, and HOMES the ZIONISTS used to ATTACK BRITISH and PALESTINIANS- The ZIONISTS use THEIR CIVILIANS as HUMAN SHIELDS!!! We all learned that \"Israeli\" MILITARY SITES are located UNDER A MALL in Tel Aviv in the 12 day \"war\" with Iran!!! AND we have SEEN IDF STRAP PALESTINIANS on the hoods of their cars!!! #IsraeliLIES #HASBARA",
+          "max_coordination_in_cluster": 0.672,
+          "coordinated_with": {
+            "author_id": "UChlxZL5-BN7FoSNHnky83_Q",
+            "comment_id": "026fbfacfdda774495d0411f440d8c58"
+          }
+        },
+        {
+          "comment_id": "026fbfacfdda774495d0411f440d8c58",
+          "author_id": "UChlxZL5-BN7FoSNHnky83_Q",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T22:53:06Z",
+          "text": "When Israel falls as it must, the world will rejoice and it will be glorious.",
+          "max_coordination_in_cluster": 0.672,
+          "coordinated_with": {
+            "author_id": "UCyj7TN5uHp2bHVzXkekn9yQ",
+            "comment_id": "11fb7424ce26e853982155bab9029b8b"
+          }
+        },
+        {
+          "comment_id": "d563a35b4b0b7c8a12859af239c85d7a",
+          "author_id": "UCAH0RDKkppD73KGTGu3sE2w",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T22:53:08Z",
+          "text": "Cenk and Ana can go to Gaza and report live.\nJust don't throw rocks at the IDF at the Yellow line in Gaza. \nI will be watching your dead bodies Live on the Palestinian news channels reports on YouTube.",
+          "max_coordination_in_cluster": 0.664,
+          "coordinated_with": {
+            "author_id": "UCyj7TN5uHp2bHVzXkekn9yQ",
+            "comment_id": "11fb7424ce26e853982155bab9029b8b"
+          }
+        },
+        {
+          "comment_id": "ca647ada11bd0133d9d2c641520548ef",
+          "author_id": "UC5Dyo7pHqdM2-BwmQk1bGDA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T22:53:14Z",
+          "text": "What is the point? Gaza is a living nightmare & everyone knew it. We\u2019re just finally getting to see it in real time. Israel\ud83c\uddee\ud83c\uddf1\u2019s attempt to put lipstick on a pig..Now?\ud83e\udd26\ud83c\udffd\u200d\u2642\ufe0f",
+          "max_coordination_in_cluster": 0.653,
+          "coordinated_with": {
+            "author_id": "UCAH0RDKkppD73KGTGu3sE2w",
+            "comment_id": "d563a35b4b0b7c8a12859af239c85d7a"
+          }
+        },
+        {
+          "comment_id": "d432a34716198730721b9f0d0775bed2",
+          "author_id": "UCsD4KGMoYBy9rHr76tG0cHw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:58:19Z",
+          "text": "Let\u2019s be real.  Heavily Redacted* files released",
+          "max_coordination_in_cluster": 0.626,
+          "coordinated_with": {
+            "author_id": "UC5Dyo7pHqdM2-BwmQk1bGDA",
+            "comment_id": "5eebfc63f9e12e750ae79193e14ed173"
+          }
+        },
+        {
+          "comment_id": "5eebfc63f9e12e750ae79193e14ed173",
+          "author_id": "UC5Dyo7pHqdM2-BwmQk1bGDA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:58:02Z",
+          "text": "How do we know Trump\u2019s Goons hasn\u2019t already eliminated sensitive evidence & or redacted a lot compromising details?",
+          "max_coordination_in_cluster": 0.626,
+          "coordinated_with": {
+            "author_id": "UCsD4KGMoYBy9rHr76tG0cHw",
+            "comment_id": "d432a34716198730721b9f0d0775bed2"
+          }
+        },
+        {
+          "comment_id": "22e2913aa201a4f70c59391b7af6df62",
+          "author_id": "UCTBr5QBjE6xr4qRkwqzPn2g",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:21:02Z",
+          "text": "Clickbait title",
+          "max_coordination_in_cluster": 0.615,
+          "coordinated_with": {
+            "author_id": "UCOKCLPDExZWCM8daXh_4SZA",
+            "comment_id": "66fdb8c44b822600b11a06e19ca42055"
+          }
+        },
+        {
+          "comment_id": "faa8e3da13dbcbb6160aa4db48cac0d3",
+          "author_id": "UCyUG8e7eqajHUo_EDN6TFIA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:58:01Z",
+          "text": "So what was released? Did you learn something new? A big nothing burger",
+          "max_coordination_in_cluster": 0.599,
+          "coordinated_with": {
+            "author_id": "UC5Dyo7pHqdM2-BwmQk1bGDA",
+            "comment_id": "5eebfc63f9e12e750ae79193e14ed173"
+          }
+        },
+        {
+          "comment_id": "b6b7d176f2919bb1af9dbd013083f63e",
+          "author_id": "UCk6gh-31NyaSUkqey0U2atQ",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T02:08:20Z",
+          "text": "Not these reporters - they wouldn\u2019t dare",
+          "max_coordination_in_cluster": 0.599,
+          "coordinated_with": {
+            "author_id": "UCOKCLPDExZWCM8daXh_4SZA",
+            "comment_id": "66fdb8c44b822600b11a06e19ca42055"
+          }
+        },
+        {
+          "comment_id": "c767fa4dd7e54fec2ba407d8ba7c06bd",
+          "author_id": "UCdDfGbLcexf9wv1c4KeXVig",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:21:01Z",
+          "text": "you sound different ....the check ?",
+          "max_coordination_in_cluster": 0.59,
+          "coordinated_with": {
+            "author_id": "UCTBr5QBjE6xr4qRkwqzPn2g",
+            "comment_id": "22e2913aa201a4f70c59391b7af6df62"
+          }
+        },
+        {
+          "comment_id": "073f9d8cd14f582cff6f1069dceef343",
+          "author_id": "UCnLFAzaItmkJfLg6Ea9SNhg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T22:55:36Z",
+          "text": "CLICKBAIT",
+          "max_coordination_in_cluster": 0.561,
+          "coordinated_with": {
+            "author_id": "UCgjTUpjI7UvkXu2NVt4Vduw",
+            "comment_id": "e5f3340287d2a9bd5267fd8955f6d50d"
+          }
+        },
+        {
+          "comment_id": "e5f3340287d2a9bd5267fd8955f6d50d",
+          "author_id": "UCgjTUpjI7UvkXu2NVt4Vduw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T22:55:33Z",
+          "text": "You smell Israeli",
+          "max_coordination_in_cluster": 0.561,
+          "coordinated_with": {
+            "author_id": "UCnLFAzaItmkJfLg6Ea9SNhg",
+            "comment_id": "073f9d8cd14f582cff6f1069dceef343"
+          }
+        },
+        {
+          "comment_id": "f62f2518948698fb261b12015a05a878",
+          "author_id": "UC4bigR6O4oik0hbBnSur-Iw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:58:04Z",
+          "text": "Agree",
+          "max_coordination_in_cluster": 0.557,
+          "coordinated_with": {
+            "author_id": "UCyUG8e7eqajHUo_EDN6TFIA",
+            "comment_id": "faa8e3da13dbcbb6160aa4db48cac0d3"
+          }
+        },
+        {
+          "comment_id": "9840c427098070de038a2f6e9a63e39a",
+          "author_id": "UCTj92y0FzVTSSE5en1x7Q-A",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:20:56Z",
+          "text": "7:23 American Animal farm.",
+          "max_coordination_in_cluster": 0.538,
+          "coordinated_with": {
+            "author_id": "UCdDfGbLcexf9wv1c4KeXVig",
+            "comment_id": "c767fa4dd7e54fec2ba407d8ba7c06bd"
+          }
+        },
+        {
+          "comment_id": "691cb4ca08310cd07056c1df7861f8c6",
+          "author_id": "UCSFEmBBNVaYjY7tyzzjDukA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:57:48Z",
+          "text": "This is clickbait",
+          "max_coordination_in_cluster": 0.532,
+          "coordinated_with": {
+            "author_id": "UCOKCLPDExZWCM8daXh_4SZA",
+            "comment_id": "66fdb8c44b822600b11a06e19ca42055"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 17,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "c34c9c65615d80bd0fca19e94d0bc633",
+          "author_id": "UC8vszbXVCsV9-vQy5KRZMsw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T22:38:59Z",
+          "text": "So every single word and letter was released?",
+          "max_coordination_in_cluster": 0.582,
+          "coordinated_with": {
+            "author_id": "UCI_49duMnRbGPTXSaTrmEDw",
+            "comment_id": "a9a509d2b2d8d95ae91688e7593fb5d1"
+          }
+        },
+        {
+          "comment_id": "a9a509d2b2d8d95ae91688e7593fb5d1",
+          "author_id": "UCI_49duMnRbGPTXSaTrmEDw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T22:38:59Z",
+          "text": "PREACH!!! \ud83d\ude4c\ud83c\udffe\ud83d\ude4c\ud83c\udffe\ud83d\ude4c\ud83c\udffe",
+          "max_coordination_in_cluster": 0.582,
+          "coordinated_with": {
+            "author_id": "UC8vszbXVCsV9-vQy5KRZMsw",
+            "comment_id": "c34c9c65615d80bd0fca19e94d0bc633"
+          }
+        },
+        {
+          "comment_id": "9944e7ea28f7750e92363101c61e9645",
+          "author_id": "UCLvsE8jfDGxXiGh0cbr3bWQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T22:39:06Z",
+          "text": "Mind blowing",
+          "max_coordination_in_cluster": 0.559,
+          "coordinated_with": {
+            "author_id": "UCI_49duMnRbGPTXSaTrmEDw",
+            "comment_id": "a9a509d2b2d8d95ae91688e7593fb5d1"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 18,
+      "account_count": 4,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 4,
+      "evidence_comment_count": 4,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "a1c76874cef3cf5927aae4b13e70cdcf",
+          "author_id": "UCbI7LRCpIFLduQ1ERDtp_BQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:10:57Z",
+          "text": "Why is this video being released on 12/07/2025? Do better, TYT.",
+          "max_coordination_in_cluster": 0.613,
+          "coordinated_with": {
+            "author_id": "UCvtZonxkL9ZPxLZy-gK_v8w",
+            "comment_id": "b70ab3852a739b6bab0a1ed4d88d9e41"
+          }
+        },
+        {
+          "comment_id": "b70ab3852a739b6bab0a1ed4d88d9e41",
+          "author_id": "UCvtZonxkL9ZPxLZy-gK_v8w",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:10:55Z",
+          "text": "Just rip off that filthy bandage so WE, the People, can see how deep and putrid this wound is. Only then will it begin healing.",
+          "max_coordination_in_cluster": 0.613,
+          "coordinated_with": {
+            "author_id": "UCbI7LRCpIFLduQ1ERDtp_BQ",
+            "comment_id": "a1c76874cef3cf5927aae4b13e70cdcf"
+          }
+        },
+        {
+          "comment_id": "7fa37fef2f0c9514647778017bc6f1c4",
+          "author_id": "UC1CbW4bLekS_wYGSErWnncA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:10:59Z",
+          "text": "Right? I remember this exact segment..",
+          "max_coordination_in_cluster": 0.606,
+          "coordinated_with": {
+            "author_id": "UCbI7LRCpIFLduQ1ERDtp_BQ",
+            "comment_id": "a1c76874cef3cf5927aae4b13e70cdcf"
+          }
+        },
+        {
+          "comment_id": "fe47fa2fcfdcd4b0088554cf5c8e1034",
+          "author_id": "UCWeC1PfQcbN6x5TyHRrt_6Q",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:11:16Z",
+          "text": "This is clickbait! This is an old video reposted. The act passed a long while ago and nothing has \u201cdropped\u201d today",
+          "max_coordination_in_cluster": 0.569,
+          "coordinated_with": {
+            "author_id": "UCbI7LRCpIFLduQ1ERDtp_BQ",
+            "comment_id": "a1c76874cef3cf5927aae4b13e70cdcf"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 19,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "1aa2b0b92ff921c577328edc4461463e",
+          "author_id": "UCAIV0ICk8YeIHOfkCLat5Pw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:09:39Z",
+          "text": "It's a open secret carefully crafted to create division with half truth. They have had the files for enough time to shape the narrative .",
+          "max_coordination_in_cluster": 0.538,
+          "coordinated_with": {
+            "author_id": "UCdr8e9IrKM9h3EsQKI13uIg",
+            "comment_id": "4064b60158c9b738a8a98fb3baf44c7e"
+          }
+        },
+        {
+          "comment_id": "4064b60158c9b738a8a98fb3baf44c7e",
+          "author_id": "UCdr8e9IrKM9h3EsQKI13uIg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:09:33Z",
+          "text": "was wondering how long it would take for Cenk to say the word \"Israel\"",
+          "max_coordination_in_cluster": 0.538,
+          "coordinated_with": {
+            "author_id": "UCAIV0ICk8YeIHOfkCLat5Pw",
+            "comment_id": "1aa2b0b92ff921c577328edc4461463e"
+          }
+        },
+        {
+          "comment_id": "da4f69fafab80ad121bbc9bb086a2e01",
+          "author_id": "UCKsxKyRD3vasxZFxDOiOqfA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T21:09:26Z",
+          "text": "Belt to @ss!!!!",
+          "max_coordination_in_cluster": 0.511,
+          "coordinated_with": {
+            "author_id": "UCdr8e9IrKM9h3EsQKI13uIg",
+            "comment_id": "4064b60158c9b738a8a98fb3baf44c7e"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 20,
+      "account_count": 5,
+      "comment_count": 5,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 5,
+      "evidence_comment_count": 5,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "6e53d376066228797c64d0c901aeb773",
+          "author_id": "UCi-tjEvkgTAkCOHoxtAO3EQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:59:19Z",
+          "text": "Innocent? You can always prove innocence. I don't care if the damned Pope is in there RELEASE THE FILES! I'm Catholic too!",
+          "max_coordination_in_cluster": 0.577,
+          "coordinated_with": {
+            "author_id": "UC2_hl-9IyxREM6vaqmJeE2w",
+            "comment_id": "b20263efa5df8e997ddcbedc95384767"
+          }
+        },
+        {
+          "comment_id": "b20263efa5df8e997ddcbedc95384767",
+          "author_id": "UC2_hl-9IyxREM6vaqmJeE2w",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:59:18Z",
+          "text": "A repost",
+          "max_coordination_in_cluster": 0.577,
+          "coordinated_with": {
+            "author_id": "UCi-tjEvkgTAkCOHoxtAO3EQ",
+            "comment_id": "6e53d376066228797c64d0c901aeb773"
+          }
+        },
+        {
+          "comment_id": "8d702195f254b81994ade6754c5a87e5",
+          "author_id": "UCDZlH02nGD5DUolDOBLp9VA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:59:30Z",
+          "text": "Your not gonna include Rho Kana who worked heavily with Massie, or are your beliefs as partisan as they appear",
+          "max_coordination_in_cluster": 0.542,
+          "coordinated_with": {
+            "author_id": "UCi-tjEvkgTAkCOHoxtAO3EQ",
+            "comment_id": "6e53d376066228797c64d0c901aeb773"
+          }
+        },
+        {
+          "comment_id": "841f89e11a81c99481b9b939603bb8cd",
+          "author_id": "UCyaqdwQXPA3lbX6L8n6v13A",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:17:52Z",
+          "text": "Why is this a re-post?",
+          "max_coordination_in_cluster": 0.522,
+          "coordinated_with": {
+            "author_id": "UC2_hl-9IyxREM6vaqmJeE2w",
+            "comment_id": "b20263efa5df8e997ddcbedc95384767"
+          }
+        },
+        {
+          "comment_id": "69d67b1b3dd6241d4d0aa8b345e40c74",
+          "author_id": "UCWppF-NLfMa4je6zXqUOdnQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:59:12Z",
+          "text": "Enchilanna...",
+          "max_coordination_in_cluster": 0.519,
+          "coordinated_with": {
+            "author_id": "UC2_hl-9IyxREM6vaqmJeE2w",
+            "comment_id": "b20263efa5df8e997ddcbedc95384767"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 21,
+      "account_count": 5,
+      "comment_count": 5,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 5,
+      "evidence_comment_count": 5,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "a946aeae2b356f07144e40edff299f60",
+          "author_id": "UCGXuOEXRFV8sxLK6YtpS1gQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:47:13Z",
+          "text": "It\u2019s a joke don\u2019t you people get it? 99.5% will be redacted got it redacted so it won\u2019t mean shit got it. This is called Clickbait.",
+          "max_coordination_in_cluster": 0.698,
+          "coordinated_with": {
+            "author_id": "UCDiv105oHKOBo0biCI3ZJVw",
+            "comment_id": "d07a0fe1392766d9c6dfb1471a07551e"
+          }
+        },
+        {
+          "comment_id": "d07a0fe1392766d9c6dfb1471a07551e",
+          "author_id": "UCDiv105oHKOBo0biCI3ZJVw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:47:05Z",
+          "text": "Its gonna be redacted af",
+          "max_coordination_in_cluster": 0.698,
+          "coordinated_with": {
+            "author_id": "UCGXuOEXRFV8sxLK6YtpS1gQ",
+            "comment_id": "a946aeae2b356f07144e40edff299f60"
+          }
+        },
+        {
+          "comment_id": "ce2a56730fca58442395df01aaba31b1",
+          "author_id": "UChFp2-EgX8cMBGj8hN71Cmg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:47:05Z",
+          "text": "People, the Epstein files are being guarded by armed Federal agents and FBI at a secure location in Winchester, Virginia.  What does that tell you?  What is so dangerous in those files that they to be need guarded 24/7?",
+          "max_coordination_in_cluster": 0.696,
+          "coordinated_with": {
+            "author_id": "UCVfBCOh3T4giCeEeDBQoB2Q",
+            "comment_id": "97d587961c03bc32a33ba9ea328be99e"
+          }
+        },
+        {
+          "comment_id": "97d587961c03bc32a33ba9ea328be99e",
+          "author_id": "UCVfBCOh3T4giCeEeDBQoB2Q",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:47:00Z",
+          "text": "We know it won\u2019t be the complete files...we won\u2019t see Trump's name anywhere, when we know Epstein\u2019s best buddy was all over them.",
+          "max_coordination_in_cluster": 0.696,
+          "coordinated_with": {
+            "author_id": "UChFp2-EgX8cMBGj8hN71Cmg",
+            "comment_id": "ce2a56730fca58442395df01aaba31b1"
+          }
+        },
+        {
+          "comment_id": "7d01fca7f466366a09b235ff7e9426ce",
+          "author_id": "UCNPpivi1K5mZYueXHbuMJ0A",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:47:22Z",
+          "text": "Guys i'm not sure. Congress is a hundred percent for sale. They probably scrubbed the important people out of it.",
+          "max_coordination_in_cluster": 0.564,
+          "coordinated_with": {
+            "author_id": "UCGXuOEXRFV8sxLK6YtpS1gQ",
+            "comment_id": "a946aeae2b356f07144e40edff299f60"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 22,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "a2973ea919bc03c4f4006dbb89c006c3",
+          "author_id": "UC_YfrCEGTDg6gxWuWU6OImw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:45:55Z",
+          "text": "Is this a release of the full Epstein files, or a release of the foreign-approved, \"sanitized\" Epstein files?",
+          "max_coordination_in_cluster": 0.589,
+          "coordinated_with": {
+            "author_id": "UCC-Afc57eGEj2LVwMaO1jgg",
+            "comment_id": "c6b5840805d27745742638ae4afe1605"
+          }
+        },
+        {
+          "comment_id": "c6b5840805d27745742638ae4afe1605",
+          "author_id": "UCC-Afc57eGEj2LVwMaO1jgg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:45:48Z",
+          "text": "They will redact so much of it we will think our screens are broken and need replacement.",
+          "max_coordination_in_cluster": 0.589,
+          "coordinated_with": {
+            "author_id": "UC_YfrCEGTDg6gxWuWU6OImw",
+            "comment_id": "a2973ea919bc03c4f4006dbb89c006c3"
+          }
+        },
+        {
+          "comment_id": "56030eb3d1bd672b446532f54f281a76",
+          "author_id": "UC8R29uJsRD_YY6ssn2QHWqQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:46:06Z",
+          "text": "Remember there is no innocence in this just varying degrees of guilt",
+          "max_coordination_in_cluster": 0.54,
+          "coordinated_with": {
+            "author_id": "UC_YfrCEGTDg6gxWuWU6OImw",
+            "comment_id": "a2973ea919bc03c4f4006dbb89c006c3"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 23,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "be4bb772f59326e0659fd8db2513bbbd",
+          "author_id": "UC47A2t7TkfNL2ahou98-YbQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:43:38Z",
+          "text": "Ana, your  strength is unbelievable. I saw you on piers, gooo girl. Your consciousness is clear, Zionist will love you to be on their side.",
+          "max_coordination_in_cluster": 0.536,
+          "coordinated_with": {
+            "author_id": "UCTpXITlQpMR2wq2m1z6r83A",
+            "comment_id": "ab62509995c2696bc8ac02a5386ba640"
+          }
+        },
+        {
+          "comment_id": "ab62509995c2696bc8ac02a5386ba640",
+          "author_id": "UCTpXITlQpMR2wq2m1z6r83A",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:43:35Z",
+          "text": "Now that the Epstein files have been scrubbed, Congress can vote for the files release and still continue to serve their donors?",
+          "max_coordination_in_cluster": 0.536,
+          "coordinated_with": {
+            "author_id": "UC47A2t7TkfNL2ahou98-YbQ",
+            "comment_id": "be4bb772f59326e0659fd8db2513bbbd"
+          }
+        },
+        {
+          "comment_id": "37a9f26f89468a920846f289b1e3ffc8",
+          "author_id": "UCUBIh1EVDAFdAQTzRKZx4cw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:43:22Z",
+          "text": "Because they have solid journalists. That's the way it works",
+          "max_coordination_in_cluster": 0.512,
+          "coordinated_with": {
+            "author_id": "UCTpXITlQpMR2wq2m1z6r83A",
+            "comment_id": "ab62509995c2696bc8ac02a5386ba640"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 24,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "6248c69cc18fa3ff00f873e475f959d5",
+          "author_id": "UCDwPB80rQNKZslwenTvoT-Q",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:41:56Z",
+          "text": "why is dropsight news the new standard for credible information ?",
+          "max_coordination_in_cluster": 0.546,
+          "coordinated_with": {
+            "author_id": "UCqrq-tsk9Ed_28Eu46AA4yQ",
+            "comment_id": "6d172d9b592d404b71b683003bb01296"
+          }
+        },
+        {
+          "comment_id": "6d172d9b592d404b71b683003bb01296",
+          "author_id": "UCqrq-tsk9Ed_28Eu46AA4yQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:41:57Z",
+          "text": "I think they posted this because after the bill is signed Trump has 30 days to release which fast approaching...\ud83d\ude05",
+          "max_coordination_in_cluster": 0.546,
+          "coordinated_with": {
+            "author_id": "UCDwPB80rQNKZslwenTvoT-Q",
+            "comment_id": "6248c69cc18fa3ff00f873e475f959d5"
+          }
+        },
+        {
+          "comment_id": "6e19004179c5f21fd936c9b3a6de8049",
+          "author_id": "UCkJUWgTm10BR2EqexSHQIsQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:42:11Z",
+          "text": "How many Epsteins are they still covering for?",
+          "max_coordination_in_cluster": 0.503,
+          "coordinated_with": {
+            "author_id": "UCDwPB80rQNKZslwenTvoT-Q",
+            "comment_id": "6248c69cc18fa3ff00f873e475f959d5"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 25,
+      "account_count": 6,
+      "comment_count": 6,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 6,
+      "evidence_comment_count": 6,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "a4169e7c0bc44d90506650da0adffeac",
+          "author_id": "UCHzyffPdt0sWO-g4G-uzQyw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:36:25Z",
+          "text": "Keeping it in the family ya know?",
+          "max_coordination_in_cluster": 0.606,
+          "coordinated_with": {
+            "author_id": "UC2lh9xf3G6xchBTACSGH-RA",
+            "comment_id": "956fe80a32b17ae3bc80bc6c6916c573"
+          }
+        },
+        {
+          "comment_id": "956fe80a32b17ae3bc80bc6c6916c573",
+          "author_id": "UC2lh9xf3G6xchBTACSGH-RA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:36:25Z",
+          "text": "https://youtu.be/JkKJ32mawBo?si=IR6sNqvrDlCHvlgx",
+          "max_coordination_in_cluster": 0.606,
+          "coordinated_with": {
+            "author_id": "UCHzyffPdt0sWO-g4G-uzQyw",
+            "comment_id": "a4169e7c0bc44d90506650da0adffeac"
+          }
+        },
+        {
+          "comment_id": "a3f32e7178df56f507fb71e7bc5e6bb4",
+          "author_id": "UCzh0kMKbV1zDd3vf_9W55MA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:36:35Z",
+          "text": "More like \u00a2enk's two \u00a2hins",
+          "max_coordination_in_cluster": 0.538,
+          "coordinated_with": {
+            "author_id": "UCHzyffPdt0sWO-g4G-uzQyw",
+            "comment_id": "a4169e7c0bc44d90506650da0adffeac"
+          }
+        },
+        {
+          "comment_id": "65c070aae9a94435055c3ae1fdab025e",
+          "author_id": "UCgTI75eI5FLJck3bD8T_KhA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:36:18Z",
+          "text": "It's a UNI PARTY under the control of Zionist Israelis.",
+          "max_coordination_in_cluster": 0.517,
+          "coordinated_with": {
+            "author_id": "UCHzyffPdt0sWO-g4G-uzQyw",
+            "comment_id": "a4169e7c0bc44d90506650da0adffeac"
+          }
+        },
+        {
+          "comment_id": "c3c28d1c7c845fe05d382acb6309d57f",
+          "author_id": "UC8rUviggPbEZjsf5K39c-QQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:36:08Z",
+          "text": "And nothing will happen",
+          "max_coordination_in_cluster": 0.512,
+          "coordinated_with": {
+            "author_id": "UCcsDehHrYAou4Ro0h6Cl9fQ",
+            "comment_id": "37583b7803be006e05761fa51446c0e9"
+          }
+        },
+        {
+          "comment_id": "37583b7803be006e05761fa51446c0e9",
+          "author_id": "UCcsDehHrYAou4Ro0h6Cl9fQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:35:59Z",
+          "text": "Why not 'Ana's Panorama' - Feel free to use",
+          "max_coordination_in_cluster": 0.512,
+          "coordinated_with": {
+            "author_id": "UC8rUviggPbEZjsf5K39c-QQ",
+            "comment_id": "c3c28d1c7c845fe05d382acb6309d57f"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 26,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "bb32efc15975e4efad948b6509436d85",
+          "author_id": "UC_DsUgxhlq3gk8VrZkSxuAg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:30:59Z",
+          "text": "AND THE PUBLIC still WONT GET THE ANSWERES THEY HAVE ASKED FOR!",
+          "max_coordination_in_cluster": 0.587,
+          "coordinated_with": {
+            "author_id": "UCvsZ-qL1jrAQBashSbtoFew",
+            "comment_id": "d67b9ff54c69db3db2684d4d94465eb0"
+          }
+        },
+        {
+          "comment_id": "d67b9ff54c69db3db2684d4d94465eb0",
+          "author_id": "UCvsZ-qL1jrAQBashSbtoFew",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:30:56Z",
+          "text": "Why would innocent ppl be hurt?",
+          "max_coordination_in_cluster": 0.587,
+          "coordinated_with": {
+            "author_id": "UC_DsUgxhlq3gk8VrZkSxuAg",
+            "comment_id": "bb32efc15975e4efad948b6509436d85"
+          }
+        },
+        {
+          "comment_id": "2c1644368f6ad5ed1ae143f528a16c42",
+          "author_id": "UC9MQOKLbxCG3tLSlsVOrkzQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:30:58Z",
+          "text": "I have lost all credibility with Trump.",
+          "max_coordination_in_cluster": 0.567,
+          "coordinated_with": {
+            "author_id": "UC_DsUgxhlq3gk8VrZkSxuAg",
+            "comment_id": "bb32efc15975e4efad948b6509436d85"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 27,
+      "account_count": 4,
+      "comment_count": 5,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 4,
+      "evidence_comment_count": 4,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "fed9e2761a2c1474e5b4d149546e7fae",
+          "author_id": "UCfBksFuX0xg4uli5Pe-e6Yg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:29:16Z",
+          "text": "I dont like her one bit, but i respect her a lot more for doing this.\nWhen Trump called her a traitor for saying she wants the files to be released, \nwhat he was really saying is that, we the elites have different rules from the plebs and what you are doing is exposing this. Therefore you are a traitor.\n\nThis is the core problem around the world.\nDemocracy is more of a pantomime show.\nThe elites and people in power consider the people to be simple plebs that can be played anytime they want.\nThey dont respect the rules based system and yet preach it to us.\nthey exploit and endanger the working people of this world.\n\nThe new world order is not this supposedly one man and his gang controlling the world. \nits the democratic people throwing out this elite cabal out of politics once and for all.\nbring back real accountability.\nand stop this corruption.\nThey have started illegal wars with the help of the mainstream media.\nThey have stolen huge amounts of wealth from tax payers whilst diluting and devaluating the working classes wealth. (printing money)\n\nit has to end.\nThe people around the world need to unite and understand that its not us people vs other people.. its us people vs the corrupt elitists that manipulate the people in order to gain wealth.\n\njust to be clear. \nI'm not against the rich or successful people. \nI'm against those that abuse power, and if they happen to be rich then so be it.",
+          "max_coordination_in_cluster": 0.629,
+          "coordinated_with": {
+            "author_id": "UCjPWE5qH8POdc_0daT1L3ZA",
+            "comment_id": "36c158be44bc7f0acb6f8900fa69f4aa"
+          }
+        },
+        {
+          "comment_id": "36c158be44bc7f0acb6f8900fa69f4aa",
+          "author_id": "UCjPWE5qH8POdc_0daT1L3ZA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:29:22Z",
+          "text": "\u200b@sunshinesun101\nSo you're cool with it as long as the Democrats did it\ud83d\ude02 doesn't matter under the bus they all must go.",
+          "max_coordination_in_cluster": 0.629,
+          "coordinated_with": {
+            "author_id": "UCfBksFuX0xg4uli5Pe-e6Yg",
+            "comment_id": "fed9e2761a2c1474e5b4d149546e7fae"
+          }
+        },
+        {
+          "comment_id": "5c05b6b5415bd28a3ddb808992d0aeb0",
+          "author_id": "UCk5JXbsyWFBAMcCmDsu02EA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:29:05Z",
+          "text": "I'm embarrassed to be an American. The \"greatest nation on earth\" MY ASS.",
+          "max_coordination_in_cluster": 0.557,
+          "coordinated_with": {
+            "author_id": "UCfBksFuX0xg4uli5Pe-e6Yg",
+            "comment_id": "fed9e2761a2c1474e5b4d149546e7fae"
+          }
+        },
+        {
+          "comment_id": "a84f35b55606b78a6de6c41eab5df10c",
+          "author_id": "UCq5De98_2T0gp1MQnDAQhtg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:29:13Z",
+          "text": "Wow, that is not true\u2026. They have done this way more than just twice",
+          "max_coordination_in_cluster": 0.55,
+          "coordinated_with": {
+            "author_id": "UCfBksFuX0xg4uli5Pe-e6Yg",
+            "comment_id": "fed9e2761a2c1474e5b4d149546e7fae"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 28,
+      "account_count": 3,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "2f6f64b801dc4abc8f56d14c910d340e",
+          "author_id": "UCGKEPOn6SMG19J_Moq41ewQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:26:04Z",
+          "text": "Trump himself is very ugly \ud83d\ude02",
+          "max_coordination_in_cluster": 0.651,
+          "coordinated_with": {
+            "author_id": "UCvFT6GhTnKkKtw7aNBTDAAA",
+            "comment_id": "7cc0ff59fd87ead97ca7291ca494f0c2"
+          }
+        },
+        {
+          "comment_id": "7cc0ff59fd87ead97ca7291ca494f0c2",
+          "author_id": "UCvFT6GhTnKkKtw7aNBTDAAA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:25:58Z",
+          "text": "It\u2019s not just gross at that point it is degrading the women and that is our president it\u2019s so shameful",
+          "max_coordination_in_cluster": 0.651,
+          "coordinated_with": {
+            "author_id": "UCGKEPOn6SMG19J_Moq41ewQ",
+            "comment_id": "2f6f64b801dc4abc8f56d14c910d340e"
+          }
+        },
+        {
+          "comment_id": "5a4c078eee0d604a91da213ffb60bc63",
+          "author_id": "UC0imD0xHQhb2ZS1r3jm9hTg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:26:02Z",
+          "text": "Both sides have been through everything.  What do you really expect to get?",
+          "max_coordination_in_cluster": 0.533,
+          "coordinated_with": {
+            "author_id": "UCGKEPOn6SMG19J_Moq41ewQ",
+            "comment_id": "2f6f64b801dc4abc8f56d14c910d340e"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 29,
+      "account_count": 5,
+      "comment_count": 5,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 5,
+      "evidence_comment_count": 5,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "8680ea1f5d593a48ced2a0c0109b7895",
+          "author_id": "UCZrcPIBChP972MBPCEJxoSw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:24:08Z",
+          "text": "What are you doing in TYT???? Giving us those news so old... please... you can do better!",
+          "max_coordination_in_cluster": 0.687,
+          "coordinated_with": {
+            "author_id": "UCWiUTdTcvI2Ntds8qQ9qaAw",
+            "comment_id": "41e5679a2b9730fdb5a190d662de572c"
+          }
+        },
+        {
+          "comment_id": "41e5679a2b9730fdb5a190d662de572c",
+          "author_id": "UCWiUTdTcvI2Ntds8qQ9qaAw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:23:51Z",
+          "text": "TYT keeps reposting old news.  Why?",
+          "max_coordination_in_cluster": 0.687,
+          "coordinated_with": {
+            "author_id": "UCZrcPIBChP972MBPCEJxoSw",
+            "comment_id": "8680ea1f5d593a48ced2a0c0109b7895"
+          }
+        },
+        {
+          "comment_id": "58318d9f56b847234fc1ee0ed1204129",
+          "author_id": "UCM0LwniOjzV0UC3ZNFwr-Dw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:23:53Z",
+          "text": "There is no panic. Be real",
+          "max_coordination_in_cluster": 0.537,
+          "coordinated_with": {
+            "author_id": "UCWiUTdTcvI2Ntds8qQ9qaAw",
+            "comment_id": "41e5679a2b9730fdb5a190d662de572c"
+          }
+        },
+        {
+          "comment_id": "c09d5415413e40046b557c36a52514d0",
+          "author_id": "UCRmdKBTK2K9OyQ1YKcsXTHA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:24:09Z",
+          "text": "It only matters if they are prosecuted.",
+          "max_coordination_in_cluster": 0.529,
+          "coordinated_with": {
+            "author_id": "UCZrcPIBChP972MBPCEJxoSw",
+            "comment_id": "8680ea1f5d593a48ced2a0c0109b7895"
+          }
+        },
+        {
+          "comment_id": "8f2545674e1479e3b3eb29ccfb8a11fd",
+          "author_id": "UChO0N-eql1z6XrY6gS7dqDA",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:23:43Z",
+          "text": "So whats in the files?\ud83d\ude2e",
+          "max_coordination_in_cluster": 0.509,
+          "coordinated_with": {
+            "author_id": "UCWiUTdTcvI2Ntds8qQ9qaAw",
+            "comment_id": "41e5679a2b9730fdb5a190d662de572c"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 30,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "be0448d60de901e6ad6edac1a40161ed",
+          "author_id": "UCF6BoRKIp9-8Q4eMhSTmO1Q",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:28:00Z",
+          "text": "They just voted to release. They still haven't been released yet. Nothing has changed.",
+          "max_coordination_in_cluster": 0.548,
+          "coordinated_with": {
+            "author_id": "UCSCu7m5muJeBnuLyCmz_ErQ",
+            "comment_id": "75cab035507d9e39564151d6180b6768"
+          }
+        },
+        {
+          "comment_id": "75cab035507d9e39564151d6180b6768",
+          "author_id": "UCSCu7m5muJeBnuLyCmz_ErQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:28:10Z",
+          "text": "Yep, this just got them an unsubscribe.",
+          "max_coordination_in_cluster": 0.548,
+          "coordinated_with": {
+            "author_id": "UCF6BoRKIp9-8Q4eMhSTmO1Q",
+            "comment_id": "be0448d60de901e6ad6edac1a40161ed"
+          }
+        },
+        {
+          "comment_id": "1340ce5e3deaf348afdcce6b2247df11",
+          "author_id": "UCJNcvGA3D9qxYkaJIF5jE7w",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:28:09Z",
+          "text": "Important! The US has been misguided by some Zionists for their own benefits and for funding a genocide",
+          "max_coordination_in_cluster": 0.544,
+          "coordinated_with": {
+            "author_id": "UCSCu7m5muJeBnuLyCmz_ErQ",
+            "comment_id": "75cab035507d9e39564151d6180b6768"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 31,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "bf041965f3380ec6ac8c1ae62514e70d",
+          "author_id": "UCKcwOoY6Lx_9R7f9R39sOXw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:19:40Z",
+          "text": "If there is nothing major in these files, then you know they cleaned them up before the release. Otherwise their hesitation to release them doesn\u2019t make any sense.",
+          "max_coordination_in_cluster": 0.622,
+          "coordinated_with": {
+            "author_id": "UCvF0PZAVADWxP-OQOIulkew",
+            "comment_id": "fd45cd311580cbac3ab7e94209b65f10"
+          }
+        },
+        {
+          "comment_id": "fd45cd311580cbac3ab7e94209b65f10",
+          "author_id": "UCvF0PZAVADWxP-OQOIulkew",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:19:31Z",
+          "text": "The epstein files haven't been released...click bait.",
+          "max_coordination_in_cluster": 0.622,
+          "coordinated_with": {
+            "author_id": "UCKcwOoY6Lx_9R7f9R39sOXw",
+            "comment_id": "bf041965f3380ec6ac8c1ae62514e70d"
+          }
+        },
+        {
+          "comment_id": "b601fb5b82223e3b79830f425dec549e",
+          "author_id": "UCNei2-07FhDfmkx_vCgfNRw",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:19:47Z",
+          "text": "Facts",
+          "max_coordination_in_cluster": 0.513,
+          "coordinated_with": {
+            "author_id": "UCKcwOoY6Lx_9R7f9R39sOXw",
+            "comment_id": "bf041965f3380ec6ac8c1ae62514e70d"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 32,
+      "account_count": 4,
+      "comment_count": 5,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 5,
+      "evidence_comment_count": 5,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "45e33feb0de1380e68532f5bb1c7e1cb",
+          "author_id": "UCfpQ2C_zYI5ogyo1UlfesPg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:09:20Z",
+          "text": "They may release the files, but many persons of interest will likely be Deducted under the claim that investigations are still ongoing. In the end, it will be almost the same as not releasing them at all \ud83d\ude0a.",
+          "max_coordination_in_cluster": 0.648,
+          "coordinated_with": {
+            "author_id": "UCdfEzuWp_r4gWe6wP0XjChg",
+            "comment_id": "f3778364ed85087e777bb3b9e153a500"
+          }
+        },
+        {
+          "comment_id": "f3778364ed85087e777bb3b9e153a500",
+          "author_id": "UCdfEzuWp_r4gWe6wP0XjChg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:09:18Z",
+          "text": ".... so wheres the files....??? clickbait...",
+          "max_coordination_in_cluster": 0.648,
+          "coordinated_with": {
+            "author_id": "UCfpQ2C_zYI5ogyo1UlfesPg",
+            "comment_id": "45e33feb0de1380e68532f5bb1c7e1cb"
+          }
+        },
+        {
+          "comment_id": "aa6d1b56721a588c3cb0b73ef71327c6",
+          "author_id": "UCzpc241GFQxR4UgVGIve8HQ",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:09:03Z",
+          "text": "The VICTIMS want these files released, most of them has been on tv saying to release the files, and if there is a name on Epstein's list then they should be brought to public",
+          "max_coordination_in_cluster": 0.613,
+          "coordinated_with": {
+            "author_id": "UCfpQ2C_zYI5ogyo1UlfesPg",
+            "comment_id": "45e33feb0de1380e68532f5bb1c7e1cb"
+          }
+        },
+        {
+          "comment_id": "932d6949d55e0407bb3bb69d09dfa1c9",
+          "author_id": "UCRhkqwV47X2kKqn0KpEjOTg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:08:55Z",
+          "text": "Exactly I don\u2019t think we should have to pay taxes if we\u2019re not being represented no taxation without representation!",
+          "max_coordination_in_cluster": 0.507,
+          "coordinated_with": {
+            "author_id": "UCzpc241GFQxR4UgVGIve8HQ",
+            "comment_id": "aa6d1b56721a588c3cb0b73ef71327c6"
+          }
+        },
+        {
+          "comment_id": "11b29965cd61d91de47032d76d0c8feb",
+          "author_id": "UCRhkqwV47X2kKqn0KpEjOTg",
+          "video_id": "dQWfdEyorm8",
+          "published_at": "2025-12-07T20:08:36Z",
+          "text": "Exactly everyone in that cabinet is in the files or help to cover them up!   Unfortunately Florida is totally incompetent state but there are state crimes by  Bondi as well!",
+          "max_coordination_in_cluster": 0.489,
+          "coordinated_with": {
+            "author_id": "UCzpc241GFQxR4UgVGIve8HQ",
+            "comment_id": "aa6d1b56721a588c3cb0b73ef71327c6"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 33,
+      "account_count": 3,
+      "comment_count": 5,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "653faefdcbd0092e8022512915801aea",
+          "author_id": "UC72OaTLYakh3AqydTS0TwKw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T02:26:23Z",
+          "text": "I wonder how much the terrorist state of Israel is paying for their new ad vids on utube. I didn't know if I should of laughed or vomit. \nIt looked like a cheesy Israel election vid against Hamas. \nWe choose Palestinian citizens over terrorist state of Israel\ud83c\uddee\ud83c\uddf1\ud83d\udc79\ud83c\uddee\ud83c\uddf1\ud83d\udc79\ud83c\uddee\ud83c\uddf1\ud83d\udc79",
+          "max_coordination_in_cluster": 0.661,
+          "coordinated_with": {
+            "author_id": "UCasQpyeA8D5S5PblrcXCRlA",
+            "comment_id": "f8535a91a64abac0888586fe4b23c64a"
+          }
+        },
+        {
+          "comment_id": "f8535a91a64abac0888586fe4b23c64a",
+          "author_id": "UCasQpyeA8D5S5PblrcXCRlA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T02:26:21Z",
+          "text": "\u2665\ufe0f\ud83e\ude77\u2665\ufe0f\ud83c\uddee\ud83c\uddf1\ud83c\uddee\ud83c\uddf1\ud83c\uddee\ud83c\uddf1\ud83e\ude77\u2665\ufe0f\ud83e\ude77\n\nTYT tears make the most delicious martinis.",
+          "max_coordination_in_cluster": 0.661,
+          "coordinated_with": {
+            "author_id": "UC72OaTLYakh3AqydTS0TwKw",
+            "comment_id": "653faefdcbd0092e8022512915801aea"
+          }
+        },
+        {
+          "comment_id": "5db8cff1ebd3746c3048ac07edc4bac9",
+          "author_id": "UCCzKp8gjx7NTG9U2F7B4BHg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T02:26:02Z",
+          "text": "I hope peace comes to the Middle East \ud83d\udd4a\ufe0f\ud83d\udd4a\ufe0f\ud83d\udd4a\ufe0f\ud83d\udd4a\ufe0f\ud83d\udd4a\ufe0f\u2764\u2764\u2764\u2764\u2764\u2764\u2764\u2764\u2764\ud83c\udf40\ud83c\udf40\ud83c\udf40",
+          "max_coordination_in_cluster": 0.525,
+          "coordinated_with": {
+            "author_id": "UCasQpyeA8D5S5PblrcXCRlA",
+            "comment_id": "f8535a91a64abac0888586fe4b23c64a"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 34,
+      "account_count": 3,
+      "comment_count": 5,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "b2741fb8d1426e3fdf89d47bbd741634",
+          "author_id": "UCO4m8_iiX6EXt22AeYg7PFg",
+          "video_id": "KjYSHrFkGrU",
+          "published_at": "2025-12-08T01:52:03Z",
+          "text": "Bot",
+          "max_coordination_in_cluster": 0.75,
+          "coordinated_with": {
+            "author_id": "UC2cl91cbKomx_Uq8iXKG7PQ",
+            "comment_id": "77ef9fb7def3daced32b27955dada640"
+          }
+        },
+        {
+          "comment_id": "77ef9fb7def3daced32b27955dada640",
+          "author_id": "UC2cl91cbKomx_Uq8iXKG7PQ",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:40:54Z",
+          "text": "Bot",
+          "max_coordination_in_cluster": 0.75,
+          "coordinated_with": {
+            "author_id": "UCO4m8_iiX6EXt22AeYg7PFg",
+            "comment_id": "b2741fb8d1426e3fdf89d47bbd741634"
+          }
+        },
+        {
+          "comment_id": "2b5a2f3aaa417a9f9dbfd9ffb376a255",
+          "author_id": "UCeTvk4sbzMyLTl7OmkpcnEA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:41:00Z",
+          "text": "Don\u2019t be surprised if these satanic animals set a stage of food and medical aid in Gaza before they allow the cameras in Gaze oh but lets see if we can threaten, kill or bribe the journalist also!!",
+          "max_coordination_in_cluster": 0.529,
+          "coordinated_with": {
+            "author_id": "UC2cl91cbKomx_Uq8iXKG7PQ",
+            "comment_id": "77ef9fb7def3daced32b27955dada640"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 35,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "7fa8cbcfa6dd3d1ffde1e9a6da6fc8b2",
+          "author_id": "UCoCXLZ-Jmvx8vMMa1smdl-Q",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:07:22Z",
+          "text": "5:52 propaganda materials.... israel acts like we don't know all govts do it",
+          "max_coordination_in_cluster": 0.573,
+          "coordinated_with": {
+            "author_id": "UCI9I1bOicenqOyHYorqfEJw",
+            "comment_id": "1f5da5f9065cc7f2a1abddf2b7953465"
+          }
+        },
+        {
+          "comment_id": "1f5da5f9065cc7f2a1abddf2b7953465",
+          "author_id": "UCI9I1bOicenqOyHYorqfEJw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:07:18Z",
+          "text": "You guys are just a one-way show",
+          "max_coordination_in_cluster": 0.573,
+          "coordinated_with": {
+            "author_id": "UCoCXLZ-Jmvx8vMMa1smdl-Q",
+            "comment_id": "7fa8cbcfa6dd3d1ffde1e9a6da6fc8b2"
+          }
+        },
+        {
+          "comment_id": "28c68c592460239471fc118ed04833eb",
+          "author_id": "UC1Uj4-Lh-NPy1_r57enXOIA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T01:07:11Z",
+          "text": "They are the most evil monsters on the earth,Death to Israel.",
+          "max_coordination_in_cluster": 0.57,
+          "coordinated_with": {
+            "author_id": "UCoCXLZ-Jmvx8vMMa1smdl-Q",
+            "comment_id": "7fa8cbcfa6dd3d1ffde1e9a6da6fc8b2"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 36,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "89daca6b4ea1ec76308f69785b801c8f",
+          "author_id": "UC1Ng3-PObLAH2_eTH00h-Jw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:21:32Z",
+          "text": "Amerikkka racism and hatred of Black Americans are the same as Zionism .....Amerikkka Racism  and Israeli Nazism are the same foul bird of the same feathers....",
+          "max_coordination_in_cluster": 0.707,
+          "coordinated_with": {
+            "author_id": "UCha1OENNg_F-ITgc3o3XVSA",
+            "comment_id": "534618ac42280f16ebbfdddfb44a8b54"
+          }
+        },
+        {
+          "comment_id": "534618ac42280f16ebbfdddfb44a8b54",
+          "author_id": "UCha1OENNg_F-ITgc3o3XVSA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:21:31Z",
+          "text": "Really? \nDo you honestly not know anything about Israel? \n No one who knows the racist genocidal reality of that country can stand by it in good conscience",
+          "max_coordination_in_cluster": 0.707,
+          "coordinated_with": {
+            "author_id": "UC1Ng3-PObLAH2_eTH00h-Jw",
+            "comment_id": "89daca6b4ea1ec76308f69785b801c8f"
+          }
+        },
+        {
+          "comment_id": "96f8405350a51a2b77e5b3ed84ce89be",
+          "author_id": "UCE9uCgn8K2JDjUsKUxIEjlA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:21:21Z",
+          "text": "Journalist getting into Gaza we are screwed going to be a false flag on the American homeland to distract and justify their own barbarity",
+          "max_coordination_in_cluster": 0.6,
+          "coordinated_with": {
+            "author_id": "UCha1OENNg_F-ITgc3o3XVSA",
+            "comment_id": "534618ac42280f16ebbfdddfb44a8b54"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 37,
+      "account_count": 3,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "04c4a223bec43a56e0602de6bc5c8a48",
+          "author_id": "UCARcwQQX-DEIXdK4gR6s2Eg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:01:04Z",
+          "text": "Non sematic jews from there homeland of Jewish autonomous region JAO Jewish autonomous oblast homeland even Hitler didnt even attack there homeland...... after ww2 they left and took over Isreal and Ukraine and sections of Lebanon and Cyprus turkey.....",
+          "max_coordination_in_cluster": 0.628,
+          "coordinated_with": {
+            "author_id": "UCVkigaz0sV5YmQzw60sFACg",
+            "comment_id": "d37ede263e1a5ddaeffc5e7e51402e0e"
+          }
+        },
+        {
+          "comment_id": "d37ede263e1a5ddaeffc5e7e51402e0e",
+          "author_id": "UCVkigaz0sV5YmQzw60sFACg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:00:59Z",
+          "text": "Not just Israel. America too. Because this wouldn't have happened without America",
+          "max_coordination_in_cluster": 0.628,
+          "coordinated_with": {
+            "author_id": "UCARcwQQX-DEIXdK4gR6s2Eg",
+            "comment_id": "04c4a223bec43a56e0602de6bc5c8a48"
+          }
+        },
+        {
+          "comment_id": "2abe3816134ccbc1e8c30d26a1ee8b89",
+          "author_id": "UCQiIrRQ-F1MvstdaVeVYsvg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-08T00:01:15Z",
+          "text": "From what you said, Israeli escorts and they won't let journalists inside the yellow line or able to interview the Palestinians. The day is coming though",
+          "max_coordination_in_cluster": 0.549,
+          "coordinated_with": {
+            "author_id": "UCARcwQQX-DEIXdK4gR6s2Eg",
+            "comment_id": "04c4a223bec43a56e0602de6bc5c8a48"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 38,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "9a10af6e19b68e510a85a65feaead551",
+          "author_id": "UC89nI81uBfMPpkVfXTZa55A",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:58:05Z",
+          "text": "Jews cant help but be evil",
+          "max_coordination_in_cluster": 0.586,
+          "coordinated_with": {
+            "author_id": "UCnLPE_zNGmn6NsQWK7W0rvw",
+            "comment_id": "a37539a3ce009138853506fcecd440df"
+          }
+        },
+        {
+          "comment_id": "a37539a3ce009138853506fcecd440df",
+          "author_id": "UCnLPE_zNGmn6NsQWK7W0rvw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:57:43Z",
+          "text": "Zio Jews are demons.",
+          "max_coordination_in_cluster": 0.586,
+          "coordinated_with": {
+            "author_id": "UC89nI81uBfMPpkVfXTZa55A",
+            "comment_id": "9a10af6e19b68e510a85a65feaead551"
+          }
+        },
+        {
+          "comment_id": "da8c52a4dacbe54b63da2ff6864da072",
+          "author_id": "UCwIFmSJWwgnTl-xVMn2BxWg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:58:26Z",
+          "text": "I firmly believe that there is a deliberate strategy by the Zionists aimed at fostering animosity toward Jews, which seeks to portray them as perpetual victims. This tactic not only aims to elicit sympathy but also to strengthen support from the Jewish diaspora and the broader global community.",
+          "max_coordination_in_cluster": 0.557,
+          "coordinated_with": {
+            "author_id": "UC89nI81uBfMPpkVfXTZa55A",
+            "comment_id": "9a10af6e19b68e510a85a65feaead551"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 39,
+      "account_count": 3,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "15bd4513ced257551e9b6c0c1eb3db2d",
+          "author_id": "UCPbX2ZJcyvBI8_rwbQG0pKw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:36:17Z",
+          "text": "If you're not an antisemite, you aren't a patriot and you aren't trying hard enough to care about our fellow humans.  It is deeply important for everyone who cares about human civilization to hate israel and to become dedicated antisemites.",
+          "max_coordination_in_cluster": 0.683,
+          "coordinated_with": {
+            "author_id": "UC4USyEM92dnLLf1E4VI4Jvg",
+            "comment_id": "a43b4cfd37ed536ba2ebf8d50d992d09"
+          }
+        },
+        {
+          "comment_id": "a43b4cfd37ed536ba2ebf8d50d992d09",
+          "author_id": "UC4USyEM92dnLLf1E4VI4Jvg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:36:16Z",
+          "text": "Free Palestine!!!!!!!!!  May Israel and its supporters (including you) burn in HELL",
+          "max_coordination_in_cluster": 0.683,
+          "coordinated_with": {
+            "author_id": "UCPbX2ZJcyvBI8_rwbQG0pKw",
+            "comment_id": "15bd4513ced257551e9b6c0c1eb3db2d"
+          }
+        },
+        {
+          "comment_id": "de537a5fb59e6bcac20c4765d91de6d4",
+          "author_id": "UC0wev-OWdDtG8abR66gRXvQ",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:35:59Z",
+          "text": "Kill them all that way Isreal won't be attacked again",
+          "max_coordination_in_cluster": 0.547,
+          "coordinated_with": {
+            "author_id": "UC4USyEM92dnLLf1E4VI4Jvg",
+            "comment_id": "a43b4cfd37ed536ba2ebf8d50d992d09"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 40,
+      "account_count": 4,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 4,
+      "evidence_comment_count": 4,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "49c4891110ceb3583fe4e13ece53762f",
+          "author_id": "UCPliUnH9K1r2Ua8Ru6is_qg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:22:15Z",
+          "text": "Main stream media has a problem their subscribers will be less than other media that allows people to see what is really happening and decide what is morally right and wrong good bye CNN /MSBNC / CNBC and the New York times the days of smoke and mirrors are gone the evidence is plain to see",
+          "max_coordination_in_cluster": 0.545,
+          "coordinated_with": {
+            "author_id": "UCx0ozk7mAFwA_0MTQWmoANw",
+            "comment_id": "81491aedfb40e2d3aff1848eeda38249"
+          }
+        },
+        {
+          "comment_id": "81491aedfb40e2d3aff1848eeda38249",
+          "author_id": "UCx0ozk7mAFwA_0MTQWmoANw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:22:03Z",
+          "text": "The damage is beyond repair; what they did was brutal, sadistic, and among the worst acts any human could inflict on a group of people. It\u2019s the only genocide ever broadcast live on TV, with no war in history comparable to what happened to the Palestinians. Children, women, hospitals, schools, animals, trees, aid workers, and journalists\u2014every category saw the highest numbers of war crimes ever committed. There\u2019s nothing left in Gaza; they flattened everything. They\u2019ve been exposed in ways they never imagined, their decades of playing the victim gone to waste, and all their tricks to deceive, lie, and manipulate the world have failed.",
+          "max_coordination_in_cluster": 0.545,
+          "coordinated_with": {
+            "author_id": "UCPliUnH9K1r2Ua8Ru6is_qg",
+            "comment_id": "49c4891110ceb3583fe4e13ece53762f"
+          }
+        },
+        {
+          "comment_id": "e0c50b9c30798a4a84147115a50d3922",
+          "author_id": "UCNXXRc1Nqu4OLLsQDWF4hFA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:21:51Z",
+          "text": "So the U.S can declare drug smugglers as terrorist yet refuse to call Israel the terrorist state that they are?Make that make sense...?",
+          "max_coordination_in_cluster": 0.526,
+          "coordinated_with": {
+            "author_id": "UCx0ozk7mAFwA_0MTQWmoANw",
+            "comment_id": "81491aedfb40e2d3aff1848eeda38249"
+          }
+        },
+        {
+          "comment_id": "0507e920890b62834749c6ed9f8ec41f",
+          "author_id": "UCfVT1-8HZ3BpYjlWlCPdeKw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:21:35Z",
+          "text": "Israel PR: \"What? It was always like that ...\"",
+          "max_coordination_in_cluster": 0.52,
+          "coordinated_with": {
+            "author_id": "UCNXXRc1Nqu4OLLsQDWF4hFA",
+            "comment_id": "e0c50b9c30798a4a84147115a50d3922"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 41,
+      "account_count": 3,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "1948bd88bcbe5e7837b832b9ecfd21eb",
+          "author_id": "UCU_TZ1ZToV4CnvpdOTfk1hg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:19:01Z",
+          "text": "What a arrogant  race Israel  that is and war criminals  arrest  all of them sick fucks",
+          "max_coordination_in_cluster": 0.624,
+          "coordinated_with": {
+            "author_id": "UCSynzherakJxm_Ywrh0joJg",
+            "comment_id": "70b5d31b7677cae680a7d864575d48c1"
+          }
+        },
+        {
+          "comment_id": "70b5d31b7677cae680a7d864575d48c1",
+          "author_id": "UCSynzherakJxm_Ywrh0joJg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:19:09Z",
+          "text": "Unless you all believe whatever the Israelis stage for the journalists.",
+          "max_coordination_in_cluster": 0.624,
+          "coordinated_with": {
+            "author_id": "UCU_TZ1ZToV4CnvpdOTfk1hg",
+            "comment_id": "1948bd88bcbe5e7837b832b9ecfd21eb"
+          }
+        },
+        {
+          "comment_id": "826e85a429960db7e8378a8394870750",
+          "author_id": "UCBp0rn8qbu3Nb1taMHjI-DA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T23:18:34Z",
+          "text": "The Palestinian never find justice in this world where criminals make the rules for 77 years long apartheid 18 years long blockade of Gaza and now committing genocide shame on those who support Israel genocide",
+          "max_coordination_in_cluster": 0.503,
+          "coordinated_with": {
+            "author_id": "UCU_TZ1ZToV4CnvpdOTfk1hg",
+            "comment_id": "1948bd88bcbe5e7837b832b9ecfd21eb"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 42,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "a80f64210fc343483bb130aa17952722",
+          "author_id": "UCW7bCDnDyuud3ZlVl0GF0Fg",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T22:41:49Z",
+          "text": "Proud of you",
+          "max_coordination_in_cluster": 0.568,
+          "coordinated_with": {
+            "author_id": "UCNfkOTShWTfqLGxHIN2MdmA",
+            "comment_id": "8def511460e071221930e3340a077c0a"
+          }
+        },
+        {
+          "comment_id": "8def511460e071221930e3340a077c0a",
+          "author_id": "UCNfkOTShWTfqLGxHIN2MdmA",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T22:41:53Z",
+          "text": "I bet they like them more than you do.",
+          "max_coordination_in_cluster": 0.568,
+          "coordinated_with": {
+            "author_id": "UCW7bCDnDyuud3ZlVl0GF0Fg",
+            "comment_id": "a80f64210fc343483bb130aa17952722"
+          }
+        },
+        {
+          "comment_id": "4ff2419e9741ebeedbbe247813a9319f",
+          "author_id": "UCTW-g77a_Be4kWrCQ1r2pfw",
+          "video_id": "RwW4UYoX19s",
+          "published_at": "2025-12-07T22:41:54Z",
+          "text": "IDF = TERRORIST",
+          "max_coordination_in_cluster": 0.538,
+          "coordinated_with": {
+            "author_id": "UCNfkOTShWTfqLGxHIN2MdmA",
+            "comment_id": "8def511460e071221930e3340a077c0a"
+          }
+        }
+      ]
+    }
+  ]
+}

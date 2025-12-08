@@ -33,8 +33,17 @@ class BehavioralFeatures:
         for author_id, group in comments_df.groupby('author_id'):
             # Get channel creation date if available
             if 'author_channel_created' in group.columns and pd.notna(group['author_channel_created'].iloc[0]):
-                created_date = pd.to_datetime(group['author_channel_created'].iloc[0])
-                first_comment_date = pd.to_datetime(group['published_at'].min())
+                created_date = pd.to_datetime(
+                    group['author_channel_created'].iloc[0],
+                    format='ISO8601',
+                    errors='coerce',
+                    utc=True
+                )
+                first_comment_date = BehavioralFeatures._parse_timestamps(group['published_at']).min()
+                
+                if pd.isna(created_date) or pd.isna(first_comment_date):
+                    age_scores[author_id] = 0.5
+                    continue
                 
                 # Calculate account age at time of first comment
                 age_days = (first_comment_date - created_date).days
@@ -64,48 +73,72 @@ class BehavioralFeatures:
             Dictionary mapping author_id to username pattern score
         """
         username_scores = {}
-        all_usernames = comments_df[['author_id', 'author']].drop_duplicates()
-        
-        # Common bot username patterns
+        all_usernames = comments_df[["author_id", "author"]].drop_duplicates()
+
+        # Common bot username patterns (precompiled for speed)
         bot_patterns = [
-            r'^user\d{5,}$',  # user12345678
-            r'^[a-z]+\d{4,}$',  # john1234567
-            r'^\w+_\d{4,}$',  # name_123456
-            r'^[A-Z][a-z]+[A-Z][a-z]+\d{2,}$',  # FirstLast123
-            r'^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$',  # UUID pattern
-            r'^temp_\w+$',  # temp_something
-            r'^test\w*\d+$',  # test123
+            re.compile(r"^user\d{5,}$", re.IGNORECASE),
+            re.compile(r"^[a-z]+\d{4,}$", re.IGNORECASE),
+            re.compile(r"^\w+_\d{4,}$", re.IGNORECASE),
+            re.compile(r"^[A-Z][a-z]+[A-Z][a-z]+\d{2,}$"),
+            re.compile(r"^\w{8}-\w{4}-\w{4}-\w{4}-\w{12}$"),
+            re.compile(r"^temp_\w+$", re.IGNORECASE),
+            re.compile(r"^test\w*\d+$", re.IGNORECASE),
         ]
-        
-        # Check for patterns
-        for _, row in all_usernames.iterrows():
-            username = row['author']
-            author_id = row['author_id']
-            
-            # Check against bot patterns
-            pattern_match = any(re.match(pattern, username, re.IGNORECASE) 
-                              for pattern in bot_patterns)
-            
-            # Check for random-looking names (high entropy)
-            entropy = BehavioralFeatures._calculate_string_entropy(username)
-            
-            # Check for similarity to other usernames
-            similarities = []
-            for _, other_row in all_usernames.iterrows():
-                if other_row['author_id'] != author_id:
-                    sim = Levenshtein.ratio(username, other_row['author'])
+
+        # Precompute pattern + entropy using itertuples for speed
+        entropies = {}
+        pattern_hits = {}
+        normalized_names = {}
+        for row in all_usernames.itertuples(index=False):
+            author_id = row.author_id
+            username = str(row.author or "")
+            normalized_names[author_id] = username
+            entropies[author_id] = BehavioralFeatures._calculate_string_entropy(username)
+            pattern_hits[author_id] = any(p.match(username) for p in bot_patterns)
+
+        # Block usernames into small buckets to avoid O(n^2) Levenshtein across all pairs
+        buckets = {}
+        for author_id, username in normalized_names.items():
+            length_bucket = len(username) // 3
+            prefix = username[:2].lower()
+            key = (length_bucket, prefix)
+            buckets.setdefault(key, []).append((author_id, username))
+
+        max_bucket = max(1, getattr(Config, "USERNAME_BUCKET_SAMPLE", 300))
+        similar_counts = {aid: 0 for aid in all_usernames["author_id"]}
+        total = len(all_usernames)
+
+        for bucket_items in buckets.values():
+            if len(bucket_items) < 2:
+                continue
+
+            # Sample to keep runtime bounded on huge buckets
+            if len(bucket_items) > max_bucket:
+                bucket_items = bucket_items[:max_bucket]
+
+            for i in range(len(bucket_items)):
+                aid_i, name_i = bucket_items[i]
+                len_i = len(name_i)
+                for j in range(i + 1, len(bucket_items)):
+                    aid_j, name_j = bucket_items[j]
+                    if abs(len_i - len(name_j)) > 3:
+                        continue
+                    sim = Levenshtein.ratio(name_i, name_j)
                     if sim > Config.USERNAME_PATTERN_THRESHOLD:
-                        similarities.append(sim)
-            
-            # Combine scores
-            pattern_score = 1.0 if pattern_match else 0.0
+                        similar_counts[aid_i] += 1
+                        similar_counts[aid_j] += 1
+
+        for author_id, username in normalized_names.items():
+            entropy = entropies.get(author_id, 0.0)
+            pattern_score = 1.0 if pattern_hits.get(author_id) else 0.0
             entropy_score = min(entropy / 3.0, 1.0)  # Normalize entropy
-            similarity_score = len(similarities) / max(len(all_usernames) - 1, 1)
-            
-            username_scores[author_id] = (pattern_score * 0.4 + 
-                                         entropy_score * 0.3 + 
-                                         similarity_score * 0.3)
-        
+            similarity_score = similar_counts.get(author_id, 0) / max(total - 1, 1)
+
+            username_scores[author_id] = (
+                pattern_score * 0.4 + entropy_score * 0.3 + similarity_score * 0.3
+            )
+
         return username_scores
     
     @staticmethod
@@ -200,7 +233,11 @@ class BehavioralFeatures:
             automation_indicators = []
             
             # Check for exact timestamp patterns (posting at exact seconds)
-            timestamps = pd.to_datetime(group['published_at'])
+            timestamps = BehavioralFeatures._parse_timestamps(group['published_at']).dropna()
+            if timestamps.empty:
+                automation_scores[author_id] = 0.0
+                continue
+
             seconds = timestamps.dt.second
             # High concentration at :00 seconds suggests automation
             zero_second_ratio = (seconds == 0).mean()
@@ -242,6 +279,11 @@ class BehavioralFeatures:
         # Count posts within 60 seconds of each other
         rapid_posts = np.sum(intervals < 60)
         return rapid_posts / max(len(intervals), 1)
+
+    @staticmethod
+    def _parse_timestamps(timestamp_series: pd.Series) -> pd.Series:
+        """Parse published_at timestamps with a consistent ISO-8601 format."""
+        return pd.to_datetime(timestamp_series, format='ISO8601', errors='coerce', utc=True)
     
     @staticmethod
     def analyze_content_targeting(comments_df: pd.DataFrame) -> Dict[str, float]:

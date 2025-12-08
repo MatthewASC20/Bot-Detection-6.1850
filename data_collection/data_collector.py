@@ -7,6 +7,7 @@ from datetime import datetime
 import pandas as pd
 import json
 from tqdm import tqdm
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 from data_collection.youtube_api import YouTubeAPI
 from storage.database import DatabaseHandler
@@ -42,37 +43,64 @@ class DataCollector:
         all_comments = []
         all_videos = []
         all_channels = []
-        
-        logger.info(f"Starting data collection for {len(video_urls)} videos")
-        
-        for url in tqdm(video_urls, desc="Collecting video data"):
-            video_id = self.api._extract_video_id(url)
-            
-            # Get video info
-            video_info = self.api.get_video_info(video_id)
-            if not video_info:
-                logger.warning(f"Could not fetch video info for {video_id}")
-                continue
-            
-            all_videos.append(video_info)
-            
-            # Get channel info
-            channel_info = self.api.get_channel_info(video_info['channel_id'])
-            if channel_info:
-                all_channels.append(channel_info)
-            
-            # Get comments
-            comments = self.api.get_video_comments(video_id, max_comments_per_video)
-            
-            # Enrich comments with video and channel data
-            for comment in comments:
-                comment['video_title'] = video_info['title']
-                comment['channel_title'] = video_info['channel_title']
-                if channel_info:
-                    comment['channel_created_at'] = channel_info['published_at']
-                    comment['channel_subscriber_count'] = channel_info['subscriber_count']
-            
-            all_comments.extend(comments)
+        max_workers = max(1, getattr(Config, "COMMENT_FETCH_WORKERS", 4))
+        video_ids = [self.api._extract_video_id(url) for url in video_urls]
+
+        logger.info(f"Starting data collection for {len(video_ids)} videos (workers={max_workers})")
+
+        def _collect_single_video(video_id: str):
+            """Collect data for a single video in a worker thread."""
+            local_api = YouTubeAPI()
+            if self.use_cache and getattr(self.api, "cache", None):
+                # Seed local cache to avoid redundant fetches; copy to keep thread safety simple
+                local_api.cache = dict(self.api.cache)
+
+            try:
+                video_info = local_api.get_video_info(video_id)
+                if not video_info:
+                    logger.warning(f"Could not fetch video info for {video_id}")
+                    return None
+
+                channel_info = local_api.get_channel_info(video_info['channel_id'])
+                comments = local_api.get_video_comments(video_id, max_comments_per_video)
+
+                for comment in comments:
+                    comment['video_title'] = video_info['title']
+                    comment['channel_title'] = video_info['channel_title']
+                    if channel_info:
+                        comment['channel_created_at'] = channel_info['published_at']
+                        comment['channel_subscriber_count'] = channel_info['subscriber_count']
+
+                return {
+                    "video": video_info,
+                    "channel": channel_info,
+                    "comments": comments,
+                    "cache": local_api.cache,
+                }
+            except Exception as e:
+                logger.error(f"Error collecting data for {video_id}: {e}")
+                return None
+
+        with ThreadPoolExecutor(max_workers=max_workers) as executor:
+            futures = {executor.submit(_collect_single_video, vid): vid for vid in video_ids}
+            for future in tqdm(as_completed(futures), total=len(futures), desc="Collecting video data"):
+                video_id = futures[future]
+                try:
+                    result = future.result()
+                except Exception as e:
+                    logger.error(f"Worker failed for {video_id}: {e}")
+                    continue
+
+                if not result:
+                    continue
+
+                all_videos.append(result["video"])
+                if result["channel"]:
+                    all_channels.append(result["channel"])
+                all_comments.extend(result["comments"])
+
+                if self.use_cache and result.get("cache"):
+                    self.api.cache.update(result["cache"])
         
         # Save to database
         self.db.save_comments(all_comments)

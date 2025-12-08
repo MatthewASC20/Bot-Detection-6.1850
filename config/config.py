@@ -29,12 +29,21 @@ class Config:
     OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "api_key")
     OPENAI_EMBEDDING_MODEL = "text-embedding-3-small"  # OpenAI's small embedding model
     EMBEDDING_DIMENSION = 1536  # Dimension of text-embedding-3-small
+    EMBEDDING_BATCH_SIZE = int(os.getenv("EMBEDDING_BATCH_SIZE", "100"))  # Number of comments to embed per API call
+    EMBEDDING_BATCH_SLEEP = float(os.getenv("EMBEDDING_BATCH_SLEEP", "0.0"))  # Optional delay between embedding requests (seconds)
 
     # API Quotas and Limits
     MAX_RESULTS_PER_PAGE = 100  # YouTube API maximum
     DEFAULT_MAX_COMMENTS = 1000
     API_RETRY_COUNT = 3
     API_RETRY_DELAY = 2  # seconds
+    COMMENT_PAGE_SLEEP = 0.1  # Delay between paged comment requests
+    COMMENT_FETCH_WORKERS = int(
+        os.getenv(
+            "COMMENT_FETCH_WORKERS",
+            max(4, min(32, os.cpu_count() or 4)),  # use available cores without going wild
+        )
+    )
 
     # Data Collection Settings
     POLITICAL_CHANNELS = [
@@ -80,9 +89,6 @@ class Config:
     SEMANTIC_SIMILARITY_THRESHOLD = 0.85  # High similarity threshold for bot detection
     DISCUSSION_DIVERSITY_THRESHOLD = 0.3  # Low diversity = more bot-like
 
-    # Embedding batch size for API calls
-    EMBEDDING_BATCH_SIZE = 100  # Number of comments to embed in one API call
-
     # Clustering Parameters
     MIN_CLUSTER_SIZE = 3  # Minimum accounts to form a bot cluster
     MIN_SAMPLES = 2  # For HDBSCAN
@@ -96,6 +102,7 @@ class Config:
     SUSPICIOUS_ACCOUNT_AGE_DAYS = 30  # Accounts newer than this are suspicious
     SUSPICIOUS_COMMENT_RATE = 10  # Comments per hour
     USERNAME_PATTERN_THRESHOLD = 0.7  # Similarity threshold for usernames
+    USERNAME_BUCKET_SAMPLE = int(os.getenv("USERNAME_BUCKET_SAMPLE", 300))  # Cap per-bucket username comparisons to keep runtime bounded
 
     # Network Analysis
     MIN_EDGE_WEIGHT = 2  # Minimum co-occurrences to create edge

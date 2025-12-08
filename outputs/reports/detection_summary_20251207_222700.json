@@ -1,0 +1,152 @@
+{
+  "total_accounts": 1735,
+  "total_comments": 2938,
+  "classification_counts": {
+    "likely_human": 1735,
+    "suspicious": 0,
+    "likely_bot": 0
+  },
+  "avg_bot_probability": 0.1298539811330727,
+  "high_confidence_bots": 0,
+  "clusters_found": 14,
+  "noise_points": 718,
+  "top_bot_accounts": [
+    {
+      "author_id": "UCHAww4ttCLT64y5B1OfC-GA",
+      "final_bot_probability": 0.409102201793213,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+      "final_bot_probability": 0.40904772443536486,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UCqVuwFGOCTy5v528SvEcL0w",
+      "final_bot_probability": 0.4089932470775167,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UC5lXZNlLyuEZU4fa6lrJgQw",
+      "final_bot_probability": 0.40896600839859265,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UCM6F9Rl11OMhGhmoDVWSPtA",
+      "final_bot_probability": 0.4089387697196686,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UCZe7k4EA0WWLb_a9D7Qfiew",
+      "final_bot_probability": 0.4089387697196686,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UCfEjwTvNuu3ShrdMu30tIsQ",
+      "final_bot_probability": 0.4089387697196686,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UCkqoy5f94hVsy0TLTxVx-wA",
+      "final_bot_probability": 0.4089387697196686,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UCo1LkFdOLrJn0AsOKMTlutA",
+      "final_bot_probability": 0.4089387697196686,
+      "cluster_id": 7
+    },
+    {
+      "author_id": "UCupKfdecx3QMyCiH12hJgOw",
+      "final_bot_probability": 0.4089387697196686,
+      "cluster_id": 7
+    }
+  ],
+  "cluster_statistics": [
+    {
+      "cluster_id": 7,
+      "size": 11,
+      "avg_bot_probability": 0.40897096088566975,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 13,
+      "size": 3,
+      "avg_bot_probability": 0.3738587561003291,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 10,
+      "size": 3,
+      "avg_bot_probability": 0.3734808194302576,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 1,
+      "size": 34,
+      "avg_bot_probability": 0.36983713062980594,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 12,
+      "size": 3,
+      "avg_bot_probability": 0.3400861990693451,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 2,
+      "size": 6,
+      "avg_bot_probability": 0.33912549803176656,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 6,
+      "size": 14,
+      "avg_bot_probability": 0.3323155022762065,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 11,
+      "size": 10,
+      "avg_bot_probability": 0.30523877950697603,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 9,
+      "size": 5,
+      "avg_bot_probability": 0.23692926485179983,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 4,
+      "size": 7,
+      "avg_bot_probability": 0.22693327795615348,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 3,
+      "size": 39,
+      "avg_bot_probability": 0.1408328896669236,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 0,
+      "size": 838,
+      "avg_bot_probability": 0.1389255895594107,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 5,
+      "size": 32,
+      "avg_bot_probability": 0.13794030328900617,
+      "bot_count": 0
+    },
+    {
+      "cluster_id": 8,
+      "size": 12,
+      "avg_bot_probability": 0.13777022128053446,
+      "bot_count": 0
+    }
+  ],
+  "detection_method": "original"
+}

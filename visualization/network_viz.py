@@ -62,6 +62,7 @@ class NetworkVisualizer:
     def visualize_bot_network(self, G: nx.Graph, 
                              bot_scores: Dict[str, float],
                              communities: Optional[Dict[str, int]] = None,
+                             comments_df: Optional[pd.DataFrame] = None,
                              title: str = "Bot Coordination Network",
                              filename: str = "bot_network.html") -> str:
         """
@@ -99,6 +100,30 @@ class NetworkVisualizer:
             )
             edge_traces.append(edge_trace)
         
+        # Build author metadata for click-to-inspect panel
+        author_meta: Dict[str, Dict] = {}
+        if comments_df is not None and not comments_df.empty:
+            base_cols = ['author_id', 'author', 'comment_id', 'video_id', 'published_at', 'text']
+            available_cols = [c for c in base_cols if c in comments_df.columns]
+            comments_subset = comments_df[available_cols].copy()
+            for author_id, group in comments_subset.groupby('author_id'):
+                display_name = group['author'].dropna().iloc[0] if 'author' in group.columns and not group['author'].dropna().empty else author_id
+                sorted_group = group.sort_values('published_at')
+                comments = []
+                for _, row in sorted_group.tail(20).iterrows():
+                    comments.append({
+                        'comment_id': row.get('comment_id'),
+                        'video_id': row.get('video_id'),
+                        'published_at': str(row.get('published_at')),
+                        'text': (row.get('text') or '')[:500]
+                    })
+                author_meta[author_id] = {
+                    'author_name': display_name,
+                    'total_comments': len(group),
+                    'videos_commented': group['video_id'].nunique() if 'video_id' in group.columns else 0,
+                    'comments': comments
+                }
+
         # Prepare node data - always color by bot probability
         node_x = []
         node_y = []
@@ -106,6 +131,7 @@ class NetworkVisualizer:
         node_size = []
         node_text = []
         node_symbols = []
+        node_customdata = []
         
         # Define symbols for clusters (circle for noise/unclustered)
         available_symbols = ['square', 'diamond', 'cross', 'x', 'triangle-up', 
@@ -133,6 +159,7 @@ class NetworkVisualizer:
             bot_score = bot_scores.get(node, 0)
             degree = G.degree(node)
             cluster_id = communities.get(node, -1) if communities else -1
+            meta = author_meta.get(node, {})
             
             # Color by bot probability
             node_color.append(bot_score)
@@ -151,6 +178,17 @@ class NetworkVisualizer:
                 cluster_label = 'Unclustered' if cluster_id == -1 else f'Botnet Cluster {cluster_id}'
                 text += f"<b>Cluster:</b> {cluster_label}"
             node_text.append(text)
+            
+            node_customdata.append({
+                'author_id': node,
+                'author_name': meta.get('author_name', node),
+                'cluster_id': cluster_id,
+                'bot_probability': bot_score,
+                'total_comments': meta.get('total_comments', 0),
+                'videos_commented': meta.get('videos_commented', 0),
+                'channel_url': f"https://www.youtube.com/channel/{node}",
+                'comments': meta.get('comments', [])
+            })
         
         # Create main node trace with bot probability coloring
         node_trace = go.Scatter(
@@ -180,7 +218,8 @@ class NetworkVisualizer:
                 ),
                 line=dict(width=1.5, color='white')
             ),
-            showlegend=False
+            showlegend=False,
+            customdata=node_customdata
         )
         
         # Build the figure
@@ -278,9 +317,103 @@ class NetworkVisualizer:
             )
         )
         
-        # Save HTML
+        # Save HTML with click-to-inspect panel
         output_path = os.path.join(self.output_dir, filename)
-        fig.write_html(output_path)
+        fig_html = fig.to_html(full_html=False, include_plotlyjs=True, div_id="botnet-graph")
+        
+        html_template = """<!DOCTYPE html>
+<html lang='en'>
+<head>
+  <meta charset='UTF-8'>
+  <title>Bot Coordination Network</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #f7f7f7; color: #222; }
+    .layout { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; padding: 16px; }
+    .chart-container { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 8px; }
+    .panel { background: #fff; border: 1px solid #e5e5e5; border-radius: 8px; padding: 16px; max-height: 90vh; overflow: auto; }
+    .panel h2 { margin: 0 0 8px 0; }
+    .panel h3 { margin: 16px 0 8px 0; }
+    .meta { color: #555; font-size: 13px; line-height: 1.4; margin-bottom: 8px; }
+    .comment { border: 1px solid #eee; border-radius: 6px; padding: 8px; margin-bottom: 8px; background: #fafafa; }
+    .comment .small { color: #666; font-size: 12px; margin-bottom: 4px; }
+    .comment .text { white-space: pre-wrap; }
+    a.button { display: inline-block; padding: 6px 10px; background: #2a9d8f; color: #fff; text-decoration: none; border-radius: 4px; margin-top: 6px; }
+    a.button:hover { background: #23867b; }
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .panel { order: -1; }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div class="chart-container">
+      {{FIG_PLACEHOLDER}}
+    </div>
+    <div class="panel" id="account-panel">
+      <h2>Select an account</h2>
+      <p>Click a node in the graph to see its comments and channel link.</p>
+    </div>
+  </div>
+  <script>
+    const plot = document.getElementById('botnet-graph') || document.querySelector('.plotly-graph-div');
+    const panel = document.getElementById('account-panel');
+    const escapeHtml = (unsafe) => {
+      if (unsafe === undefined || unsafe === null) return '';
+      return String(unsafe)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/\"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    };
+    const renderAccount = (meta) => {
+      if (!meta) {
+        panel.innerHTML = "<h2>Select an account</h2><p>Click a node in the graph to see its comments and channel link.</p>";
+        return;
+      }
+      const bp = parseFloat(meta.bot_probability || 0);
+      const comments = (meta.comments || []).map(c => {
+        const text = escapeHtml(c.text || '');
+        const vid = escapeHtml(c.video_id || '');
+        const cid = escapeHtml(c.comment_id || '');
+        const ts = escapeHtml(c.published_at || '');
+        return `<div class='comment'>
+                  <div class='small'>Video: ${vid} &middot; ${ts} &middot; Comment ID: ${cid}</div>
+                  <div class='text'>${text}</div>
+                </div>`;
+      }).join('') || "<p class='meta'>No comments captured for this account.</p>";
+      const chan = meta.channel_url ? `<a class='button' href='${escapeHtml(meta.channel_url)}' target='_blank' rel='noopener'>Open channel</a>` : '';
+      panel.innerHTML = `
+        <h2>${escapeHtml(meta.author_name || meta.author_id || 'Account')}</h2>
+        <div class='meta'>
+          Account ID: ${escapeHtml(meta.author_id || '')}<br>
+          Cluster: ${escapeHtml(meta.cluster_id)}<br>
+          Bot probability: ${(bp * 100).toFixed(1)}%<br>
+          Comments analyzed: ${escapeHtml(meta.total_comments || 0)} &middot; Videos: ${escapeHtml(meta.videos_commented || 0)}<br>
+          ${chan}
+        </div>
+        <h3>Recent comments</h3>
+        ${comments}
+      `;
+    };
+    renderAccount(null);
+    if (plot && plot.on) {
+      plot.on('plotly_click', function(evt) {
+        if (!evt || !evt.points || !evt.points.length) return;
+        const pt = evt.points[0];
+        if (!pt || !pt.customdata) return;
+        renderAccount(pt.customdata);
+      });
+    }
+  </script>
+</body>
+</html>
+"""
+        html_page = html_template.replace("{{FIG_PLACEHOLDER}}", fig_html)
+        
+        with open(output_path, 'w') as f:
+            f.write(html_page)
         
         # Also save static PNG for paper (if kaleido is properly configured)
         try:

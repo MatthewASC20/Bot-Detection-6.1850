@@ -9,10 +9,45 @@ from googleapiclient.errors import HttpError
 from datetime import datetime, timedelta
 import json
 import hashlib
+import os
 
 from config.config import Config
 
 logger = logging.getLogger(__name__)
+
+
+class DiscoveryCache:
+    """
+    Lightweight discovery cache to avoid repeated discovery fetches.
+    Implements the minimal interface expected by googleapiclient.discovery.
+    """
+
+    def __init__(self, cache_dir: str = "data/raw/discovery_cache"):
+        self.cache_dir = cache_dir
+        os.makedirs(self.cache_dir, exist_ok=True)
+
+    def _path_for(self, url: str) -> str:
+        filename = hashlib.md5(url.encode("utf-8")).hexdigest() + ".json"
+        return os.path.join(self.cache_dir, filename)
+
+    def get(self, url: str) -> Optional[str]:
+        path = self._path_for(url)
+        if not os.path.exists(path):
+            return None
+        try:
+            with open(path, "r") as f:
+                return f.read()
+        except Exception:
+            return None
+
+    def set(self, url: str, content: str):
+        path = self._path_for(url)
+        try:
+            with open(path, "w") as f:
+                f.write(content)
+        except Exception as e:
+            logger.debug(f"Failed to write discovery cache for {url}: {e}")
+
 
 class YouTubeAPI:
     """Wrapper for YouTube Data API v3"""
@@ -26,7 +61,13 @@ class YouTubeAPI:
     def _build_youtube_client(self):
         """Build YouTube API client with current API key"""
         api_key = Config.get_api_key(self.api_key_index)
-        return build('youtube', 'v3', developerKey=api_key)
+        return build(
+            'youtube',
+            'v3',
+            developerKey=api_key,
+            cache=DiscoveryCache(),
+            cache_discovery=True
+        )
     
     def _rotate_api_key(self):
         """Rotate to next API key"""
@@ -113,8 +154,8 @@ class YouTubeAPI:
             if not next_page_token:
                 break
             
-            # Rate limiting
-            time.sleep(0.5)
+            # Rate limiting between paged requests (tunable)
+            time.sleep(getattr(Config, "COMMENT_PAGE_SLEEP", 0.5))
         
         # Cache results
         self.cache[cache_key] = comments[:max_comments]
@@ -232,6 +273,29 @@ class YouTubeAPI:
         elif 'youtu.be/' in url:
             return url.split('youtu.be/')[1].split('?')[0]
         return url
+
+    def _extract_video_ids_from_items(self, items: List[Dict], context: str) -> List[str]:
+        """
+        Safely extract video IDs from search/channel results.
+        
+        Some API responses may include items without a videoId (e.g., when the API
+        returns other resource types). This helper filters those out to avoid
+        KeyError while keeping the caller logic simple.
+        """
+        video_ids = []
+        missing_video_id = 0
+
+        for item in items or []:
+            video_id = item.get('id', {}).get('videoId')
+            if video_id:
+                video_ids.append(video_id)
+            else:
+                missing_video_id += 1
+
+        if missing_video_id:
+            logger.debug(f"Skipped {missing_video_id} {context} items without videoId")
+
+        return video_ids
     
     def search_videos(self, query: str, max_results: int = 10) -> List[str]:
         """
@@ -256,7 +320,7 @@ class YouTubeAPI:
         if not response:
             return []
         
-        return [item['id']['videoId'] for item in response.get('items', [])]
+        return self._extract_video_ids_from_items(response.get('items', []), "search")
     
     def get_channel_videos(self, channel_id: str, max_results: int = 10) -> List[str]:
         """
@@ -281,7 +345,7 @@ class YouTubeAPI:
         if not response:
             return []
         
-        return [item['id']['videoId'] for item in response.get('items', [])]
+        return self._extract_video_ids_from_items(response.get('items', []), "channel search")
     
     def save_cache(self, filepath: str = 'data/raw/api_cache.json'):
         """Save cache to file"""

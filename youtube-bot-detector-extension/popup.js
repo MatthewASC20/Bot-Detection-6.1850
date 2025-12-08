@@ -16,7 +16,7 @@ async function loadSettings() {
     'votingEnabled'
   ]);
   
-  document.getElementById('apiEndpoint').value = settings.apiEndpoint || 'http://localhost:5000/api';
+  document.getElementById('apiEndpoint').value = settings.apiEndpoint || 'http://localhost:5001/api';
   document.getElementById('detectionToggle').checked = settings.detectionEnabled !== false;
   document.getElementById('votingToggle').checked = settings.votingEnabled !== false;
 }

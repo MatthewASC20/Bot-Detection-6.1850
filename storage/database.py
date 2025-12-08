@@ -140,7 +140,7 @@ class DatabaseHandler:
                 # Table doesn't exist yet, all comments are new
                 pass
             
-            df.to_sql('comments', conn, if_exists='append', index=False, method='multi')
+            df.to_sql('comments', conn, if_exists='append', index=False, chunksize=50)
         
         logger.info(f"Saved {len(df)} comments to database")
     
@@ -156,7 +156,7 @@ class DatabaseHandler:
             df['tags'] = df['tags'].apply(json.dumps)
         
         with sqlite3.connect(self.db_path) as conn:
-            df.to_sql('videos', conn, if_exists='replace', index=False, method='multi')
+            df.to_sql('videos', conn, if_exists='replace', index=False, chunksize=50)
         
         logger.info(f"Saved {len(videos)} videos to database")
     
@@ -168,7 +168,7 @@ class DatabaseHandler:
         df = pd.DataFrame(channels)
         
         with sqlite3.connect(self.db_path) as conn:
-            df.to_sql('channels', conn, if_exists='replace', index=False, method='multi')
+            df.to_sql('channels', conn, if_exists='replace', index=False, chunksize=50)
         
         logger.info(f"Saved {len(channels)} channels to database")
     

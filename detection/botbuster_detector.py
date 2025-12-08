@@ -47,6 +47,7 @@ class BotBusterDetector:
         self.account_bot_probs = {}
         self.botnet_clusters = {}
         self.cross_video_coordination = {}  # Track authors with cross-video coordination
+        self.last_coordination_threshold = None  # Remember edge threshold used for clustering
         
     def calculate_temporal_synchronization(self, comments_df: pd.DataFrame) -> np.ndarray:
         """
@@ -113,32 +114,20 @@ class BotBusterDetector:
         """
         logger.info("Calculating cross-video semantic similarity...")
         
-        n = len(comments_df)
-        cross_video_matrix = np.zeros((n, n))
-        
         video_ids = comments_df['video_id'].values
         author_ids = comments_df['author_id'].values
-        
-        # Track cross-video similarities
-        cross_video_pairs = 0
-        high_similarity_cross_video = 0
-        
-        for i in range(n):
-            for j in range(i + 1, n):
-                # Only consider comments on DIFFERENT videos by DIFFERENT authors
-                if video_ids[i] == video_ids[j]:
-                    continue
-                if author_ids[i] == author_ids[j]:
-                    continue
-                
-                # Copy semantic similarity for cross-video pairs
-                sim = semantic_matrix[i, j]
-                cross_video_matrix[i, j] = sim
-                cross_video_matrix[j, i] = sim
-                
-                cross_video_pairs += 1
-                if sim > Config.SEMANTIC_SIMILARITY_THRESHOLD:
-                    high_similarity_cross_video += 1
+        # Masks for cross-video / different author pairs
+        same_video = np.equal.outer(video_ids, video_ids)
+        same_author = np.equal.outer(author_ids, author_ids)
+        cross_video_mask = (~same_video) & (~same_author)
+
+        # Copy only cross-video semantic similarities; zero elsewhere
+        cross_video_matrix = np.where(cross_video_mask, semantic_matrix, 0.0)
+
+        # Stats
+        triu_mask = np.triu(cross_video_mask, k=1)
+        cross_video_pairs = int(np.count_nonzero(triu_mask))
+        high_similarity_cross_video = int(np.count_nonzero(triu_mask & (semantic_matrix > Config.SEMANTIC_SIMILARITY_THRESHOLD)))
         
         # Calculate per-author cross-video coordination scores
         author_cross_video_scores = {}
@@ -146,9 +135,11 @@ class BotBusterDetector:
         for author_id in comments_df['author_id'].unique():
             # Get indices of this author's comments
             author_mask = author_ids == author_id
-            author_indices = np.where(author_mask)[0]
-            
-            if len(author_indices) == 0:
+
+            # Cross-video + different author mask restricted to this author's comments
+            author_rows = np.where(author_mask)[0]
+            other_cols = np.where(~author_mask)[0]
+            if author_rows.size == 0 or other_cols.size == 0:
                 author_cross_video_scores[author_id] = {
                     'avg_cross_video_sim': 0.0,
                     'max_cross_video_sim': 0.0,
@@ -156,28 +147,18 @@ class BotBusterDetector:
                     'videos_with_similar_content': set()
                 }
                 continue
-            
-            # Find cross-video similarities involving this author
-            cross_video_sims = []
-            videos_with_similar = set()
-            
-            for idx in author_indices:
-                for j in range(n):
-                    if j in author_indices:
-                        continue
-                    # Check if different video
-                    if video_ids[idx] != video_ids[j]:
-                        sim = semantic_matrix[idx, j]
-                        cross_video_sims.append(sim)
-                        if sim > Config.SEMANTIC_SIMILARITY_THRESHOLD:
-                            videos_with_similar.add(video_ids[j])
-            
-            if cross_video_sims:
+
+            local_mask = cross_video_mask[np.ix_(author_rows, other_cols)]
+            sims = semantic_matrix[np.ix_(author_rows, other_cols)]
+
+            # Only keep valid cross-video pairs
+            filtered_sims = sims[local_mask]
+            if filtered_sims.size:
                 author_cross_video_scores[author_id] = {
-                    'avg_cross_video_sim': np.mean(cross_video_sims),
-                    'max_cross_video_sim': np.max(cross_video_sims),
-                    'high_sim_count': sum(1 for s in cross_video_sims if s > Config.SEMANTIC_SIMILARITY_THRESHOLD),
-                    'videos_with_similar_content': videos_with_similar
+                    'avg_cross_video_sim': float(np.mean(filtered_sims)),
+                    'max_cross_video_sim': float(np.max(filtered_sims)),
+                    'high_sim_count': int(np.count_nonzero(filtered_sims > Config.SEMANTIC_SIMILARITY_THRESHOLD)),
+                    'videos_with_similar_content': set(video_ids[other_cols][np.unique(np.where((local_mask) & (sims > Config.SEMANTIC_SIMILARITY_THRESHOLD))[1])])
                 }
             else:
                 author_cross_video_scores[author_id] = {
@@ -227,35 +208,24 @@ class BotBusterDetector:
         
         # Cross-video similarity gets a boost - it's a stronger signal of coordination
         cross_video_boost = 1.5
-        
-        # Calculate coordination:
-        # - Same-video: temporal + semantic
-        # - Cross-video: boosted semantic (no temporal since different videos)
+
         video_ids = comments_df['video_id'].values
-        n = len(comments_df)
-        
-        coordination_matrix = np.zeros((n, n))
-        
-        for i in range(n):
-            for j in range(i + 1, n):
-                if video_ids[i] == video_ids[j]:
-                    # Same video: use temporal + semantic
-                    coord = (temporal_weight * temporal_matrix[i, j] + 
-                            semantic_weight * semantic_matrix[i, j])
-                else:
-                    # Different videos: boost semantic similarity as it's a stronger signal
-                    coord = semantic_weight * cross_video_boost * cross_video_matrix[i, j]
-                
-                coordination_matrix[i, j] = coord
-                coordination_matrix[j, i] = coord
-        
-        # Zero out diagonal and same-author comparisons
-        np.fill_diagonal(coordination_matrix, 0)
         author_ids = comments_df['author_id'].values
-        for i in range(len(author_ids)):
-            for j in range(len(author_ids)):
-                if author_ids[i] == author_ids[j]:
-                    coordination_matrix[i, j] = 0
+
+        same_video = np.equal.outer(video_ids, video_ids)
+        same_author = np.equal.outer(author_ids, author_ids)
+        diff_author = ~same_author
+
+        same_video_mask = same_video & diff_author
+        cross_video_mask = (~same_video) & diff_author
+
+        coordination_matrix = np.zeros_like(semantic_matrix)
+        coordination_matrix[same_video_mask] = (
+            temporal_weight * temporal_matrix[same_video_mask]
+            + semantic_weight * semantic_matrix[same_video_mask]
+        )
+        coordination_matrix[cross_video_mask] = semantic_weight * cross_video_boost * semantic_matrix[cross_video_mask]
+        np.fill_diagonal(coordination_matrix, 0.0)
         
         self.coordination_matrix = coordination_matrix
         logger.info(f"Coordination matrix computed: shape {coordination_matrix.shape}")
@@ -279,6 +249,7 @@ class BotBusterDetector:
             NetworkX graph of account coordination
         """
         logger.info("Building coordination graph...")
+        self.last_coordination_threshold = threshold
         
         G = nx.Graph()
         
@@ -558,6 +529,83 @@ class BotBusterDetector:
         logger.info(f"Calculated bot probabilities for {len(account_probs)} accounts")
         
         return account_probs
+
+    def extract_cluster_comment_evidence(self, comments_df: pd.DataFrame,
+                                         cluster_assignments: Optional[Dict[str, int]] = None,
+                                         max_comments_per_cluster: int = 50,
+                                         coordination_threshold: Optional[float] = None) -> Dict[int, Dict]:
+        """
+        Extract the specific comments that contributed to each cluster.
+
+        Uses the coordination matrix to find cross-author comment pairs that met or
+        exceeded the edge threshold used to build the coordination graph.
+        """
+        if self.coordination_matrix is None:
+            raise ValueError("Must run detect_bots before extracting cluster evidence")
+        
+        comments_df = comments_df.reset_index(drop=True).copy()
+        if not cluster_assignments:
+            cluster_assignments = self.botnet_clusters or {}
+        comments_df['cluster_id'] = comments_df['author_id'].map(cluster_assignments).fillna(-1).astype(int)
+        
+        threshold = coordination_threshold
+        if threshold is None:
+            threshold = self.last_coordination_threshold if self.last_coordination_threshold is not None else 0.3
+        
+        evidence: Dict[int, Dict] = {}
+        author_ids = comments_df['author_id'].values
+        
+        for cluster_id, cluster_comments in comments_df[comments_df['cluster_id'] != -1].groupby('cluster_id'):
+            idx = cluster_comments.index.to_list()
+            if not idx:
+                continue
+            
+            sub_matrix = self.coordination_matrix[np.ix_(idx, idx)]
+            author_subset = author_ids[idx]
+            
+            # Only keep coordination between different authors
+            cross_author_mask = np.not_equal.outer(author_subset, author_subset)
+            sub_matrix = np.where(cross_author_mask, sub_matrix, 0.0)
+            
+            max_scores = sub_matrix.max(axis=1)
+            best_partners = sub_matrix.argmax(axis=1)
+            
+            evidence_rows = []
+            for pos, global_idx in enumerate(idx):
+                max_score = float(max_scores[pos])
+                if max_score < threshold:
+                    continue
+                
+                partner_global_idx = idx[best_partners[pos]] if idx else None
+                partner_row = comments_df.loc[partner_global_idx] if partner_global_idx is not None else None
+                current_row = comments_df.loc[global_idx]
+                
+                evidence_rows.append({
+                    'comment_id': current_row.get('comment_id'),
+                    'author_id': current_row.get('author_id'),
+                    'video_id': current_row.get('video_id'),
+                    'published_at': str(current_row.get('published_at')),
+                    'text': current_row.get('text', ''),
+                    'max_coordination_in_cluster': round(max_score, 3),
+                    'coordinated_with': {
+                        'author_id': partner_row.get('author_id') if partner_row is not None else None,
+                        'comment_id': partner_row.get('comment_id') if partner_row is not None else None
+                    }
+                })
+            
+            evidence_rows.sort(key=lambda x: x['max_coordination_in_cluster'], reverse=True)
+            total_candidates = len(evidence_rows)
+            
+            if max_comments_per_cluster and total_candidates > max_comments_per_cluster:
+                evidence_rows = evidence_rows[:max_comments_per_cluster]
+            
+            evidence[int(cluster_id)] = {
+                'comments': evidence_rows,
+                'available_count': total_candidates,
+                'truncated': total_candidates > len(evidence_rows)
+            }
+        
+        return evidence
     
     def detect_bots(self, comments_df: pd.DataFrame) -> pd.DataFrame:
         """
@@ -723,4 +771,3 @@ class BotBusterDetector:
             G.nodes[node]['cluster_id'] = clusters.get(node, -1)
         
         return G
-

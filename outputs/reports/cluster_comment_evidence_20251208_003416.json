@@ -1,0 +1,220 @@
+{
+  "generated_at": "2025-12-08T00:34:16.191891",
+  "detection_method": "botbuster",
+  "coordination_threshold": 0.3,
+  "max_comments_per_cluster": 100,
+  "clusters": [
+    {
+      "cluster_id": 0,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "f56b98ace4750e487e7f09329a69dfc3",
+          "author_id": "UCqX6XRnVnkfLBjb2UazDwWQ",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T01:39:30Z",
+          "text": "Melania is looking like Bruce Jenner?",
+          "max_coordination_in_cluster": 0.632,
+          "coordinated_with": {
+            "author_id": "UC6WktgEVFo3N5HO34pHIEWA",
+            "comment_id": "39c7b6757b27acfda9285e2bf48e555c"
+          }
+        },
+        {
+          "comment_id": "39c7b6757b27acfda9285e2bf48e555c",
+          "author_id": "UC6WktgEVFo3N5HO34pHIEWA",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T01:39:11Z",
+          "text": "Melania looks like she is about to hang herself.",
+          "max_coordination_in_cluster": 0.632,
+          "coordinated_with": {
+            "author_id": "UCqX6XRnVnkfLBjb2UazDwWQ",
+            "comment_id": "f56b98ace4750e487e7f09329a69dfc3"
+          }
+        },
+        {
+          "comment_id": "af2cf817ecb4fd5893724601c08bf48d",
+          "author_id": "UC7cz6zV7mS5rGMRxUas6C0Q",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T01:39:14Z",
+          "text": "Currently ,\u00a0\u00a0 Bible prophecy is being fulfilled . The Bible is a book of prophecy. Approximately \n30% of the Bible is about prophecy.\nThe earth is going to go through a time of tribulation.\nThe Great Tribulation\u00a0 will be a time of distress that human kind has never experience before.\nEarth will soon enter into this\u00a0 time\u00a0 of tribulation, and \nBible prophecy wil be fulfilled.\nTrue christians\u00a0 (saved from sin by Jesus\u00a0 )\u3000will be raptured,\n(lifted to heavenby Jesus)\nbut merely nominal\u00a0 christians\u00a0 \n(those who are christians in name only ) will\u00a0 remain \non the earth. \nThe second prophecy tells that \nIsrael will be attacked like \nnever before .\nas\u00a0 far\u00a0 as\u00a0 what happens first,\nthe order of prophecies 1,2,&3 might change.\n1. All Christians in the world will disappear at once.\nYou might get an image of that if \nyou watched the\u00a0 movie\n\"LeftBehind \" but \nI think the Rapture will be incomparable\u00a0 to the movie.\nThe movie cannot be compared \nwith reality when the Rapture occurs.\n2. Damascus ,the capital of Syria,will be destroyed.\n3. The countries of Russia,Iran, and Turkey will attack Israel.\nGod will miraculously give \nIsrael the victory in this battle.\nThe rise of the anti- Christ will occur\u00a0 when he is \nwelcomed as the new world leader.\nHe will confirm a peace treaty with Israel for seven years.\nThis will begin the Great \nTribulation, which will last for \nseven years.\nThe anti-Christ will lie to the \nworld about why Christians\ndisappear. For example,\nthe anti-Christ might lie and say \nthat extraterrestrials snatched \npeople who don't believe\nin aliens from outer space.\nDuring the Great Tribulation there will be famines, desease,\nepidemics and pandemics \nand many kind of natural disasters. During this era of time \nin human history, hardships \nwill happen like never before\nexperienced by human beings.\nThe anti-Christ will cause \nthe Jews to rebuild the temple\nin Jerusalem.\nThis has been difficult to achieve.\nThe anti-Christ will also cause \nthe Jews to restore the \nritual sacrifices in the temple.\nThe false\u00a0 prophet (maybe a \nRoman catholic pope )\nwill create and lead a one \nworld religion. After\u00a0 three\u00a0 and \na half years,the  anti-christ \u00a0 declare he is god, and \nmake people worship him.\nThe anti-Christ will also break \nthe peace treaty with Israel\nafter three and a half years.\nThe anti-Christ will coerce all \npeople to take a mark of 666 in \ntheir right hand or forehead.\nThis mark might be a bar code \nor microchip .\nThe Bible says that those \npeople who refuse to take\u00a0 the \nmark will not be able to \nbuy\u00a0 or sell, and will be beheaded.\nThe people left behind who are \nrepentant\u00a0 Christians\u00a0 will \nreject\u00a0 the anti-Christ and his \nmark, so will be killed.\nThe people who followed the \nanti-Christ and took the \nmark of the beast will cast into \nthe everlasting fire because\nof God's forewarned judgment.\nThose people who didn't \nfollow the anti-Christ and who \nrefused to take the mark of \nthe beast, will go to be \nwith God in heaven at last.\nThe Bible says that we should\nnever take that mark.\nJesus Christ's second coming \nwill be at the Mount of Olives \nat the end of the seven \nyears\u00a0 of the Great Tribulation .\nThen Christ will begin\u00a0 1000 years of His earthly \nKingdom.\nBible prophecy has been fulfilled \nin the past, but there is also \nstill more that the Bible says\u00a0 about\u00a0 prophecy that will \nbe\u00a0 fulfilled\u00a0 in the future.\nNow, currently, today\u00a0 is\u00a0 the \ntime to accept God's saying \ngrace, before the beginning\nof the Great Tribulation.\nThose\u00a0 people who believe that\nJesus Christ died on the cross \nfor their sins, they will go to \nheaven\u00a0 to be with Him .\nBelieving this is the priority \nabove everything else.\nI hope that many people will \nchoose this before it's too late.",
+          "max_coordination_in_cluster": 0.541,
+          "coordinated_with": {
+            "author_id": "UC6WktgEVFo3N5HO34pHIEWA",
+            "comment_id": "39c7b6757b27acfda9285e2bf48e555c"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 1,
+      "account_count": 4,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 4,
+      "evidence_comment_count": 4,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "c60fef437b9e429ba20287ccef8e1c06",
+          "author_id": "UC24J8eZZ6kBPsljGa7aLp_Q",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:45:05Z",
+          "text": "Off topic: I have just become aware that CNN's Jeremy Diamond has dropped a report about how the IDF is indiscriminately ki...ll..ing innocent Gazans  trying to get food and bulldozing the bodies in unmarked graves. Replace Anderson Cooper with Jeremy Diamond.",
+          "max_coordination_in_cluster": 0.59,
+          "coordinated_with": {
+            "author_id": "UCH8VxpBuDVKP0IBrYZN2fBg",
+            "comment_id": "1762d71088f9359a448b006bcc34f742"
+          }
+        },
+        {
+          "comment_id": "1762d71088f9359a448b006bcc34f742",
+          "author_id": "UCH8VxpBuDVKP0IBrYZN2fBg",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:45:05Z",
+          "text": "Now this is an awards show that's getting low ratings cuz ain't nobody watching this with him as host \ud83d\ude02",
+          "max_coordination_in_cluster": 0.59,
+          "coordinated_with": {
+            "author_id": "UC24J8eZZ6kBPsljGa7aLp_Q",
+            "comment_id": "c60fef437b9e429ba20287ccef8e1c06"
+          }
+        },
+        {
+          "comment_id": "4fe6b6b2661c304d4e2a0a1632b58294",
+          "author_id": "UCvfuf7-lPn-URXqe2qhT9PQ",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:44:59Z",
+          "text": "I hope it falls in on him",
+          "max_coordination_in_cluster": 0.54,
+          "coordinated_with": {
+            "author_id": "UC24J8eZZ6kBPsljGa7aLp_Q",
+            "comment_id": "c60fef437b9e429ba20287ccef8e1c06"
+          }
+        },
+        {
+          "comment_id": "2934e6544fbf79d27a47dfe08b1fb962",
+          "author_id": "UCcgyWfGly9_RUYQdfIDkBtA",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:45:12Z",
+          "text": "ICE should swoop in and deport Melania.",
+          "max_coordination_in_cluster": 0.534,
+          "coordinated_with": {
+            "author_id": "UC24J8eZZ6kBPsljGa7aLp_Q",
+            "comment_id": "c60fef437b9e429ba20287ccef8e1c06"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 2,
+      "account_count": 3,
+      "comment_count": 3,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 3,
+      "evidence_comment_count": 3,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "9a9df198fe505269ee147a367ed24c3c",
+          "author_id": "UCm0saZgfveXY5KGTT6UDX9w",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:34:51Z",
+          "text": "Which made up award will the orange toddler get tonight???",
+          "max_coordination_in_cluster": 0.567,
+          "coordinated_with": {
+            "author_id": "UCyUDZxm8uBNHJqe-IRks23w",
+            "comment_id": "c84cd97fe7a00cd7d6ad09d8aac39a9d"
+          }
+        },
+        {
+          "comment_id": "c84cd97fe7a00cd7d6ad09d8aac39a9d",
+          "author_id": "UCyUDZxm8uBNHJqe-IRks23w",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:34:47Z",
+          "text": "He will probably fall asleep if his med's are not timed right.",
+          "max_coordination_in_cluster": 0.567,
+          "coordinated_with": {
+            "author_id": "UCm0saZgfveXY5KGTT6UDX9w",
+            "comment_id": "9a9df198fe505269ee147a367ed24c3c"
+          }
+        },
+        {
+          "comment_id": "aec69f260bebc942658fe88e87e2d268",
+          "author_id": "UCqJDXsUW2OmT9kUIy6aJJPg",
+          "video_id": "e478dy0CKYE",
+          "published_at": "2025-12-08T00:35:00Z",
+          "text": "This corrupt Dictator takes over and screws everything up Kennedy Center losing $, costs are way up, and next health care costs will double - his makeup is dripping again \ud83e\udd2e",
+          "max_coordination_in_cluster": 0.521,
+          "coordinated_with": {
+            "author_id": "UCm0saZgfveXY5KGTT6UDX9w",
+            "comment_id": "9a9df198fe505269ee147a367ed24c3c"
+          }
+        }
+      ]
+    },
+    {
+      "cluster_id": 3,
+      "account_count": 3,
+      "comment_count": 4,
+      "evidence_source": "high_coordination_pairs",
+      "available_evidence_comments": 4,
+      "evidence_comment_count": 4,
+      "truncated": false,
+      "evidence_comments": [
+        {
+          "comment_id": "ba3c14a955c73124696ada0b2f96236b",
+          "author_id": "UCvAa4pMDX7um6ZxUfjWZBsQ",
+          "video_id": "oylbyE5Zt0Q",
+          "published_at": "2025-12-08T02:30:57Z",
+          "text": "Then we are supposed to stick with bama care forever\u2026 like cmon if you remember the keep your doctor and all that \ud83d\udca9 he sold us on\u2026 you know it\u2019s a lie and you won\u2019t even admit it\u2026",
+          "max_coordination_in_cluster": 0.622,
+          "coordinated_with": {
+            "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+            "comment_id": "e3c39fe7a1ecd2da08307fa78c55b4c0"
+          }
+        },
+        {
+          "comment_id": "e3c39fe7a1ecd2da08307fa78c55b4c0",
+          "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+          "video_id": "oylbyE5Zt0Q",
+          "published_at": "2025-12-08T02:30:56Z",
+          "text": "The Republicans are working on it Democrats still have their heads their ass",
+          "max_coordination_in_cluster": 0.622,
+          "coordinated_with": {
+            "author_id": "UCvAa4pMDX7um6ZxUfjWZBsQ",
+            "comment_id": "ba3c14a955c73124696ada0b2f96236b"
+          }
+        },
+        {
+          "comment_id": "423c74ad508ecbad7326693ed14caa0f",
+          "author_id": "UCykS9EXkbjcT_KiURF6oN-w",
+          "video_id": "oylbyE5Zt0Q",
+          "published_at": "2025-12-08T02:31:16Z",
+          "text": "Our Government is giving $35 billion dollars a year to health insurance companies. Since Obamacare was passed 15 Years ago, Insurance Companies Revenues and profits have increased 10 Fold and 85% of those profits is the $35 Billion a year that is given to them through Taxpayer's Money. Additionally, since Obamacare was passed the out of pocket price has quadrupled and the quality has Tanked.",
+          "max_coordination_in_cluster": 0.522,
+          "coordinated_with": {
+            "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+            "comment_id": "c23bbaed24f2f4c2161e2c566105a31d"
+          }
+        },
+        {
+          "comment_id": "c23bbaed24f2f4c2161e2c566105a31d",
+          "author_id": "UCgfVkOjBNMtLDWePxjCAoAg",
+          "video_id": "oylbyE5Zt0Q",
+          "published_at": "2025-12-08T02:31:34Z",
+          "text": "Some people can get health insurance through their jobs . I want to still learning Pizza for Papa John's I got United healthcare. Add a reasonable rate I was a happy camper",
+          "max_coordination_in_cluster": 0.522,
+          "coordinated_with": {
+            "author_id": "UCykS9EXkbjcT_KiURF6oN-w",
+            "comment_id": "423c74ad508ecbad7326693ed14caa0f"
+          }
+        }
+      ]
+    }
+  ]
+}
